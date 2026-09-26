@@ -3,29 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fișierele PDF — montajul și verificarea documentelor digitale</title>
-<meta name="description" content="Lecție pentru clasa a XII-a, Producție media: ce este un PDF, cum arată înăuntru, standardele PDF/X, PDF/A, PDF/UA, cum se generează și cum se verifică înainte de tipar.">
+<title>Fișierele PDF — 7 lecții</title>
+<meta name="description" content="Unitate de 7 ore pentru clasa a XII-a, Producție media: ce este un PDF, cum se face, standardele PDF/X, PDF/A, PDF/UA, pregătirea pentru tipar, culoarea, verificarea, PDF-ul interactiv.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>:root{
   --bg:#0E0F13;--bg2:#141620;--card:#181A21;--card2:#1F222C;--line:#2A2D3A;--line2:#3A3E4E;
   --text:#ECE9E0;--muted:#9A9AA6;--dim:#6C6E7A;
   --acc:#F5B841;--acc2:#C98F1E;--acc-ink:#1a1204;
-  --ok:#5CC48A;--warn:#F08A4B;--bad:#E45C5C;--blue:#5B8DEF;--cyan:#31C9D6;--mag:#E85BB0;--yel:#F2D64B;
+  --ok:#5CC48A;--warn:#F08A4B;--bad:#E45C5C;
   --font:"Barlow",system-ui,sans-serif;--disp:"Barlow Condensed","Barlow",sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
   --radius:6px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 html,body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.6;margin:0}
 h1,h2,h3,h4{font-family:var(--disp);font-weight:600;line-height:1.1;text-wrap:balance;margin:0}
 h1{font-size:2.6rem;letter-spacing:.01em}
-h2{font-size:1.9rem;color:var(--acc);margin-top:2.4rem;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.03em;scroll-margin-top:1rem}
+h2{font-size:1.9rem;color:var(--acc);margin-top:2.4rem;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.03em}
 h3{font-size:1.35rem;margin-top:1.6rem;margin-bottom:.4rem}
 h4{font-size:1.1rem;color:var(--acc);margin-top:1.2rem;text-transform:uppercase;letter-spacing:.06em}
 p{margin:.5rem 0 .9rem;max-width:72ch}
 ul,ol{max-width:72ch;padding-left:1.4rem}
-li{margin:.25rem 0}
+li{margin:.3rem 0}
 code,.mono{font-family:var(--mono);font-size:.9em}
 code{background:var(--card2);padding:.1em .35em;border-radius:4px;color:var(--acc);overflow-wrap:anywhere}
 pre{background:#0A0B0F;border:1px solid var(--line2);border-radius:8px;padding:.9rem 1rem;overflow:auto;font-family:var(--mono);font-size:.85rem;line-height:1.5;max-width:80ch}
@@ -33,16 +32,15 @@ strong{color:#fff}
 a{color:var(--acc)}
 .eyebrow{font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;color:var(--muted)}
 .app{display:grid;grid-template-columns:270px 1fr;min-height:100vh}
+.app>div{min-width:0}
 nav.side{background:var(--bg2);border-right:1px solid var(--line);padding:1.2rem 1rem;position:sticky;top:0;height:100vh;overflow:auto}
 nav.side .brand{font-family:var(--disp);font-size:1.5rem;line-height:1.05;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.2rem}
 nav.side .sub{font-size:.8rem;color:var(--muted);margin-bottom:1.2rem}
-nav.side a.item{display:flex;gap:.6rem;align-items:baseline;width:100%;text-decoration:none;color:var(--muted);font:inherit;padding:.4rem .5rem;border-radius:var(--radius);line-height:1.25}
-nav.side a.item:hover{background:var(--card);color:var(--text)}
-nav.side a.item.on{background:var(--card2);color:var(--text);box-shadow:inset 3px 0 0 var(--acc)}
-nav.side a.item .n{font-family:var(--mono);font-size:.75rem;color:var(--acc);min-width:1.4em}
-nav.side .grp{margin-top:1rem}
-button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.app>div{min-width:0}
+nav.side button{display:flex;gap:.6rem;align-items:baseline;width:100%;text-align:left;background:none;border:0;color:var(--muted);font:inherit;padding:.45rem .5rem;border-radius:var(--radius);cursor:pointer;line-height:1.25}
+nav.side button:hover{background:var(--card);color:var(--text)}
+nav.side button.on{background:var(--card2);color:var(--text);box-shadow:inset 3px 0 0 var(--acc)}
+nav.side button .n{font-family:var(--mono);font-size:.75rem;color:var(--acc);min-width:1.4em}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 main{padding:1.5rem clamp(16px,4vw,56px) 4rem;min-width:0}
 .top{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:1rem;margin-bottom:1rem}
 .tabs{display:flex;gap:.4rem}
@@ -51,14 +49,19 @@ main{padding:1.5rem clamp(16px,4vw,56px) 4rem;min-width:0}
 .pane{display:none}.pane.on{display:block}
 .meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:var(--muted);font-size:.9rem;margin:.6rem 0 1.4rem}
 .meta b{color:var(--text);font-weight:500}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem}
+.pager button{background:var(--card);border:1px solid var(--line);color:var(--text);padding:.6rem 1rem;border-radius:var(--radius);cursor:pointer;font:inherit}
+.pager button:hover{border-color:var(--acc)}
+.pager button:disabled{opacity:.4;cursor:default}
 .mobile-nav{display:none}
 .box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem 1.2rem;margin:1rem 0;max-width:80ch}
 .box.note{border-left:4px solid var(--acc)}
 .box.warn{border-left:4px solid var(--bad)}
 .box.task{border-left:4px solid var(--ok)}
-.box .t{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;color:var(--muted);margin-bottom:.3rem}
+.box.story{border-left:4px solid #5B8DEF;font-style:italic}
+.box .t{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;color:var(--muted);margin-bottom:.3rem;font-style:normal}
 .box p:last-child{margin-bottom:0}
-.def{display:grid;grid-template-columns:max-content 1fr;gap:.3rem 1rem;max-width:84ch;margin:.6rem 0 1rem}
+.def{display:grid;grid-template-columns:max-content 1fr;gap:.4rem 1rem;max-width:84ch;margin:.6rem 0 1rem}
 .def dt{font-family:var(--disp);font-size:1.05rem;color:var(--acc);text-transform:uppercase;letter-spacing:.04em}
 .def dd{margin:0;color:var(--text)}
 table{border-collapse:collapse;width:100%;font-size:.95rem;margin:.6rem 0 1rem}
@@ -66,14 +69,12 @@ table{border-collapse:collapse;width:100%;font-size:.95rem;margin:.6rem 0 1rem}
 th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
 th{background:var(--card2);font-family:var(--disp);text-transform:uppercase;letter-spacing:.06em;font-weight:600;font-size:.85rem}
 td.mono,th.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.steps{counter-reset:s;list-style:none;padding:0;max-width:84ch}
-.steps li{counter-increment:s;display:grid;grid-template-columns:2.2rem 1fr;gap:.6rem;padding:.5rem 0;border-bottom:1px dashed var(--line)}
-.steps li::before{content:counter(s);font-family:var(--disp);font-size:1.4rem;color:var(--acc);line-height:1}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:100ch;margin:1rem 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem 1.1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem 1.1rem;min-width:0}
 .card .t{font-family:var(--disp);font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em}
 .card.bad{border-color:#5a2a2a}.card.good{border-color:#2a5a3a}
 .card ul{padding-left:1.1rem;margin:.4rem 0 0;font-size:.95rem}
+.card pre{max-width:100%}
 .cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9rem;max-width:100ch;margin:1rem 0}
 .std{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;cursor:pointer;transition:border-color .15s}
 .std:hover{border-color:var(--acc)}
@@ -89,8 +90,8 @@ td.mono,th.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .chip{font-family:var(--disp);text-transform:uppercase;letter-spacing:.06em;font-size:.85rem;background:var(--card);border:1px solid var(--line);color:var(--muted);padding:.35rem .8rem;border-radius:999px;cursor:pointer}
 .chip.on{color:var(--acc-ink);border-color:transparent}
 .raw{display:grid;grid-template-columns:1fr 260px;gap:1rem}
-.raw pre{margin:0;max-width:none;min-width:0}
 .raw>*{min-width:0}
+.raw pre{margin:0;max-width:none}
 .raw .expl{font-size:.92rem;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem;min-height:8rem}
 .raw .expl b{color:var(--acc);display:block;font-family:var(--disp);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
 .hl{border-radius:3px;padding:0 .1em}
@@ -101,27 +102,30 @@ td.mono,th.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .ctrl label{display:flex;gap:.4rem;align-items:center;cursor:pointer}
 .ctrl input[type=range]{width:180px;accent-color:var(--acc)}
 .bars{display:grid;gap:.5rem;max-width:70ch;margin:.8rem 0}
-.bar{display:grid;grid-template-columns:14rem 1fr 5rem;gap:.6rem;align-items:center;font-size:.92rem}
+.bar{display:grid;grid-template-columns:14rem 1fr 5rem;gap:.6rem;align-items:center;font-size:.92rem;min-width:0}
 .bar .b{height:1.1rem;border-radius:4px;background:linear-gradient(90deg,var(--acc2),var(--acc))}
 .bar .v{font-family:var(--mono);color:var(--muted);text-align:right}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:.5rem;margin:.8rem 0}
+.sw{border-radius:8px;padding:.5rem;border:1px solid var(--line);font-size:.75rem;font-family:var(--mono);color:#fff;text-shadow:0 1px 2px #000a;min-height:4rem}
+.px{display:grid;gap:2px;width:100%;aspect-ratio:1;margin:.4rem 0}
 .ws .hdr{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:.6rem 0 1rem}
 .ws label{display:flex;flex-direction:column;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-family:var(--disp)}
 .ws input,.ws textarea{background:var(--card2);border:1px solid var(--line);border-radius:4px;color:var(--text);font:inherit;padding:.35rem .5rem;width:100%}
 .ws textarea{min-height:3.2rem;resize:vertical}
-.ws td input{border:0;border-bottom:1px dotted var(--line2);border-radius:0;background:transparent;padding:.2rem 0}
+.ws td input{border:0;border-bottom:1px dotted var(--line2);border-radius:0;background:transparent;padding:.2rem 0;min-width:5rem}
 .ws .chk{list-style:none;padding:0;max-width:84ch}
 .ws .chk li{display:grid;grid-template-columns:1.6rem 1fr;gap:.5rem;padding:.4rem 0;border-bottom:1px dashed var(--line);align-items:start}
 .ws .chk input[type=checkbox]{width:1.1rem;height:1.1rem;accent-color:var(--ok);margin-top:.3rem}
-.ws .q{margin:1rem 0}
+.ws .q{margin:1rem 0;max-width:84ch}
+.ws .q p{margin-bottom:.3rem}
 .wsbar{display:flex;gap:.6rem;margin:.5rem 0 1rem}
 .btn{background:var(--card);border:1px solid var(--line);color:var(--text);padding:.5rem .9rem;border-radius:var(--radius);cursor:pointer;font:inherit}
 .btn:hover{border-color:var(--acc)}
-.test ol li{margin:.6rem 0}
 @media print{
-  nav.side,.top,.wsbar,.mobile-nav{display:none!important}
+  nav.side,.top,.pager,.wsbar,.mobile-nav{display:none!important}
   .app{display:block}main{padding:0}
   body,html{background:#fff;color:#000}
-  .pane{display:none!important}.pane.on{display:block!important}
+  .pane{display:none!important}.pane.ws-pane.on{display:block!important}
   .ws input,.ws textarea{background:#fff;color:#000;border-color:#999}
   th{background:#eee;color:#000}
   .box,.card,.std{background:#fff;color:#000}
@@ -138,92 +142,115 @@ td.mono,th.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
   .bar{grid-template-columns:1fr}
   h1{font-size:2rem}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <div class="app">
-<nav class="side">
-<div class="brand">Fișierele<br>PDF</div>
-<div class="sub">Montajul și verificarea<br>documentelor digitale · clasa a XII-a</div>
-<div class="list">
-<a class="item" href="#c0"><span class="n">▸</span><span>Același document, două calculatoare</span></a>
-<a class="item" href="#c1"><span class="n">01</span><span>Ce este un PDF</span></a>
-<a class="item" href="#c2"><span class="n">02</span><span>Cum arată înăuntru</span></a>
-<a class="item" href="#c3"><span class="n">03</span><span>Familia de standarde</span></a>
-<a class="item" href="#c4"><span class="n">04</span><span>Cum se generează</span></a>
-<a class="item" href="#c5"><span class="n">05</span><span>Bleed, tăiere, zonă sigură</span></a>
-<a class="item" href="#c6"><span class="n">06</span><span>Culoarea și profilele ICC</span></a>
-<a class="item" href="#c7"><span class="n">07</span><span>Verificarea înainte de tipar</span></a>
-<a class="item" href="#c8"><span class="n">08</span><span>PDF-ul interactiv</span></a>
-<a class="item" href="#c9"><span class="n">09</span><span>Test</span></a>
-<div class="grp"><a class="item" href="#fisa" data-tab="fisa"><span class="n">✎</span><span>Fișa de laborator</span></a></div>
-</div>
-</nav>
-<div>
-<div class="mobile-nav"><select aria-label="Capitolul">
-<option value="#c0">Același document, două calculatoare</option>
-<option value="#c1">1. Ce este un PDF</option>
-<option value="#c2">2. Cum arată înăuntru</option>
-<option value="#c3">3. Familia de standarde</option>
-<option value="#c4">4. Cum se generează</option>
-<option value="#c5">5. Bleed, tăiere, zonă sigură</option>
-<option value="#c6">6. Culoarea și profilele ICC</option>
-<option value="#c7">7. Verificarea înainte de tipar</option>
-<option value="#c8">8. PDF-ul interactiv</option>
-<option value="#c9">9. Test</option>
-<option value="#fisa">Fișa de laborator</option>
-</select></div>
+<nav class="side"><div class="brand">Fișierele<br>PDF</div><div class="sub">7 lecții · Montajul și verificarea<br>documentelor digitale · clasa a XII-a</div><div class="list"></div></nav>
+<div><div class="mobile-nav"><select aria-label="Lecția"></select></div>
 <main>
-<div class="top"><div><span class="eyebrow">Modulul „Montajul și verificarea documentelor digitale” · Producție media · clasa a XII-a</span><h1>Fișierele PDF: documentul care arată la fel peste tot</h1></div>
-<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de laborator</button></div></div>
 
-<!-- ============================ LECȚIA ============================ -->
+<!-- ======================= 0. PREZENTARE ======================= -->
+<section class="lectie" data-title="Prezentarea unității" hidden>
+<div class="top"><div><span class="eyebrow">Modulul „Montajul și verificarea documentelor digitale” · Producție media · clasa a XII-a · 7 ore</span><h1>Fișierele PDF: documentul care arată la fel peste tot</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Prezentare</button><button data-tab="fisa">Portofoliu</button></div></div>
 <div class="pane on" data-tab="lectie">
-<div class="meta"><span>Durată <b>2 ore</b> (1 h lecție + 1 h laborator)</span><span>Produsul lecției <b>afișul exportat în 3 variante de PDF și verificat</b></span><span>Programe <b>Scribus · Acrobat Reader · Notepad++ · LibreOffice</b></span></div>
-
-<h2 id="c0">Același document, două calculatoare</h2>
-<p>Un afiș făcut în Word este trimis prin e-mail la un coleg și la tipografie. Pe calculatorul colegului fontul lipsește și e înlocuit cu altul, titlul nu mai încape pe un rând, imaginea a alunecat pe pagina a doua. La tipografie e și mai rău: <em>„Trimiteți PDF, vă rugăm.”</em> Același afiș, exportat ca PDF, se deschide identic pe telefon, pe Mac, pe Linux, pe imprimanta tipografiei.</p>
-<div class="two">
-<div class="card bad"><div class="t">Fișier .docx trimis mai departe</div><ul>
-<li>fontul lipsă e <strong>înlocuit</strong> — se schimbă lățimea textului</li>
-<li>paginarea depinde de program, versiune, imprimantă</li>
-<li>imaginile pot fi legate (link) la fișiere de pe calculatorul tău</li>
-<li>oricine poate modifica textul din greșeală</li></ul></div>
-<div class="card good"><div class="t">Fișier .pdf trimis mai departe</div><ul>
-<li>fonturile sunt <strong>incorporate</strong> în fișier</li>
-<li>fiecare obiect are coordonate fixe pe pagină</li>
-<li>imaginile sunt înăuntru, la rezoluția aleasă la export</li>
-<li>se deschide cu orice program, pe orice sistem</li></ul></div>
+<p style="font-size:1.15rem;max-width:75ch">Șapte lecții de câte o oră despre cel mai folosit format de document din lume. Se pornește de la o întrebare simplă — <em>de ce un afiș trimis ca Word se strică, iar același afiș trimis ca PDF nu?</em> — și se ajunge, pas cu pas, la un pliant gata de tipografie, verificat ca la carte, și la versiunea lui interactivă pentru telefon. Fiecare lecție are explicații, ceva de „pipăit” pe ecran și o fișă de lucru care se predă.</p>
+<h2>Cele 7 lecții</h2>
+<div class="tw"><table><tr><th>#</th><th>Lecția</th><th>Ce rămâne la final</th></tr>
+<tr><td class="mono">1</td><td>Ce este un PDF și cum arată înăuntru</td><td>un PDF „disecat” în Notepad++, tabelul .docx vs .pdf</td></tr>
+<tr><td class="mono">2</td><td>Cum se generează un PDF: patru drumuri</td><td>același document exportat pe 4 căi, comparate</td></tr>
+<tr><td class="mono">3</td><td>Familia de standarde: PDF/X, PDF/A, PDF/UA</td><td>un PDF/A validat, un PDF accesibil cu etichete</td></tr>
+<tr><td class="mono">4</td><td>Pregătirea pentru tipar: bleed, tăiere, zonă sigură</td><td>afișul A3 machetat pe șablonul cu bleed</td></tr>
+<tr><td class="mono">5</td><td>Culoarea: RGB, CMYK și profilele ICC</td><td>imaginile convertite corect, negrul bogat, profilul ales</td></tr>
+<tr><td class="mono">6</td><td>Verificarea și exportul pentru tipar (preflight)</td><td>PDF/X‑1a fără nicio eroare + raport de verificare</td></tr>
+<tr><td class="mono">7</td><td>PDF-ul interactiv și proiectul final</td><td>pliantul în două variante (tipar + ecran) și testul</td></tr></table></div>
+<h2>Ce ai nevoie</h2>
+<ul>
+<li>Calculator cu <strong>Scribus 1.6</strong>, <strong>LibreOffice</strong>, <strong>Inkscape</strong> sau <strong>GIMP</strong>, <strong>Notepad++</strong> (sau VS Code), <strong>Acrobat Reader</strong>, un browser.</li>
+<li>Fișierele din acest site: <a href="exemplu-minim.pdf" download>exemplu-minim.pdf</a> și scripturile de șabloane Scribus (<a href="scribus/sablon_afis_A3.py" download>afiș A3</a>, <a href="scribus/sablon_pliant_trifold.py" download>pliant în C</a>, <a href="scribus/sablon_pliant_Z.py" download>pliant în Z</a>).</li>
+<li>Afișul și pliantul făcute la lecțiile anterioare (sau se pornește de la șabloane).</li>
+<li>Gemini sau Claude — pentru verificarea explicațiilor, nu pentru a face fișa în locul tău.</li>
+</ul>
+<h2>Cum se lucrează</h2>
+<p>Fiecare lecție are un tab <strong>Lecție</strong> (explicații, tabele, simulatoare) și un tab <strong>Fișă de lucru</strong> (pași de bifat, tabele de completat, întrebări). Fișa se completează direct în browser (se salvează singură pe calculatorul tău) sau se tipărește. Cele 7 fișe + pliantul final formează <strong>portofoliul</strong> unității.</p>
+<div class="box note"><div class="t">Cuvintele noi</div><p>În fiecare lecție, cuvintele noi sunt explicate pe loc, în liste cu termenul scris cu galben. Nu trebuie știut nimic dinainte — doar să știi să deschizi un program și să salvezi un fișier.</p></div>
 </div>
-<p><strong>De ce unul s-a stricat și celălalt nu?</strong> Răspunsul este toată lecția de azi.</p>
+<div class="pane ws-pane" data-tab="fisa" data-id="f0">
+<div class="ws"><h2>Portofoliul unității</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>An școlar <input></label><label>Echipa <input></label></div>
+<p>Se completează la sfârșitul fiecărei lecții. Se predă cu fișele 1–7 și cu pliantul final.</p>
+<div class="tw"><table><tr><th>#</th><th>Data</th><th>Ce am făcut concret (2 rânduri)</th><th>Ce am învățat nou</th><th>Ce nu mi-a ieșit / întrebări</th></tr>
+<tr><td class="mono">1</td><td><input></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td class="mono">2</td><td><input></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td class="mono">3</td><td><input></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td class="mono">4</td><td><input></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td class="mono">5</td><td><input></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td class="mono">6</td><td><input></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td class="mono">7</td><td><input></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr></table></div>
+<div class="q"><p>La sfârșitul unității: trei lucruri pe care le știu face acum și nu le știam înainte.</p><textarea></textarea></div>
+</div></div>
+</section>
 
-<h2 id="c1">1. Ce este un PDF</h2>
-<p><strong>PDF = Portable Document Format</strong>, „formatul de document portabil”. A fost creat de firma Adobe în 1993 (proiectul se numea „Camelot”, condus de John Warnock) cu un singur scop: un document să se vadă și să se tipărească <strong>identic pe orice calculator</strong>, indiferent de programul cu care a fost făcut.</p>
-<p>Un PDF <strong>nu este o poză a paginii</strong>. Este o <strong>descriere</strong> a paginii: o listă de obiecte — text, linii și curbe (vectori), imagini, fonturi — fiecare așezat la coordonate precise. Sistemul de coordonate și limbajul de desenare sunt moștenite din <strong>PostScript</strong>, limbajul imprimantelor profesionale din anii ’80.</p>
+<!-- ======================= 1. CE ESTE UN PDF ======================= -->
+<section class="lectie" data-title="Ce este un PDF și cum arată înăuntru" hidden>
+<div class="top"><div><span class="eyebrow">Lecția 1 · 1 oră</span><h1>Ce este un PDF și cum arată înăuntru</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+<div class="pane on" data-tab="lectie">
+<div class="box story"><div class="t">Povestea de la care pornim</div><p>Ana a făcut afișul pentru balul bobocilor în Word, cu un font descărcat de pe net, și l-a trimis colegului ei Mihai. Pe calculatorul lui Mihai afișul arăta cu totul altfel: fontul frumos dispăruse, titlul se rupea pe două rânduri, iar poza alunecase pe pagina a doua. La tipografie i s-a spus scurt: „Trimiteți PDF.” A exportat ca PDF — și afișul s-a deschis identic pe telefonul lui Mihai, pe Mac-ul profesorului și pe imprimanta tipografiei. <strong>De ce?</strong></p></div>
+
+<h2>Ce înseamnă PDF</h2>
+<p><strong>PDF</strong> vine de la <strong>Portable Document Format</strong> — în română, „format de document portabil”. <em>Portabil</em> înseamnă că îl poți lua cu tine oriunde și arată la fel: pe Windows, pe Mac, pe Linux, pe telefon, pe o imprimantă de 10 000 de euro sau pe una de 300 de lei.</p>
+<p>A fost inventat de firma <strong>Adobe</strong> (cea care face Photoshop și Illustrator) în <strong>1993</strong>. Ideea a venit de la John Warnock, unul dintre fondatorii firmei, care a scris un proiect numit „Camelot”: un document ar trebui să poată fi trimis oricui, iar acela să îl vadă exact cum l-a văzut autorul. Pe atunci fiecare program salva în formatul lui și nimic nu se deschidea nicăieri.</p>
 <dl class="def">
-<dt>Obiect</dt><dd>orice element din fișier: o pagină, un font, o imagine, un bloc de conținut. Obiectele se referă unele la altele prin numere (<code>3 0 R</code> = „obiectul 3”).</dd>
-<dt>Vector</dt><dd>desen descris matematic (puncte, linii, curbe); se mărește oricât fără să se piardă calitatea. Textul și logourile sunt vectori.</dd>
-<dt>Raster (bitmap)</dt><dd>imagine din pixeli (fotografii); are o rezoluție fixă, la mărire se vede „pixelat”.</dd>
-<dt>Font incorporat</dt><dd>fișierul fontului (sau doar literele folosite — <em>subset</em>) e copiat înăuntrul PDF-ului; de aceea textul arată la fel și pe un calculator care nu are fontul.</dd>
-<dt>PostScript</dt><dd>limbaj de descriere a paginii creat de Adobe (1984) pentru imprimante; PDF este „PostScript pus într-un fișier ordonat”.</dd>
+<dt>Format de fișier</dt><dd>felul în care sunt aranjate datele în interiorul unui fișier. Extensia (.pdf, .docx, .jpg) spune calculatorului ce format e, deci cu ce program să îl deschidă. Un .docx înțelege doar Word (și programele care îl imită); un .pdf înțelege orice.</dd>
+<dt>Document</dt><dd>orice lucru cu pagini: o scrisoare, un afiș, o carte, o factură, un bilet de avion. PDF-ul este făcut pentru <em>pagini</em>, nu pentru muzică sau filme.</dd>
 </dl>
-<div class="box note"><div class="t">Din 2008 nu mai e formatul unei firme</div><p>Adobe a predat specificația organizației internaționale de standardizare: <strong>PDF 1.7 = ISO 32000‑1:2008</strong>, iar <strong>PDF 2.0 = ISO 32000‑2</strong> (2017, revizuit 2020). Orice program — Word, LibreOffice, Scribus, un browser, un script Python — poate genera PDF fără nicio licență.</p></div>
-<h3>Versiunile PDF</h3>
+
+<h2>Cum e făcut un PDF: nu e o poză, e o rețetă</h2>
+<p>Mulți cred că un PDF e „o poză a paginii”. Nu este. Un PDF este o <strong>listă de instrucțiuni</strong> — o rețetă — care spune programului cum să deseneze pagina: „ia fontul Arial de 24 de puncte, du-te la 3 cm de la stânga și 5 cm de sus, scrie <em>Balul bobocilor</em>; apoi ia poza aceasta și pune-o în dreptunghiul de aici”. Programul care deschide PDF-ul (Acrobat Reader, browserul, telefonul) urmează rețeta și desenează pagina de fiecare dată.</p>
+<p>În rețetă intră trei feluri de „ingrediente”:</p>
+<dl class="def">
+<dt>Text</dt><dd>literele, cu fontul și mărimea lor. Textul rămâne text: îl poți selecta, copia, căuta cu Ctrl+F.</dd>
+<dt>Vectori</dt><dd>linii, curbe, dreptunghiuri, cercuri — descrise prin matematică („o linie de la punctul A la punctul B, groasă de 2 puncte”). Un vector se poate mări de 100 de ori și rămâne perfect de clar, pentru că programul îl <em>recalculează</em>. Logourile și literele sunt vectori.</dd>
+<dt>Raster (imagini bitmap)</dt><dd>fotografiile: o grilă de puncte colorate, numite <strong>pixeli</strong>. O fotografie are un număr fix de pixeli; dacă o mărești prea mult, vezi pătrățelele. Despre asta vorbim mult în lecțiile 2 și 4.</dd>
+</dl>
+<div class="two">
+<div class="card"><div class="t">Vector — se poate mări oricât</div><svg viewBox="0 0 200 90" style="width:100%;max-width:220px"><text x="10" y="60" font-family="Barlow Condensed" font-size="56" font-weight="700" fill="#F5B841">Aa</text><circle cx="150" cy="45" r="30" fill="none" stroke="#5CC48A" stroke-width="6"/></svg><p style="font-size:.9rem;margin:0">Literele și cercul sunt descrise prin curbe. La orice mărire, marginile rămân netede.</p></div>
+<div class="card"><div class="t">Raster — pixeli, la mărire se văd</div><div class="px" style="grid-template-columns:repeat(8,1fr);max-width:130px" id="pixdemo"></div><p style="font-size:.9rem;margin:0">Un „A” din 8 × 8 pixeli. Așa arată o poză mică întinsă pe un afiș mare.</p></div>
+</div>
+
+<h2>Secretul: fontul călătorește cu documentul</h2>
+<p>De ce s-a stricat afișul Anei în Word? Pentru că Word <strong>nu pune fontul în fișier</strong>; pune doar numele lui („folosește fontul <em>Bebas Neue</em>”). Dacă Mihai nu are fontul instalat, Word ia altul, cu litere mai late sau mai înguste — și tot textul se mută.</p>
+<p>PDF-ul <strong>incorporează fontul</strong>: copiază desenul literelor în interiorul fișierului (de obicei doar literele folosite — se numește <em>subset</em>, adică „o parte din set”). Așa, orice calculator poate desena literele exact ca autorul, chiar dacă n-a auzit de fontul acela.</p>
+<dl class="def">
+<dt>Font</dt><dd>un set complet de litere, cifre și semne desenate în același stil (Arial, Times New Roman, Bebas Neue). Este un fișier (.ttf sau .otf) instalat în sistem.</dd>
+<dt>Font incorporat (embedded)</dt><dd>fontul copiat în interiorul PDF-ului. Se verifică în Acrobat Reader: <em>File → Properties → Fonts</em>; lângă fiecare font trebuie să scrie <strong>Embedded</strong> sau <strong>Embedded Subset</strong>.</dd>
+<dt>Coordonate</dt><dd>fiecare obiect are poziția lui pe pagină, ca pe o hartă: atâția milimetri de la stânga, atâția de jos. De aceea nimic nu „alunecă”.</dd>
+</dl>
+
+<h2>PDF nu mai e „al lui Adobe”: a devenit standard</h2>
+<p>Până în 2008, PDF era formatul unei firme. În 2008 Adobe l-a predat organizației internaționale de standardizare <strong>ISO</strong>, care l-a publicat ca <strong>ISO 32000‑1</strong> (asta e versiunea PDF 1.7). De atunci orice program — Word, LibreOffice, Scribus, un browser, un script — poate crea PDF fără să plătească nimic, iar regulile sunt publice și nu se pot schimba peste noapte.</p>
+<dl class="def">
+<dt>Standard</dt><dd>un set de reguli scrise, acceptate de toată lumea, ca fiecare să facă lucrul la fel. Foaia A4 e un standard (ISO 216): de aceea orice imprimantă din lume știe cât e de mare.</dd>
+<dt>ISO</dt><dd>International Organization for Standardization — organizația de la Geneva care publică standardele internaționale; fiecare are un număr (ISO 32000 = PDF, ISO 216 = formatele de hârtie).</dd>
+<dt>Versiune</dt><dd>PDF-ul a crescut în timp: 1.0 (1993) … 1.7 (2006) … 2.0 (2017). Fiecare versiune a adăugat ceva (transparență, straturi, criptare mai bună). Un cititor nou deschide versiunile vechi; un cititor vechi poate să nu înțeleagă una nouă.</dd>
+</dl>
 <div class="tw"><table>
-<tr><th>Versiune</th><th>An</th><th>Ce a adus</th></tr>
-<tr><td class="mono">1.3</td><td>2000</td><td>fără transparențe — de aceea PDF/X‑1a se bazează pe ea; cea mai sigură la tipar</td></tr>
-<tr><td class="mono">1.4</td><td>2001</td><td><strong>transparență</strong>, criptare pe 128 biți; baza pentru PDF/A‑1</td></tr>
-<tr><td class="mono">1.5</td><td>2003</td><td>straturi (layers), comprimare mai bună a obiectelor</td></tr>
+<tr><th>Versiune</th><th>An</th><th>Ce a adus nou (pe scurt)</th></tr>
+<tr><td class="mono">1.3</td><td>2000</td><td>fără transparențe; de aceea standardul de tipar PDF/X‑1a se bazează pe ea — cea mai sigură la tipografie</td></tr>
+<tr><td class="mono">1.4</td><td>2001</td><td><strong>transparență</strong> (obiecte semitransparente, umbre); parolă mai puternică (128 biți)</td></tr>
+<tr><td class="mono">1.5</td><td>2003</td><td><strong>straturi</strong> (layers — se pot ascunde/afișa), fișiere mai mici</td></tr>
 <tr><td class="mono">1.6</td><td>2004</td><td>fișiere atașate, obiecte 3D, criptare AES</td></tr>
-<tr><td class="mono">1.7</td><td>2006 / ISO 2008</td><td>versiunea standardizată ISO; cea mai răspândită și azi</td></tr>
-<tr><td class="mono">2.0</td><td>2017 / 2020</td><td>ISO 32000‑2: fără JavaScript în PDF/A‑4, semnături moderne, corecții de ambiguități</td></tr>
+<tr><td class="mono">1.7</td><td>2006 / ISO 2008</td><td>versiunea devenită standard ISO; cea mai răspândită și azi</td></tr>
+<tr><td class="mono">2.0</td><td>2017 / 2020</td><td>ISO 32000‑2: reguli mai clare, semnături moderne, fără JavaScript în varianta de arhivă</td></tr>
 </table></div>
 
-<h2 id="c2">2. Cum arată înăuntru: „autopsia” unui PDF</h2>
-<p>Mai jos este un PDF adevărat, de o pagină, scris de mână, fără comprimare — exact cum apare dacă e deschis în Notepad++. Un PDF normal are aceleași părți, doar că fluxurile de conținut sunt comprimate și par „păsărească”. Se dă clic pe fiecare parte ca să fie evidențiată.</p>
+<h2>„Autopsia” unui PDF</h2>
+<p>Un PDF poate fi deschis nu doar cu Acrobat, ci și cu un editor de text simplu (Notepad++). Atunci vezi rețeta cu ochii tăi. Mai jos este un PDF adevărat, de o pagină, scris de mână, fără comprimare — exact 710 octeți. Se dă clic pe fiecare parte ca să fie evidențiată și explicată.</p>
 <div class="sim" id="autopsie">
-<div class="t">PDF minim, 710 octeți · <a href="exemplu-minim.pdf" download>descarcă fișierul</a> și deschide-l cu Notepad++ sau VS Code</div>
+<div class="t">PDF minim, 710 octeți · <a href="exemplu-minim.pdf" download>descarcă fișierul</a> și deschide-l cu Notepad++ (clic dreapta → Edit with Notepad++)</div>
 <div class="chips" id="chips">
 <button class="chip" data-p="antet" style="--c:#c99a2e">Antet</button>
 <button class="chip" data-p="obiect" style="--c:#5b8def">Obiecte (catalog, pagini)</button>
@@ -279,65 +306,243 @@ startxref
 %%EOF</span></pre>
 <div class="expl" id="expl"><b>Alege o parte</b>Fiecare PDF, oricât de mare, are exact aceste părți: antet, obiecte, tabel xref, trailer.</div>
 </div>
-<p class="hint">Numerele din tabelul xref sunt <strong>pozițiile în octeți</strong> ale fiecărui obiect de la începutul fișierului; cititorul sare direct la obiectul de care are nevoie, fără să citească tot fișierul. De aceea un PDF de 500 de pagini se deschide instantaneu la pagina 300.</p>
 </div>
 <dl class="def">
-<dt>MediaBox</dt><dd>dimensiunea paginii, în <strong>puncte tipografice</strong> (1 pt = 1/72 inch = 0,3528 mm). 595 × 842 pt = A4 (210 × 297 mm). Pentru A3: 842 × 1191 pt.</dd>
-<dt>Stream (flux)</dt><dd>bloc de date: comenzile de desenare ale paginii, pixelii unei imagini, octeții unui font. În fișierele reale e comprimat (<code>/FlateDecode</code> = același algoritm ca ZIP).</dd>
-<dt>Tf, Td, Tj</dt><dd>comenzi de text: alege fontul și mărimea, mută cursorul, scrie șirul. <code>72 700 Td</code> = mută la 72 pt de la stânga (2,54 cm) și 700 pt de jos — <strong>originea este în colțul din stânga jos</strong>, ca în matematică.</dd>
-<dt>m, l, S, RG, w</dt><dd>comenzi de desen: mută, linie până la, trasează, culoare RGB a liniei, grosime. Cu ele se desenează orice vector.</dd>
+<dt>Octet (byte)</dt><dd>unitatea de măsură a fișierelor: un octet = o literă sau un semn. 1 KB = 1 024 de octeți, 1 MB ≈ 1 milion. Fișierul de mai sus are 710 octeți; un afiș cu poze are 5–30 MB.</dd>
+<dt>Obiect</dt><dd>o „cărămidă” a fișierului: o pagină, un font, o imagine, un bloc de conținut. Fiecare are un număr; obiectele se referă unele la altele prin numere (<code>3 0 R</code> = „vezi obiectul 3”), ca notele de subsol.</dd>
+<dt>MediaBox</dt><dd>dimensiunea paginii, în <strong>puncte tipografice</strong> (pt). 1 pt = 1/72 dintr-un inch = 0,3528 mm. <code>595 842</code> = 210 × 297 mm = A4. Pentru A3: 842 × 1191.</dd>
+<dt>Stream (flux)</dt><dd>un bloc mare de date: instrucțiunile de desenare ale paginii, pixelii unei poze, literele unui font. În fișierele reale e <strong>comprimat</strong> (împachetat ca un ZIP, ca să ocupe mai puțin) și de aceea pare o înșiruire de caractere ciudate.</dd>
+<dt>Tf, Td, Tj</dt><dd>comenzi de text: <code>Tf</code> alege fontul și mărimea, <code>Td</code> mută „creionul”, <code>Tj</code> scrie textul. <code>72 700 Td</code> = 72 pt de la stânga și 700 pt <em>de jos</em> — în PDF originea e în colțul din stânga jos, ca în matematică, nu stânga sus ca pe ecran.</dd>
+<dt>xref</dt><dd>„cross-reference”, tabelul de referințe: pentru fiecare obiect, la ce poziție (al câtelea octet) începe. Cititorul sare direct la obiectul de care are nevoie — de aceea o carte de 500 de pagini se deschide instant la pagina 300.</dd>
+</dl>
+<div class="box note"><div class="t">De reținut din lecția 1</div><p>PDF = o rețetă de desenat pagina, cu fonturile puse înăuntru și fiecare obiect la coordonate fixe. De aceea arată la fel peste tot. E standard ISO, deci al tuturor. Orice PDF are antet, obiecte, tabel xref și trailer.</p></div>
+</div>
+<div class="pane ws-pane" data-tab="fisa" data-id="f1">
+<div class="ws"><h2>Fișa 1 · Disecția unui PDF</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box task"><div class="t">Obiectiv</div><p>Să vezi cu ochii tăi diferența dintre un .docx și un .pdf și să recunoști părțile unui PDF în Notepad++.</p></div>
+<h3>Ce ai nevoie</h3><ul><li>Word sau LibreOffice Writer, Acrobat Reader, Notepad++;</li><li><a href="exemplu-minim.pdf" download>exemplu-minim.pdf</a>;</li><li>un font „ciudat” descărcat de pe Google Fonts (de exemplu Bebas Neue sau Pacifico), instalat doar pe un singur calculator din echipă.</li></ul>
+<h3>Pași</h3>
+<ul class="chk">
+<li><input type="checkbox"><span><strong>Experimentul .docx:</strong> pe calculatorul care are fontul instalat, scrie în Writer/Word un titlu mare cu fontul acela, două rânduri de text și o imagine. Salvează ca <code>test.docx</code> și trimite-l pe un calculator care <em>nu</em> are fontul. Deschide-l acolo. Notează în tabelul 1 ce s-a schimbat.</span></li>
+<li><input type="checkbox"><span>Pe primul calculator, exportă același document ca <code>test.pdf</code> (File → Export as PDF / Save as PDF). Trimite-l pe al doilea calculator, deschide-l în Acrobat Reader. Notează ce s-a schimbat.</span></li>
+<li><input type="checkbox"><span>În Acrobat Reader: <em>File → Properties → Fonts</em>. Notează fonturile și ce scrie lângă ele (Embedded / Embedded Subset / nimic).</span></li>
+<li><input type="checkbox"><span>Deschide <code>exemplu-minim.pdf</code> în Notepad++ și completează tabelul 2. Apoi deschide <code>test.pdf</code> tot în Notepad++ și completează coloana a doua (Ctrl+F pentru căutare; la „câte apariții” folosește <em>Count</em> din fereastra de căutare).</span></li>
+<li><input type="checkbox"><span>Mărește <code>test.pdf</code> la 800 % în Acrobat Reader (Ctrl + scroll): privește o literă din titlu și marginea imaginii. Răspunde la întrebarea 3.</span></li>
+</ul>
+<h3>1. .docx vs .pdf pe al doilea calculator</h3>
+<div class="tw"><table><tr><th>Ce am privit</th><th>În test.docx</th><th>În test.pdf</th></tr>
+<tr><td>Fontul titlului (același? înlocuit cu ce?)</td><td><input></td><td><input></td></tr>
+<tr><td>Numărul de rânduri ale titlului</td><td><input></td><td><input></td></tr>
+<tr><td>Poziția imaginii</td><td><input></td><td><input></td></tr>
+<tr><td>Se poate modifica textul din greșeală?</td><td><input></td><td><input></td></tr>
+<tr><td>Dimensiunea fișierului (KB)</td><td><input></td><td><input></td></tr></table></div>
+<h3>2. Autopsia în Notepad++</h3>
+<div class="tw"><table><tr><th>Caută</th><th>exemplu-minim.pdf</th><th>test.pdf</th></tr>
+<tr><td>Prima linie (versiunea)</td><td><input></td><td><input></td></tr>
+<tr><td>Câte apariții are <code>endobj</code> (= câte obiecte)</td><td><input></td><td><input></td></tr>
+<tr><td>Câte apariții are <code>/Type /Page</code> (nu <code>/Pages</code>)</td><td><input></td><td><input></td></tr>
+<tr><td>Câte apariții are <code>/FontFile</code> (font incorporat)</td><td><input></td><td><input></td></tr>
+<tr><td>Apare <code>/FlateDecode</code> (conținut comprimat)?</td><td><input></td><td><input></td></tr>
+<tr><td>Numărul de după <code>startxref</code></td><td><input></td><td><input></td></tr>
+<tr><td>Ultima linie</td><td><input></td><td><input></td></tr></table></div>
+<h3>Întrebări de control</h3>
+<div class="q"><p>1. Explică unui coleg de clasa a IX-a, în două propoziții, de ce PDF-ul nu s-a stricat pe al doilea calculator.</p><textarea></textarea></div>
+<div class="q"><p>2. În exemplul minim, MediaBox este [0 0 595 842]. Cât înseamnă în milimetri? (1 pt = 0,3528 mm)</p><textarea></textarea></div>
+<div class="q"><p>3. La 800 %, ce a rămas clar și ce s-a pixelat? De ce?</p><textarea></textarea></div>
+<div class="q"><p>4. De ce în test.pdf textul paginii nu se poate citi în Notepad++, dar în exemplul minim da?</p><textarea></textarea></div>
+</div></div>
+</section>
+
+<!-- ======================= 2. CUM SE GENEREAZĂ ======================= -->
+<section class="lectie" data-title="Cum se generează un PDF: patru drumuri" hidden>
+<div class="top"><div><span class="eyebrow">Lecția 2 · 1 oră</span><h1>Cum se generează un PDF: patru drumuri</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+<div class="pane on" data-tab="lectie">
+<p>Aproape orice program poate face un PDF. Dar nu toate PDF-urile sunt la fel: unul e bun de trimis pe WhatsApp, altul e bun de trimis la tipografie, altul e bun pentru un cititor de ecran. Diferența o face <strong>drumul</strong> pe care l-ai ales și <strong>setările</strong> pe care le-ai bifat la export.</p>
+
+<h2>Drumul 1: „Salvează ca PDF” din program</h2>
+<p>Word, PowerPoint, LibreOffice, Google Docs, Inkscape, GIMP — toate au un buton <em>Export as PDF</em> / <em>Save as PDF</em>. Programul știe ce e în document (text, imagini, titluri) și le traduce direct în obiecte PDF. Textul rămâne text, fonturile se incorporează, imaginile se comprimă cum spui tu.</p>
+<p><strong>Avantaj:</strong> simplu, rapid, rezultat de calitate. <strong>Limită:</strong> puține opțiuni pentru tipar (fără bleed, fără CMYK în Word). Bun pentru: referate, teme, documente de ecran, e-mail.</p>
+<dl class="def">
+<dt>Export</dt><dd>a salva documentul într-un <em>alt</em> format decât cel al programului. Documentul original rămâne .docx/.sla; PDF-ul e o copie „înghețată”.</dd>
+<dt>Comprimare</dt><dd>împachetarea datelor ca să ocupe mai puțin loc. Textul se comprimă fără să piardă nimic (ca un ZIP). Imaginile se pot comprima <em>cu pierderi</em> (JPEG: aruncă detalii pe care ochiul abia le vede) sau <em>fără pierderi</em> (ZIP/Flate: identic cu originalul, dar mare).</dd>
 </dl>
 
-<h2 id="c3">3. Familia de standarde PDF</h2>
-<p>Un PDF „oarecare” poate conține orice: fonturi neincorporate, culori RGB, formulare, filme, JavaScript. La tipografie sau în arhivă asta e o problemă. De aceea ISO a definit <strong>subseturi</strong> ale formatului — fiecare interzice ce nu are ce căuta în domeniul lui și obligă la ce lipsește. Se dă clic pe fiecare card.</p>
-<div class="cards3">
-<div class="std"><div class="big">PDF/X</div><div class="for"><b>X</b> = eXchange · tipar · ISO 15930</div><div>Pentru <strong>tipografie</strong>: afișe, pliante, reviste, cărți.</div>
-<div class="more"><strong>Obligatoriu:</strong> toate fonturile incorporate, culori CMYK sau spot (Pantone), <em>output intent</em> (profilul de tipar) declarat, bleed și formatul de tăiere (TrimBox) declarate.<br><strong>Interzis:</strong> RGB (în X‑1a), formulare, linkuri, video, JavaScript, criptare.<br><strong>Variante:</strong> <b>X‑1a</b> (PDF 1.3, fără transparențe — cea mai sigură, cerută de majoritatea tipografiilor), <b>X‑3</b> (permite RGB cu profil), <b>X‑4</b> (PDF 1.6, permite transparențe și straturi — modern, cere tipografie cu RIP nou).</div><div class="hint">clic pentru detalii</div></div>
-<div class="std"><div class="big">PDF/A</div><div class="for"><b>A</b> = Archive · arhivare · ISO 19005</div><div>Pentru documente care trebuie citite identic <strong>peste 20–50 de ani</strong>: contracte, acte, diplome, arhive.</div>
-<div class="more"><strong>Obligatoriu:</strong> tot ce e nevoie pentru afișare stă în fișier (fonturi, profile de culoare), metadate XMP.<br><strong>Interzis:</strong> criptare, JavaScript, conținut extern sau legat, audio/video, fonturi neincorporate, transparențe (în A‑1).<br><strong>Niveluri:</strong> <b>a</b> = accesibil (etichetat), <b>b</b> = doar aspect vizual (cel mai folosit: <b>PDF/A‑2b</b>), <b>u</b> = text Unicode extractibil. Instituțiile publice din UE cer PDF/A pentru documentele arhivate.</div><div class="hint">clic pentru detalii</div></div>
-<div class="std"><div class="big">PDF/UA</div><div class="for"><b>UA</b> = Universal Accessibility · ISO 14289</div><div>Pentru <strong>accesibilitate</strong>: persoane nevăzătoare sau cu vedere slabă, care folosesc cititoare de ecran.</div>
-<div class="more"><strong>Obligatoriu:</strong> document <em>etichetat</em> (tags): titluri H1–H6, paragrafe, liste, tabele cu antet, <strong>ordinea de citire</strong> corectă, <strong>text alternativ</strong> la fiecare imagine, limba declarată, fonturi cu corespondență Unicode.<br>Un PDF „poză” (scanat, fără OCR) nu e accesibil deloc: cititorul de ecran vede o pagină goală.</div><div class="hint">clic pentru detalii</div></div>
-<div class="std"><div class="big">PDF/E</div><div class="for"><b>E</b> = Engineering · ISO 24517</div><div>Pentru <strong>inginerie</strong>: desene tehnice mari, modele 3D, planuri de construcții.</div>
-<div class="more">Permite obiecte 3D, măsurători pe desen, straturi. Îl generează AutoCAD, SolidWorks etc.</div><div class="hint">clic pentru detalii</div></div>
-<div class="std"><div class="big">PDF/VT</div><div class="for"><b>VT</b> = Variable, Transactional · ISO 16612</div><div>Pentru <strong>tipar cu date variabile</strong>: facturi, extrase de cont, mailinguri personalizate.</div>
-<div class="more">Fiecare exemplar are conținut diferit (nume, adresă, sume), dar elementele comune sunt stocate o singură dată. Se bazează pe PDF/X‑4.</div><div class="hint">clic pentru detalii</div></div>
-<div class="std"><div class="big">PDF</div><div class="for">„simplu”, fără standard</div><div>Pentru <strong>ecran</strong>: e-mail, site, Classroom, prezentări.</div>
-<div class="more">Orice e permis: RGB, formulare, linkuri, video, parolă. Fișier mic (imagini la 100–150 dpi, JPEG). <strong>Nu se trimite la tipografie.</strong></div><div class="hint">clic pentru detalii</div></div>
-</div>
-<div class="box note"><div class="t">De reținut</div><p>Un document este <strong>ori pentru tipar (PDF/X), ori pentru arhivă (PDF/A), ori interactiv</strong> — nu toate deodată. Formularele, linkurile și JavaScript-ul sunt interzise în PDF/X și PDF/A tocmai pentru că tipografia și arhiva au nevoie de un fișier care nu se poate schimba și nu depinde de nimic din afară.</p></div>
+<h2>Drumul 2: imprimanta virtuală</h2>
+<p>Windows are o „imprimantă” care nu tipărește pe hârtie, ci într-un fișier: <strong>Microsoft Print to PDF</strong>. Există și altele (PDF24, CutePDF). Orice program care poate tipări — chiar și unul din 1998 — poate astfel face PDF.</p>
+<p><strong>Avantaj:</strong> merge din orice program. <strong>Limită mare:</strong> programul „tipărește”, adică desenează pagina ca pentru imprimantă; de multe ori textul ajunge <strong>rasterizat</strong> (transformat în pixeli) sau fără fonturile incorporate corect, iar imaginile la rezoluția imprimantei virtuale (600 dpi la tot, deci fișiere uriașe, sau 150 dpi, deci prea mici pentru tipar). Nu poate face bleed sau CMYK.</p>
+<dl class="def">
+<dt>Rasterizare</dt><dd>transformarea textului și a vectorilor în pixeli. Textul nu mai poate fi selectat sau căutat, iar la mărire se pixelează. Un PDF „scanat” e tot rasterizat: o poză a paginii.</dd>
+<dt>Imprimantă virtuală</dt><dd>un program care se prezintă sistemului ca o imprimantă, dar scrie un fișier în loc să pună cerneală pe hârtie.</dd>
+</dl>
 
-<h2 id="c4">4. Cum se generează un PDF</h2>
-<p>Patru căi, de la cea mai simplă la cea profesională. Diferența nu e „bun / rău”, ci <strong>cât control ai asupra rezultatului</strong>.</p>
+<h2>Drumul 3: exportul profesional din DTP (Scribus)</h2>
+<p>Programele de <strong>DTP</strong> — Scribus (gratuit), Adobe InDesign, Affinity Publisher — sunt făcute pentru tipar. Exportul lor de PDF are tot ce cere o tipografie: standardul PDF/X, bleed și semne de tăiere, culori CMYK cu profil, controlul fiecărui font și al fiecărei imagini. Acesta e drumul pe care îl folosim la lecțiile 4–7.</p>
+<dl class="def">
+<dt>DTP</dt><dd>Desktop Publishing = „editare de birou”, în română <em>tehnoredactare computerizată</em>: așezarea textului și a imaginilor pe pagină pentru tipar, cu precizie de zecimi de milimetru.</dd>
+<dt>Machetă</dt><dd>pagina așezată — textul, imaginile, culorile la locul lor — înainte de tipar. Fișierul Scribus (.sla) e macheta; PDF-ul e macheta „înghețată” pentru tipografie.</dd>
+</dl>
+
+<h2>Drumul 4: generarea automată din cod</h2>
+<p>Când un site îți trimite factura, biletul de avion sau diploma de la un curs online, nimeni nu a apăsat „Export as PDF”. Un program a <em>scris</em> PDF-ul singur, din date: numele tău, suma, data. Se folosesc biblioteci de cod (ReportLab în Python, jsPDF în JavaScript, wkhtmltopdf care transformă o pagină web în PDF) sau sisteme de tehnoredactare automată (LaTeX, folosit la cărți științifice). Chiar fișierul <code>exemplu-minim.pdf</code> din lecția 1 a fost scris de un script Python de 30 de rânduri.</p>
+
+<h2>Cele patru drumuri, față în față</h2>
 <div class="tw"><table>
-<tr><th>Calea</th><th>Programe</th><th>Control</th><th>Bun pentru</th></tr>
-<tr><td><strong>1. Salvare / Export ca PDF</strong></td><td>Word, PowerPoint, LibreOffice, Inkscape, GIMP, Google Docs</td><td>mic–mediu: calitate imagini, uneori PDF/A</td><td>documente pentru ecran, teme, referate</td></tr>
-<tr><td><strong>2. Imprimantă virtuală</strong></td><td>„Microsoft Print to PDF”, PDF24, CutePDF</td><td>mic: ce poate tipări programul; deseori <strong>rasterizează</strong> (transformă în pixeli) și pierde textul selectabil</td><td>când programul nu are export propriu</td></tr>
-<tr><td><strong>3. Export DTP</strong></td><td><strong>Scribus</strong>, InDesign, Affinity Publisher, QuarkXPress</td><td>complet: PDF/X‑1a / X‑3 / X‑4, bleed, marcaje, profil ICC, incorporare fonturi, comprimare imagini</td><td><strong>tot ce merge la tipografie</strong></td></tr>
-<tr><td><strong>4. Generare automată din cod</strong></td><td>ReportLab (Python), wkhtmltopdf / Chrome headless (din HTML), LaTeX, jsPDF</td><td>complet, dar programatic</td><td>facturi, bilete, diplome, rapoarte generate de site-uri</td></tr>
+<tr><th>Drumul</th><th>Programe</th><th>Text rămâne text?</th><th>Fonturi incorporate?</th><th>Bleed, CMYK, PDF/X?</th><th>Bun pentru</th></tr>
+<tr><td><strong>1. Export din program</strong></td><td>Word, LibreOffice, Inkscape, GIMP, Google Docs</td><td>da</td><td>da</td><td>nu (LibreOffice: doar PDF/A)</td><td>documente de ecran, referate, e-mail</td></tr>
+<tr><td><strong>2. Imprimantă virtuală</strong></td><td>Microsoft Print to PDF, PDF24</td><td>de obicei da, uneori nu</td><td>nu întotdeauna</td><td>nu</td><td>programe fără export propriu</td></tr>
+<tr><td><strong>3. Export DTP</strong></td><td>Scribus, InDesign, Affinity</td><td>da</td><td>da, cu control</td><td><strong>da, tot</strong></td><td><strong>tipografie</strong></td></tr>
+<tr><td><strong>4. Din cod</strong></td><td>ReportLab, jsPDF, LaTeX, wkhtmltopdf</td><td>da</td><td>da</td><td>da, dacă programezi</td><td>facturi, bilete, diplome, rapoarte automate</td></tr>
 </table></div>
+
+<h2>Cele două butoane care fac diferența: rezoluția și comprimarea</h2>
+<p>Oricare ar fi drumul, la export apar două întrebări despre imagini. Ele decid dacă fișierul are 1 MB sau 30 MB și dacă afișul iese clar sau pixelat.</p>
 <dl class="def">
-<dt>DTP</dt><dd>Desktop Publishing — machetarea profesională a paginii (tehnoredactare computerizată). Scribus este programul DTP gratuit folosit în acest modul.</dd>
-<dt>Rasterizare</dt><dd>transformarea textului și a vectorilor în pixeli; textul nu mai poate fi selectat sau căutat, iar la mărire apare pixelat.</dd>
-<dt>Aplatizare (flattening)</dt><dd>transformarea transparențelor (umbre, obiecte semitransparente) în obiecte opace — obligatorie la export PDF/X‑1a, pentru că PDF 1.3 nu știe transparență.</dd>
-<dt>Distilare</dt><dd>metoda veche: programul „tipărește” un fișier PostScript, iar Acrobat Distiller îl transformă în PDF. Azi se folosește rar.</dd>
+<dt>Rezoluție (dpi)</dt><dd><strong>dots per inch</strong> — câte puncte (pixeli) încap pe un inch (2,54 cm) de hârtie. Pe ecran ajung <strong>72–150 dpi</strong>; la tipar e nevoie de <strong>300 dpi</strong>. Exemplu numeric: o poză de telefon are 4000 px lățime. La 300 dpi acoperă 4000 / 300 = 13,3 inch = 34 cm — încape pe un A3 (29,7 cm) fără probleme. O poză descărcată de pe Instagram are 1080 px: la 300 dpi acoperă doar 9 cm; întinsă pe 30 cm are 1080 / 11,8 inch = 91 dpi → pixelată la tipar.</dd>
+<dt>Comprimare JPEG</dt><dd>cu pierderi: la „calitate maximă” pierzi aproape nimic și fișierul scade la un sfert; la „calitate mică” apar pătrățele și pete în jurul marginilor. Bună pentru fotografii.</dd>
+<dt>Comprimare ZIP (Flate)</dt><dd>fără pierderi: imaginea rămâne identică, fișierul e mare. Bună pentru grafice, capturi de ecran, text în imagine — orice cu margini nete, unde JPEG ar face „murdărie”.</dd>
+<dt>Downsampling</dt><dd>micșorarea rezoluției imaginilor la export („reduce imaginile la 150 dpi”). Face fișierul mic; e bun pentru ecran și <strong>interzis</strong> pentru tipar.</dd>
 </dl>
-<div class="box note"><div class="t">Scribus și PDF/A</div><p>Scribus exportă PDF 1.3–1.6 și <strong>PDF/X‑1a, X‑3, X‑4</strong>, dar <strong>nu exportă PDF/A</strong>. Varianta de arhivare se face din LibreOffice (<em>File → Export as PDF → Archive PDF/A‑2b</em>) sau convertind PDF-ul din Scribus cu PDF24 Tools / Ghostscript.</p></div>
-<h3>Același afiș A3, trei exporturi</h3>
-<p>Un afiș A3 cu trei fotografii, exportat din Scribus cu setări diferite. Valorile sunt orientative — la laborator se măsoară pe afișul propriu.</p>
+<h3>Același afiș A3, patru exporturi</h3>
+<p>Un afiș cu trei fotografii, exportat din Scribus cu setări diferite. Valorile sunt orientative — la fișă le măsori pe afișul tău.</p>
 <div class="bars">
 <div class="bar"><span>Ecran: 100 dpi, JPEG calitate medie, RGB</span><div class="b" style="width:6%"></div><span class="v">≈ 1,2 MB</span></div>
 <div class="bar"><span>Ecran: 150 dpi, JPEG bună, RGB</span><div class="b" style="width:14%"></div><span class="v">≈ 3 MB</span></div>
 <div class="bar"><span>Tipar: PDF/X‑1a, 300 dpi, JPEG maximă, CMYK</span><div class="b" style="width:55%"></div><span class="v">≈ 12 MB</span></div>
 <div class="bar"><span>Tipar: PDF/X‑1a, 300 dpi, fără pierderi (ZIP), CMYK</span><div class="b" style="width:100%"></div><span class="v">≈ 24 MB</span></div>
 </div>
-<p>De ce e de 10–20 de ori mai mare varianta de tipar? <strong>Rezoluția</strong>: la 300 dpi o fotografie are de 9 ori mai mulți pixeli decât la 100 dpi (3 × 3). <strong>Comprimarea</strong>: JPEG aruncă detalii (pierderi), ZIP nu. La tipar contează calitatea, la ecran contează viteza.</p>
-<dl class="def">
-<dt>dpi</dt><dd>dots per inch — puncte pe inch (2,54 cm). La ecran ajung 100–150 dpi; la tipar offset sunt necesare <strong>300 dpi la dimensiunea finală</strong> a imaginii. O poză de 1200 px lățime tipărită la 300 dpi are 1200 / 300 = 4 inch = 10 cm; întinsă pe 30 cm are doar 100 dpi → pixelată.</dd>
-<dt>JPEG / ZIP</dt><dd>două feluri de comprimare a imaginilor în PDF: JPEG cu pierderi (mic, dar apar „pătrățele” la calitate mică), ZIP/Flate fără pierderi (mare, dar identic cu originalul).</dd>
-</dl>
+<p>De ce e de 10–20 de ori mai mare varianta de tipar? La 300 dpi o fotografie are de <strong>9 ori mai mulți pixeli</strong> decât la 100 dpi (3 pe lățime × 3 pe înălțime), iar ZIP-ul nu aruncă nimic. La tipar contează calitatea; la ecran contează viteza de descărcare.</p>
+<div class="box note"><div class="t">De reținut din lecția 2</div><p>Pentru ecran: export din program, 100–150 dpi, JPEG. Pentru tipar: export din Scribus, 300 dpi, fără pierderi, PDF/X. Imprimanta virtuală — doar când nu ai altceva. Un PDF „scanat” sau rasterizat nu are text: nu se poate căuta, nu se poate citi de un cititor de ecran.</p></div>
+</div>
+<div class="pane ws-pane" data-tab="fisa" data-id="f2">
+<div class="ws"><h2>Fișa 2 · Patru drumuri, un document</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box task"><div class="t">Obiectiv</div><p>Același document, exportat pe patru căi și cu setări diferite: să măsori ce se schimbă (dimensiune, text selectabil, fonturi, calitatea imaginii).</p></div>
+<h3>Ce ai nevoie</h3><ul><li>un document de o pagină cu titlu, text și o fotografie mare (poza ta de telefon, 3000–4000 px) — în LibreOffice Writer;</li><li>același conținut pus și în Scribus (poate fi șablonul de afiș);</li><li>Acrobat Reader, Notepad++.</li></ul>
+<h3>Pași</h3>
+<ul class="chk">
+<li><input type="checkbox"><span><strong>Drumul 1:</strong> LibreOffice → File → Export as PDF. Tab <em>General</em>: „JPEG compression”, quality 90 %, „Reduce image resolution” la 150 dpi. Nume: <code>d1_export150.pdf</code>. Apoi încă o dată cu „Lossless compression” și fără reducere: <code>d1_export_lossless.pdf</code>.</span></li>
+<li><input type="checkbox"><span><strong>Drumul 2:</strong> LibreOffice → File → Print → imprimanta „Microsoft Print to PDF”. Nume: <code>d2_print.pdf</code>.</span></li>
+<li><input type="checkbox"><span><strong>Drumul 3:</strong> Scribus → File → Export → Save as PDF: PDF 1.5, Compression Lossless, 300 dpi, „Output intended for: Screen/Web”. Nume: <code>d3_scribus.pdf</code>.</span></li>
+<li><input type="checkbox"><span><strong>Drumul 4:</strong> deschide o pagină web simplă (de exemplu articolul de pe Wikipedia despre PDF) în Chrome → Ctrl+P → „Save as PDF”. Nume: <code>d4_chrome.pdf</code>. (Browserul generează PDF din cod, din HTML.)</span></li>
+<li><input type="checkbox"><span>Pentru fiecare fișier completează tabelul: dimensiunea (clic dreapta → Properties), dacă textul se selectează (tragi cu mouse-ul peste el în Acrobat Reader), ce scrie la Fonts, cum arată poza la 400 %.</span></li>
+<li><input type="checkbox"><span>Deschide <code>d2_print.pdf</code> și <code>d1_export150.pdf</code> în Notepad++ și caută <code>/FontFile</code> și <code>/Image</code>: notează câte apariții are fiecare.</span></li>
+</ul>
+<h3>Tabelul comparativ</h3>
+<div class="tw"><table><tr><th>Fișier</th><th>Dimensiune (KB/MB)</th><th>Text selectabil?</th><th>Fonturi (Embedded?)</th><th>Poza la 400 %</th><th>Bun pentru</th></tr>
+<tr><td class="mono">d1_export150.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">d1_export_lossless.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">d2_print.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">d3_scribus.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">d4_chrome.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<h3>Calcul de rezoluție</h3>
+<div class="tw"><table><tr><th>Imaginea</th><th>Lățime în pixeli</th><th>Lățime pe pagină (cm)</th><th>dpi rezultat = px / (cm / 2,54)</th><th>Bun pentru tipar (≥ 300)?</th></tr>
+<tr><td>poza ta de telefon</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>o poză de pe Instagram (1080 px)</td><td class="mono">1080</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>logoul școlii descărcat de pe site</td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<h3>Întrebări de control</h3>
+<div class="q"><p>1. De câte ori e mai mare varianta „lossless” față de cea de 150 dpi? Din ce cauză exact?</p><textarea></textarea></div>
+<div class="q"><p>2. Care fișier ar fi refuzat de tipografie și de ce? Care ar fi refuzat de un site care cere „maxim 2 MB”?</p><textarea></textarea></div>
+<div class="q"><p>3. Un coleg spune: „Pun poza la 300 dpi în Photoshop și gata, e bună de tipar.” Ce nu a înțeles? (gândește-te la lățimea în pixeli)</p><textarea></textarea></div>
+</div></div>
+</section>
 
-<h2 id="c5">5. Bleed, tăiere și zona sigură</h2>
-<p>Tipografia nu tipărește pe foaia A3 finală. Tipărește pe o coală mai mare, apoi <strong>taie</strong> la format cu ghilotina — și ghilotina are o abatere de ±0,5–1 mm. Dacă fundalul colorat se termină exact la marginea paginii, o abatere de 0,5 mm lasă un <strong>fir alb</strong> pe margine. De aceea fundalul se prelungește <strong>3 mm dincolo de format</strong>: bleed-ul.</p>
+<!-- ======================= 3. STANDARDE ======================= -->
+<section class="lectie" data-title="Familia de standarde: PDF/X, PDF/A, PDF/UA" hidden>
+<div class="top"><div><span class="eyebrow">Lecția 3 · 1 oră</span><h1>Familia de standarde: PDF/X, PDF/A, PDF/UA</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+<div class="pane on" data-tab="lectie">
+<div class="box story"><div class="t">Trei clienți, trei cerințe</div><p>Într-o singură zi, la firma de grafică vin trei comenzi: tipografia vrea afișul „în PDF/X‑1a, altfel nu-l băgăm în mașină”; primăria vrea raportul „în PDF/A, că se arhivează 30 de ani”; asociația nevăzătorilor vrea broșura „PDF/UA, să meargă cu cititorul de ecran”. Toate sunt PDF-uri. Dar nu același PDF.</p></div>
+<h2>De ce mai multe standarde?</h2>
+<p>Un PDF „obișnuit” poate conține <em>orice</em>: fonturi neincorporate, culori de ecran (RGB), formulare, filmulețe, linkuri, JavaScript, parolă. Pentru ecran e minunat. Dar la tipografie un font lipsă înseamnă 500 de afișe greșite; într-o arhivă, un film încorporat nu va mai porni peste 30 de ani; pentru un nevăzător, o pagină fără text „citibil” e o pagină goală.</p>
+<p>De aceea ISO a definit <strong>subseturi</strong> ale formatului: reguli care spun „în acest tip de PDF <strong>nu ai voie</strong> să pui X și <strong>ești obligat</strong> să pui Y”. Litera de după bară spune domeniul.</p>
+<dl class="def">
+<dt>Subset</dt><dd>o parte dintr-un întreg, cu reguli mai stricte. Toate PDF/X sunt PDF-uri; nu toate PDF-urile sunt PDF/X.</dd>
+<dt>Conformitate</dt><dd>un fișier <em>este conform</em> cu un standard dacă respectă toate regulile lui. Se verifică cu un program numit <strong>validator</strong> (de exemplu veraPDF pentru PDF/A). Un fișier declară în interior „sunt PDF/X‑1a”, dar declarația nu ajunge: trebuie și să respecte regulile.</dd>
+</dl>
+<p>Se dă clic pe fiecare card pentru regulile complete.</p>
+<div class="cards3">
+<div class="std"><div class="big">PDF/X</div><div class="for"><b>X</b> = eXchange (schimb) · tipar · ISO 15930</div><div>Pentru <strong>tipografie</strong>: afișe, pliante, reviste, cărți, ambalaje.</div>
+<div class="more"><strong>Obligatoriu:</strong> toate fonturile incorporate; culori CMYK sau spot (Pantone); <em>output intent</em> (profilul de tipar, lecția 5) declarat; formatul de tăiere (TrimBox) și bleed-ul (BleedBox) declarate.<br><strong>Interzis:</strong> RGB (în X‑1a), formulare, linkuri, video, JavaScript, parolă, straturi ascunse.<br><strong>Variante:</strong> <b>X‑1a:2001</b> — bazat pe PDF 1.3, fără transparențe (le aplatizează), cea mai sigură, cerută de majoritatea tipografiilor; <b>X‑3</b> — permite și RGB/Lab cu profil de culoare; <b>X‑4</b> — bazat pe PDF 1.6, permite transparențe și straturi; modern, cere o tipografie cu RIP nou.</div><div class="hint">clic pentru detalii</div></div>
+<div class="std"><div class="big">PDF/A</div><div class="for"><b>A</b> = Archive (arhivă) · ISO 19005</div><div>Pentru documente care trebuie citite identic peste <strong>20–50 de ani</strong>: contracte, acte, diplome, arhive de instituții.</div>
+<div class="more"><strong>Obligatoriu:</strong> tot ce e nevoie pentru afișare stă în fișier (fonturi, profile de culoare); metadate XMP (titlu, autor, dată) scrise standard.<br><strong>Interzis:</strong> parolă/criptare, JavaScript, orice conținut extern sau legat (o imagine „link” la un fișier de pe disc), audio/video, fonturi neincorporate; transparențe în A‑1.<br><strong>Niveluri:</strong> litera de după cifră: <b>b</b> = basic, doar aspectul vizual e garantat (cel mai folosit: <b>PDF/A‑2b</b>); <b>u</b> = textul e Unicode, se poate căuta și copia; <b>a</b> = accesibil, cu etichete de structură. <b>A‑1</b> se bazează pe PDF 1.4, <b>A‑2</b> pe 1.7 (permite transparențe, JPEG 2000), <b>A‑3</b> permite fișiere atașate (de exemplu XML-ul unei facturi electronice — așa funcționează e-Factura), <b>A‑4</b> pe PDF 2.0.</div><div class="hint">clic pentru detalii</div></div>
+<div class="std"><div class="big">PDF/UA</div><div class="for"><b>UA</b> = Universal Accessibility · ISO 14289</div><div>Pentru <strong>accesibilitate</strong>: persoane nevăzătoare sau cu vedere slabă, care „citesc” cu un program ce le vorbește (cititor de ecran).</div>
+<div class="more"><strong>Obligatoriu:</strong> document <em>etichetat</em> (tagged): fiecare bucată de text are o etichetă — titlu (H1, H2…), paragraf (P), listă (L), tabel (Table) cu celule de antet (TH); <strong>ordinea de citire</strong> corectă (nu „coloana 2 înainte de coloana 1”); <strong>text alternativ</strong> la fiecare imagine („fotografie cu elevii la balul bobocilor”); limba declarată (română), ca vocea să pronunțe corect; fonturi cu corespondență Unicode.<br>Un PDF scanat, fără OCR, nu e accesibil deloc: cititorul de ecran „vede” o pagină goală.</div><div class="hint">clic pentru detalii</div></div>
+<div class="std"><div class="big">PDF/E</div><div class="for"><b>E</b> = Engineering (inginerie) · ISO 24517</div><div>Desene tehnice mari, modele 3D, planuri de construcții.</div>
+<div class="more">Permite obiecte 3D (poți roti piesa în Acrobat), măsurători pe desen, straturi. Îl generează AutoCAD, SolidWorks, Revit.</div><div class="hint">clic pentru detalii</div></div>
+<div class="std"><div class="big">PDF/VT</div><div class="for"><b>VT</b> = Variable, Transactional · ISO 16612</div><div>Tipar cu date variabile: facturi, extrase de cont, mailinguri personalizate.</div>
+<div class="more">Fiecare exemplar are conținut diferit (nume, adresă, sume), dar elementele comune (logo, fundal) sunt stocate o singură dată și refolosite — 100 000 de facturi într-un fișier rezonabil. Se bazează pe PDF/X‑4.</div><div class="hint">clic pentru detalii</div></div>
+<div class="std"><div class="big">PDF</div><div class="for">„simplu”, fără standard</div><div>Pentru <strong>ecran</strong>: e-mail, site, Classroom, prezentări, WhatsApp.</div>
+<div class="more">Orice e permis: RGB, formulare, linkuri, video, parolă. Fișier mic (imagini la 100–150 dpi, JPEG). <strong>Nu se trimite la tipografie și nu se arhivează.</strong></div><div class="hint">clic pentru detalii</div></div>
+</div>
+<dl class="def">
+<dt>Metadate</dt><dd>„date despre date”: titlul, autorul, data, cuvintele-cheie ale documentului, scrise în interiorul fișierului, invizibile pe pagină. Se văd în Acrobat: <em>File → Properties → Description</em>. PDF/A le cere în format XMP (un mic text XML).</dd>
+<dt>Etichete (tags)</dt><dd>marcaje invizibile care spun ce <em>este</em> fiecare bucată de text: titlu, paragraf, listă, celulă de tabel. Ochiul vede că un text mare și gros e titlu; un program nu, dacă nu are eticheta. Word și LibreOffice pun etichete automat dacă folosești stilurile Heading 1, Heading 2… în loc să îngroși textul de mână.</dd>
+<dt>Text alternativ (alt text)</dt><dd>o propoziție care descrie o imagine, citită cu voce de cititorul de ecran în locul imaginii. Se pune la <em>Format Image → Alt Text</em> (Word) sau <em>Properties → Options</em> (LibreOffice).</dd>
+<dt>Cititor de ecran</dt><dd>program (NVDA — gratuit, JAWS, VoiceOver pe iPhone) care citește cu voce tare ce e pe ecran, pentru persoanele nevăzătoare. Urmează etichetele și ordinea de citire; fără ele, citește haotic sau nimic.</dd>
+<dt>OCR</dt><dd>Optical Character Recognition — recunoașterea literelor dintr-o imagine scanată și transformarea lor în text adevărat, care se poate căuta și citi cu voce.</dd>
+</dl>
+<h2>Cum aleg?</h2>
+<div class="tw"><table>
+<tr><th>Unde merge fișierul</th><th>Standard</th><th>Se face din</th></tr>
+<tr><td>tipografie (afiș, pliant, revistă)</td><td><strong>PDF/X‑1a</strong> (sau X‑4 dacă tipografia cere)</td><td>Scribus, InDesign</td></tr>
+<tr><td>arhivă, primărie, contract, dosar oficial</td><td><strong>PDF/A‑2b</strong></td><td>LibreOffice (Export as PDF → Archive), Word (Save as → Options → PDF/A), PDF24</td></tr>
+<tr><td>persoane cu deficiențe de vedere, site public al unei instituții</td><td><strong>PDF/UA</strong> (cel puțin etichetat)</td><td>Word/LibreOffice cu stiluri și alt text; verificat cu Acrobat / PAC</td></tr>
+<tr><td>factură electronică (e-Factura)</td><td>PDF/A‑3 cu XML atașat</td><td>programul de facturare</td></tr>
+<tr><td>e-mail, WhatsApp, Classroom, site</td><td>PDF simplu, mic</td><td>orice export</td></tr>
+</table></div>
+<div class="box warn"><div class="t">Nu se amestecă</div><p>Un document este <strong>ori pentru tipar (PDF/X), ori pentru arhivă (PDF/A), ori interactiv</strong>. Formularele, linkurile și JavaScript-ul sunt interzise în PDF/X și PDF/A tocmai pentru că tipografia și arhiva au nevoie de un fișier care <em>nu se poate schimba</em> și <em>nu depinde de nimic din afară</em>. Din aceeași machetă se exportă două fișiere diferite.</p></div>
+<div class="box note"><div class="t">De reținut din lecția 3</div><p>X = tipar, A = arhivă, UA = accesibilitate. Fiecare interzice ce nu are ce căuta acolo și obligă la ce lipsește. Scribus face PDF/X; LibreOffice face PDF/A; etichetele pentru accesibilitate vin din stilurile Heading și din textul alternativ.</p></div>
+</div>
+<div class="pane ws-pane" data-tab="fisa" data-id="f3">
+<div class="ws"><h2>Fișa 3 · Un PDF/A validat și un PDF accesibil</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box task"><div class="t">Obiectiv</div><p>Să produci un PDF/A care trece de validator și un PDF cu etichete și text alternativ care poate fi citit de un cititor de ecran.</p></div>
+<h3>Ce ai nevoie</h3><ul><li>LibreOffice Writer; browser (validatorul PDF/A de la <a href="https://www.pdf24.org/en/tools" target="_blank" rel="noopener">PDF24 Tools</a> → „Validate PDF/A”, sau <a href="https://verapdf.org" target="_blank" rel="noopener">veraPDF</a> instalat);</li><li>NVDA (cititor de ecran gratuit, <a href="https://www.nvaccess.org" target="_blank" rel="noopener">nvaccess.org</a>) sau funcția <em>View → Read Out Loud</em> din Acrobat Reader;</li><li>un document de 2 pagini cu titluri, 2 imagini, o listă și un tabel (poate fi referatul de la altă materie).</li></ul>
+<h3>Pași</h3>
+<ul class="chk">
+<li><input type="checkbox"><span><strong>Stiluri, nu îngroșare:</strong> în Writer, pune titlurile cu stilurile <em>Heading 1 / Heading 2</em> (nu bold de mână), lista cu butonul de listă, tabelul cu antet (Table Properties → Repeat heading). Setează limba documentului: Tools → Language → For All Text → Romanian.</span></li>
+<li><input type="checkbox"><span><strong>Alt text:</strong> clic dreapta pe fiecare imagine → Properties → Options → „Text alternative”: o propoziție care descrie poza. Notează-le în tabelul 2.</span></li>
+<li><input type="checkbox"><span><strong>Export PDF/A:</strong> File → Export as PDF → General: bifează <em>Archive (PDF/A, ISO 19005)</em>, versiune <em>PDF/A‑2b</em>; bifează și <em>Universal Accessibility (PDF/UA)</em> și <em>Tagged PDF</em>. Nume: <code>referat_A.pdf</code>.</span></li>
+<li><input type="checkbox"><span><strong>Export „stricat”:</strong> exportă încă o dată fără PDF/A, cu parolă (tab <em>Security</em> → Set passwords). Nume: <code>referat_parola.pdf</code>.</span></li>
+<li><input type="checkbox"><span><strong>Validare:</strong> încarcă ambele fișiere în validatorul PDF/A. Notează rezultatul în tabelul 1 (copiază primul mesaj de eroare, dacă apare).</span></li>
+<li><input type="checkbox"><span><strong>Cititorul de ecran:</strong> deschide <code>referat_A.pdf</code> în Acrobat Reader, pornește NVDA (sau Read Out Loud) și ascultă prima pagină cu ochii închiși. Apoi fă la fel cu un PDF scanat (o poză a unei pagini salvată ca PDF). Răspunde la întrebarea 2.</span></li>
+<li><input type="checkbox"><span>În Acrobat Reader: File → Properties → Description: notează în tabelul 1 ce scrie la „Tagged PDF” și la „PDF Version”.</span></li>
+</ul>
+<h3>1. Validarea</h3>
+<div class="tw"><table><tr><th>Fișier</th><th>Setări la export</th><th>Tagged PDF (Yes/No)</th><th>Validator: conform PDF/A?</th><th>Prima eroare (dacă e)</th></tr>
+<tr><td class="mono">referat_A.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">referat_parola.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<h3>2. Textele alternative</h3>
+<div class="tw"><table><tr><th>Imaginea</th><th>Text alternativ scris</th><th>Ce a citit cititorul de ecran</th></tr>
+<tr><td>1</td><td><input></td><td><input></td></tr><tr><td>2</td><td><input></td><td><input></td></tr></table></div>
+<h3>Întrebări de control</h3>
+<div class="q"><p>1. De ce a picat (sau ar pica) la validare fișierul cu parolă? Ce regulă a PDF/A încalcă?</p><textarea></textarea></div>
+<div class="q"><p>2. Cum a sunat PDF-ul scanat în cititorul de ecran? Ce ar trebui făcut ca să devină accesibil?</p><textarea></textarea></div>
+<div class="q"><p>3. Alege standardul și motivează într-o propoziție: (a) diploma de absolvire scanată și trimisă la o universitate din străinătate; (b) meniul restaurantului trimis la tipografie; (c) regulamentul școlii pus pe site.</p><textarea></textarea></div>
+</div></div>
+</section>
+
+<!-- ======================= 4. TIPAR: BLEED ======================= -->
+<section class="lectie" data-title="Pregătirea pentru tipar: bleed, tăiere, zonă sigură" hidden>
+<div class="top"><div><span class="eyebrow">Lecția 4 · 1 oră</span><h1>Pregătirea pentru tipar: bleed, tăiere, zonă sigură</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+<div class="pane on" data-tab="lectie">
+<div class="box story"><div class="t">Firul alb</div><p>Afișul cu fundal albastru a ieșit din tipografie cu un fir alb subțire pe marginea din dreapta, la jumătate din exemplare. Tipografia a ridicat din umeri: „N-ați pus bleed.” Ana n-a înțeles: afișul era albastru <em>până la margine</em>. Tocmai asta era problema.</p></div>
+<h2>Cum tipărește o tipografie</h2>
+<p>Tipografia <strong>nu tipărește pe foaia A3 finală</strong>. Tipărește pe o coală mai mare (de exemplu 500 × 700 mm, mai multe afișe pe aceeași coală), apoi <strong>taie</strong> la format cu o ghilotină — un cuțit lung care taie un teanc de sute de coli deodată. Ghilotina e precisă, dar nu perfectă: are o <strong>abatere de ±0,5–1 mm</strong>. Colile se mai și mișcă puțin în teanc.</p>
+<p>Dacă fundalul albastru se termină <em>exact</em> la marginea paginii, o tăiere cu 0,5 mm mai în afară lasă o dungă de hârtie albă neimprimată. Soluția: fundalul se prelungește <strong>3 mm dincolo de linia de tăiere</strong>. Atunci, oriunde cade cuțitul în acei 3 mm, marginea iese albastră.</p>
+<dl class="def">
+<dt>Bleed (rezervă de tăiere)</dt><dd>prelungirea tuturor elementelor care ating marginea cu <strong>3 mm</strong> (5 mm la formate foarte mari) dincolo de linia de tăiere. Se declară în Scribus la <em>File → Document Setup → Bleeds</em> și se bifează la export („Use document bleeds”).</dd>
+<dt>Linia de tăiere (trim)</dt><dd>conturul formatului final (A3 = 297 × 420 mm). În PDF se numește <strong>TrimBox</strong>. Pagina cu bleed este <strong>BleedBox</strong> (303 × 426 mm), iar întreaga zonă cu semne de tăiere este <strong>MediaBox</strong>.</dd>
+<dt>Zona sigură</dt><dd>textul și logourile se țin la <strong>cel puțin 5 mm</strong> (mai bine 10 mm) <em>înăuntrul</em> liniei de tăiere, ca să nu fie „mușcate” de ghilotină la o abatere spre interior.</dd>
+<dt>Semne de tăiere (crop marks)</dt><dd>liniuțele subțiri din colțuri, în afara paginii, care arată operatorului unde să taie. Se adaugă automat la export; <strong>nu se desenează de mână</strong>.</dd>
+<dt>Semne de registru</dt><dd>crucile din afara paginii care arată dacă cele patru culori (C, M, Y, K, tipărite pe rând) s-au suprapus corect.</dd>
+<dt>Ghilotină</dt><dd>mașina de tăiat hârtie a tipografiei: o lamă lată de un metru care coboară prin teancul de coli.</dd>
+</dl>
+<h2>Simulatorul de tăiere</h2>
+<p>Se pornește și se oprește bleed-ul, se mută cuțitul ghilotinei, se apropie textul de margine. În dreapta e o „lupă” pe colțul din stânga sus, ca să se vadă milimetrii.</p>
 <div class="sim" id="bleedsim">
 <div class="t">Simulator de tăiere · afiș A3</div>
 <div class="ctrl">
@@ -350,74 +555,271 @@ startxref
 <svg id="bleedsvg" viewBox="0 0 720 452" role="img" aria-label="simulare bleed și tăiere" style="width:100%;max-width:720px;display:block;margin:auto"></svg>
 <p class="hint" id="bleedmsg"></p>
 </div>
+<h2>Pagina în Scribus: cum se pregătește macheta</h2>
+<ol>
+<li><strong>Document Setup:</strong> formatul exact cerut (A3 portret = 297 × 420 mm), unități mm, <strong>Bleeds 3 mm</strong> pe toate laturile, margini 15 mm.</li>
+<li><strong>Ghidaje</strong> (Page → Manage Guides): la 5 mm și 10 mm de margine — zona sigură — și pe axa verticală, pentru centrat.</li>
+<li><strong>Straturi</strong> (Windows → Layers): <em>Fundal</em>, <em>Imagini</em>, <em>Text</em>, <em>Ghidaje</em> (stratul cu notițe, marcat „nu se tipărește”).</li>
+<li><strong>Fundalul</strong> se desenează de la −3 mm până la 300 mm, adică <em>peste</em> pagină, în zona de bleed (Scribus arată bleed-ul ca o linie roșie punctată).</li>
+<li><strong>Textul</strong> stă între ghidajele de 10 mm. <strong>Imaginile</strong> care ating marginea ies și ele în bleed.</li>
+</ol>
+<p>Toate acestea le face automat scriptul <a href="scribus/sablon_afis_A3.py" download>sablon_afis_A3.py</a> (Script → Execute Script). După rulare, <em>File → Save as Template</em>; de atunci afișul se începe din <em>File → New from Template</em>.</p>
 <dl class="def">
-<dt>Bleed (rezervă de tăiere)</dt><dd>prelungirea tuturor elementelor care ating marginea cu <strong>3 mm</strong> (5 mm la formate mari) dincolo de linia de tăiere. Se declară în document (Scribus: <em>Document Setup → Bleeds</em>) și la export.</dd>
-<dt>Trim (linia de tăiere)</dt><dd>formatul final al lucrării (A3 = 297 × 420 mm). În PDF se numește <code>TrimBox</code>; pagina cu bleed este <code>BleedBox</code>, iar cu marcaje <code>MediaBox</code>.</dd>
-<dt>Zona sigură</dt><dd>textul și logourile stau la <strong>cel puțin 5 mm</strong> (mai bine 10 mm) de linia de tăiere, ca să nu fie „mușcate” de ghilotină.</dd>
-<dt>Crop marks (semne de tăiere)</dt><dd>liniuțele din colțuri care arată operatorului unde să taie; se adaugă la export, nu se desenează de mână.</dd>
-<dt>Registration marks</dt><dd>crucile din afara paginii care arată dacă cele patru culori (C, M, Y, K) s-au suprapus corect la tipar.</dd>
+<dt>Ghidaj</dt><dd>linie ajutătoare, vizibilă doar pe ecran, de care „se lipesc” obiectele (snap). Nu se tipărește.</dd>
+<dt>Strat (layer)</dt><dd>o „folie transparentă” pe care stau obiectele; straturile se pot ascunde, bloca sau marca „nu se tipărește”. Ordinea lor decide ce e deasupra.</dd>
+<dt>Șablon (template)</dt><dd>un document pregătit (format, bleed, ghidaje, straturi, culori) din care se pornesc lucrări noi, fără să refaci pregătirea de fiecare dată.</dd>
 </dl>
+<div class="box note"><div class="t">De reținut din lecția 4</div><p>Tipografia taie cu abatere de ±1 mm. Bleed 3 mm în afară pentru tot ce atinge marginea; text la ≥ 5–10 mm înăuntru. Formatul, bleed-ul și ghidajele se setează o dată, în șablon.</p></div>
+</div>
+<div class="pane ws-pane" data-tab="fisa" data-id="f4">
+<div class="ws"><h2>Fișa 4 · Afișul pe șablonul cu bleed</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box task"><div class="t">Obiectiv</div><p>Să pregătești un document Scribus corect pentru tipar (format, bleed, zonă sigură, straturi) și să așezi afișul pe el.</p></div>
+<h3>Ce ai nevoie</h3><ul><li>Scribus 1.6; scriptul <a href="scribus/sablon_afis_A3.py" download>sablon_afis_A3.py</a>;</li><li>textul și imaginile afișului tău (poze ≥ 3000 px);</li><li>o riglă, o foaie A4, foarfece (pentru experimentul de tăiere).</li></ul>
+<h3>Pași</h3>
+<ul class="chk">
+<li><input type="checkbox"><span><strong>Experimentul cu foarfeca:</strong> tipărește pe A4 (imprimanta școlii) o pagină cu fundal colorat până la margine și un text la 2 mm de margine. Taie cu foarfeca „ca ghilotina”, de-a lungul marginii, fără să te uiți foarte atent. Ce a ieșit? (întrebarea 1)</span></li>
+<li><input type="checkbox"><span>Rulează scriptul (Script → Execute Script → sablon_afis_A3.py). Verifică în File → Document Setup: formatul și bleed-ul. Notează în tabelul 1.</span></li>
+<li><input type="checkbox"><span>File → Save as Template: nume „Afiș A3 tipar”, categorie „Producție media”. Închide. File → New from Template → deschide-l. (Așa lucrează un studio.)</span></li>
+<li><input type="checkbox"><span>Pune titlul, subtitlul, textul, imaginea principală și contactul în cadrele șablonului. Schimbă culorile din paletă după afișul tău (Edit → Colors and Fills), dar rămâi pe culori CMYK.</span></li>
+<li><input type="checkbox"><span>Verifică pe stratul Fundal: fundalul iese peste linia roșie de bleed pe toate 4 laturile? Notează coordonatele lui (X, Y, W, H din Properties → X, Y, Z).</span></li>
+<li><input type="checkbox"><span>Măsoară distanța de la fiecare cadru de text la marginea paginii: tabelul 2. Corectează ce e sub 5 mm.</span></li>
+<li><input type="checkbox"><span>Salvează ca <code>afis_nume.sla</code>. (Exportul îl facem la lecția 6.)</span></li>
+</ul>
+<h3>1. Documentul</h3>
+<div class="tw"><table><tr><th>Setare</th><th>Valoare din Document Setup</th><th>Corect pentru tipar?</th></tr>
+<tr><td>Format pagină (mm)</td><td><input></td><td><input></td></tr><tr><td>Bleed sus / jos / stânga / dreapta</td><td><input></td><td><input></td></tr><tr><td>Margini</td><td><input></td><td><input></td></tr><tr><td>Straturi (nume, care nu se tipărește)</td><td><input></td><td><input></td></tr><tr><td>Fundal: X, Y, W, H</td><td><input></td><td><input></td></tr></table></div>
+<h3>2. Zona sigură</h3>
+<div class="tw"><table><tr><th>Cadru</th><th>Distanța la marginea cea mai apropiată (mm)</th><th>≥ 5 mm?</th><th>Corectat la</th></tr>
+<tr><td>titlu</td><td><input></td><td><input></td><td><input></td></tr><tr><td>subtitlu</td><td><input></td><td><input></td><td><input></td></tr><tr><td>text principal</td><td><input></td><td><input></td><td><input></td></tr><tr><td>contact</td><td><input></td><td><input></td><td><input></td></tr><tr><td>cod QR</td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<h3>Întrebări de control</h3>
+<div class="q"><p>1. Ce a ieșit la experimentul cu foarfeca: unde a apărut alb, ce s-a tăiat din text? Cu ce se leagă de bleed și zona sigură?</p><textarea></textarea></div>
+<div class="q"><p>2. Un pliant A4 are 3 pliuri (lecția 7). Pe lângă bleed și zonă sigură, ce altă „margine de siguranță” apare la pliuri și de ce?</p><textarea></textarea></div>
+<div class="q"><p>3. Tipografia cere „format 297 × 420 + 5 mm bleed”. Ce schimbi în Document Setup și în cadrul de fundal?</p><textarea></textarea></div>
+</div></div>
+</section>
 
-<h2 id="c6">6. Culoarea și profilele ICC</h2>
-<p><strong>Problema:</strong> numerele CMYK nu descriu o culoare fixă. „C100 M0 Y0 K0” pe hârtie lucioasă e un cyan viu; pe hârtie de ziar e un albastru spălăcit — aceeași cerneală, alt suport, alt rezultat. La fel, RGB-ul de pe ecranul tău nu e RGB-ul de pe ecranul tipografiei.</p>
-<p><strong>Soluția:</strong> un <strong>profil ICC</strong> (International Color Consortium) — un fișier <code>.icc</code> care descrie <strong>cum reproduce culorile un anumit dispozitiv sau proces</strong>: ce culoare reală (măsurată cu spectrofotometru, în spațiul de referință Lab) iese pentru fiecare combinație de cerneluri, pe o anumită hârtie. Programul folosește profilul ca să convertească corect RGB → CMYK și ca să arate pe ecran o <strong>simulare</strong> (soft proof) a tiparului.</p>
+<!-- ======================= 5. CULOAREA ======================= -->
+<section class="lectie" data-title="Culoarea: RGB, CMYK și profilele ICC" hidden>
+<div class="top"><div><span class="eyebrow">Lecția 5 · 1 oră</span><h1>Culoarea: RGB, CMYK și profilele ICC</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+<div class="pane on" data-tab="lectie">
+<div class="box story"><div class="t">Verdele care a dispărut</div><p>Pe ecran, afișul avea un verde neon, electric, superb. Din tipografie a venit un verde de brad, cuminte. Tipografia: „Ăla e RGB, nu există pe hârtie.” Ana: „Dar de ce nu mi-a spus nimeni?” Programul ar fi putut să-i spună — dacă avea profilul potrivit.</p></div>
+<h2>Două feluri de a face o culoare</h2>
+<div class="two">
+<div class="card"><div class="t">RGB — lumina se adună</div><p style="font-size:.95rem">Ecranul e negru și <strong>aprinde</strong> lumină: roșu + verde + albastru. Toate trei la maxim = alb. Nimic aprins = negru. Fiecare canal are valori 0–255. Este spațiul ecranelor, telefoanelor, camerelor foto.</p><div class="swatches"><div class="sw" style="background:#ff0000">R 255</div><div class="sw" style="background:#00ff00">G 255</div><div class="sw" style="background:#0000ff">B 255</div><div class="sw" style="background:#ffffff;color:#000;text-shadow:none">toate 255 = alb</div></div></div>
+<div class="card"><div class="t">CMYK — cerneala se scade</div><p style="font-size:.95rem">Hârtia e albă și cerneala <strong>ia din lumină</strong>: cyan, magenta, galben (yellow) și negru (K, de la „key”). Toate la maxim = negru murdar. Nicio cerneală = alb (hârtia). Valorile sunt procente 0–100 %. Este spațiul tiparului.</p><div class="swatches"><div class="sw" style="background:#00b7eb">C 100</div><div class="sw" style="background:#ec008c">M 100</div><div class="sw" style="background:#fff100;color:#000;text-shadow:none">Y 100</div><div class="sw" style="background:#231f20">K 100</div></div></div>
+</div>
+<dl class="def">
+<dt>Spațiu de culoare</dt><dd>„limba” în care e scrisă o culoare: RGB (trei numere de lumină), CMYK (patru procente de cerneală), Lab (cum o vede ochiul, independent de aparat). Aceeași culoare are „traduceri” diferite în fiecare limbă — și unele culori nu se pot traduce.</dd>
+<dt>Gamut</dt><dd>totalitatea culorilor pe care le poate reproduce un aparat. Ecranul (RGB) are un gamut mai mare decât hârtia (CMYK): verdele neon, portocaliul aprins, albastrul electric <strong>nu există</strong> în cerneală. Când exporți RGB → CMYK, aceste culori sunt „împinse” spre cea mai apropiată culoare tipăribilă — de aceea verdele a devenit „de brad”.</dd>
+<dt>Culoare spot (Pantone)</dt><dd>o cerneală specială, gata amestecată în fabrică (de exemplu Pantone 485 = roșul Coca-Cola), tipărită separat de CMYK. Se folosește pentru logouri care trebuie să iasă <em>exact</em> la fel oriunde, sau pentru auriu/argintiu/neon, care nu se pot face din CMYK.</dd>
+</dl>
+<h2>De ce numerele CMYK nu ajung: profilele ICC</h2>
+<p><strong>Problema:</strong> „C100 M0 Y0 K0” nu descrie o culoare fixă. Pe hârtie lucioasă e un cyan viu; pe hârtie de ziar e un albastru spălăcit — aceeași cerneală, altă hârtie, alt rezultat. Nici RGB-ul nu e fix: același „255, 0, 0” arată diferit pe două ecrane.</p>
+<p><strong>Soluția:</strong> un <strong>profil ICC</strong> — un fișier <code>.icc</code> care descrie <strong>cum reproduce culorile un anumit aparat sau proces</strong>. A fost obținut măsurând, cu un aparat numit spectrofotometru, sute de mostre tipărite pe hârtia respectivă: „pe această hârtie, C100 dă <em>această</em> culoare reală”. Cu profilul, programul poate (1) traduce corect RGB → CMYK pentru hârtia aleasă și (2) arăta pe ecran o <strong>simulare</strong> a tiparului (soft proof), ca să vezi <em>înainte</em> că verdele neon nu va ieși.</p>
+<dl class="def">
+<dt>ICC</dt><dd>International Color Consortium — grupul de firme (Adobe, Apple, HP, Kodak…) care a stabilit în 1993 formatul profilelor, ca toate programele să le înțeleagă.</dd>
+<dt>Profil de intrare / de ieșire</dt><dd>profilul de intrare spune de unde vine culoarea (sRGB al pozei din telefon); profilul de ieșire spune unde merge (FOGRA39 al tipografiei). Conversia trece prin Lab, „limba comună”.</dd>
+<dt>Soft proof</dt><dd>simularea pe ecran a rezultatului tipărit (Scribus: View → Preview Mode + Color Management pornit). Nu e perfectă — ecranul nu e hârtie — dar arată culorile care se vor pierde.</dd>
+<dt>Spectrofotometru</dt><dd>aparat care măsoară exact culoarea unei suprafețe (ce lungimi de undă reflectă). Cu el se fac profilele și se verifică tiparul.</dd>
+</dl>
+<h2>Profilele pe care le întâlnești</h2>
 <div class="tw"><table>
 <tr><th>Profil</th><th>Standard</th><th>Pentru ce</th><th>Ce presupune</th></tr>
-<tr><td><strong>Coated FOGRA39</strong> (ISO Coated v2)</td><td>ISO 12647‑2, hârtie tip 1–2</td><td><strong>offset pe hârtie cretată</strong> (lucioasă/mată): afișe, pliante, reviste — cel mai cerut în Europa</td><td>acoperire totală de cerneală 330 %</td></tr>
+<tr><td><strong>Coated FOGRA39</strong> (ISO Coated v2)</td><td>ISO 12647‑2, hârtie tip 1–2</td><td><strong>offset pe hârtie cretată</strong> (lucioasă/mată): afișe, pliante, reviste — cel mai cerut în Europa</td><td>acoperire totală de cerneală (TAC) 330 %</td></tr>
 <tr><td><strong>PSO Coated v3</strong> (FOGRA51)</td><td>ISO 12647‑2:2013</td><td>același lucru, versiunea nouă (hârtii cu înălbitori optici)</td><td>TAC 300 %; tipografiile moderne migrează spre el</td></tr>
-<tr><td><strong>PSO Uncoated ISO12647</strong> (FOGRA47) / <strong>PSO Uncoated v3</strong> (FOGRA52)</td><td>hârtie tip 4</td><td><strong>hârtie necretată</strong> (offset, hârtie de copiator, kraft)</td><td>culorile ies mai șterse; TAC ≈ 300 %</td></tr>
-<tr><td><strong>ISO Newspaper 26v4</strong></td><td>hârtie de ziar</td><td>tipar rotativ ziare</td><td>TAC 240 %, negru mai slab</td></tr>
-<tr><td><strong>U.S. Web Coated (SWOP) v2</strong></td><td>SWOP (SUA)</td><td>tipar american; apare implicit în programele Adobe</td><td><strong>nepotrivit</strong> pentru tipografiile din România / UE</td></tr>
+<tr><td><strong>PSO Uncoated ISO12647</strong> (FOGRA47) / <strong>PSO Uncoated v3</strong> (FOGRA52)</td><td>hârtie tip 4</td><td><strong>hârtie necretată</strong> (offset obișnuit, hârtie de copiator, kraft)</td><td>culorile ies mai șterse; TAC ≈ 300 %</td></tr>
+<tr><td><strong>ISO Newspaper 26v4</strong></td><td>hârtie de ziar</td><td>tipar rotativ de ziare</td><td>TAC 240 %, negru mai slab</td></tr>
+<tr><td><strong>U.S. Web Coated (SWOP) v2</strong></td><td>SWOP (SUA)</td><td>tipar american; apare <em>implicit</em> în programele Adobe</td><td><strong>nepotrivit</strong> pentru tipografiile din România / UE — se schimbă</td></tr>
 <tr><td><strong>sRGB IEC61966‑2.1</strong></td><td>ecran, web</td><td>spațiul RGB standard al ecranelor și browserelor</td><td>orice imagine pentru ecran; pozele din telefon sunt de obicei sRGB</td></tr>
-<tr><td><strong>Adobe RGB (1998)</strong></td><td>fotografie</td><td>gamut mai larg decât sRGB</td><td>dacă e salvată ca sRGB fără conversie, culorile se strică</td></tr>
+<tr><td><strong>Adobe RGB (1998)</strong></td><td>fotografie profesională</td><td>gamut mai larg decât sRGB</td><td>dacă e salvată ca sRGB fără conversie, culorile se strică</td></tr>
 </table></div>
 <dl class="def">
-<dt>Cretată / necretată</dt><dd>(coated / uncoated) hârtia cretată are un strat de caolin, cerneala rămâne la suprafață → culori vii; cea necretată absoarbe cerneala → culori mate, mai închise.</dd>
-<dt>Gamut</dt><dd>mulțimea culorilor pe care le poate reproduce un dispozitiv. Ecranul (RGB) are gamut mai mare decât tiparul (CMYK): un verde neon de pe ecran <strong>nu există</strong> pe hârtie.</dd>
-<dt>TAC</dt><dd>Total Area Coverage — suma maximă C + M + Y + K pe un punct. Peste limită cerneala nu se usucă și se pătează. De aceea negrul bogat e <strong>60/40/40/100 = 240 %</strong>, nu 100/100/100/100 = 400 %.</dd>
-<dt>Câștig de punct (dot gain)</dt><dd>punctele de raster se lățesc când cerneala intră în hârtie; profilul îl compensează.</dd>
-<dt>Intenție de redare</dt><dd>(rendering intent) ce se face cu culorile care nu încap în gamutul destinației: <strong>Perceptual</strong> — comprimă totul proporțional, bun pentru fotografii; <strong>Relative colorimetric</strong> — păstrează exact culorile care încap și le taie pe celelalte, bun pentru grafică și logouri.</dd>
-<dt>Output intent</dt><dd>în PDF/X, profilul de destinație este <strong>înglobat în PDF</strong> ca declarație: „acest document a fost pregătit pentru FOGRA39”. Tipografia îl citește și știe cum a fost gândit.</dd>
+<dt>Cretată / necretată</dt><dd>(coated / uncoated) hârtia cretată are un strat fin de caolin (o argilă albă); cerneala rămâne la suprafață → culori vii, contrast mare. Hârtia necretată (ca cea de copiator) absoarbe cerneala → culori mate, mai închise, punctele se lățesc.</dd>
+<dt>Offset</dt><dd>procedeul de tipar folosit pentru tiraje mari (reviste, afișe, cărți): imaginea trece de pe o placă pe un cilindru de cauciuc și de acolo pe hârtie. Cele 4 culori se tipăresc pe rând.</dd>
+<dt>TAC</dt><dd>Total Area Coverage — suma maximă C + M + Y + K pe un punct. Peste limită, cerneala nu se usucă, se pătează și trece pe coala următoare. De aceea <strong>negrul bogat</strong> e 60/40/40/100 = 240 %, nu 100/100/100/100 = 400 %.</dd>
+<dt>Negru bogat (rich black)</dt><dd>negru făcut din K100 plus puțin C, M, Y — mai adânc și mai catifelat decât K100 singur, care pare gri închis pe suprafețe mari. Se folosește pe fundaluri; pe <strong>text mic se folosește K100 simplu</strong>, ca să nu apară franjuri colorate dacă cele 4 culori nu se suprapun perfect (registru).</dd>
+<dt>Câștig de punct (dot gain)</dt><dd>punctele de raster se lățesc când cerneala intră în hârtie: un punct de 50 % ajunge 65–70 % pe hârtie necretată. Profilul îl compensează.</dd>
+<dt>Intenție de redare</dt><dd>(rendering intent) ce face programul cu culorile care nu încap în gamutul de ieșire: <strong>Perceptual</strong> — comprimă toată gama proporțional, culorile își păstrează relațiile între ele; bun pentru fotografii. <strong>Relative colorimetric</strong> — păstrează exact culorile care încap și le taie pe celelalte la marginea gamutului; bun pentru grafică și logouri.</dd>
+<dt>Output intent</dt><dd>în PDF/X, profilul de tipar e <strong>înglobat în PDF</strong> ca declarație: „acest document a fost pregătit pentru FOGRA39”. Tipografia îl citește și știe cum a fost gândit.</dd>
 </dl>
-<div class="box task"><div class="t">Regula practică</div><p>Se întreabă tipografia: <em>„ce profil vreți?”</em>. Dacă nu răspunde: <strong>Coated FOGRA39</strong> pentru hârtie lucioasă sau mată, <strong>PSO Uncoated</strong> pentru hârtie obișnuită. Profilele FOGRA se descarcă gratuit de la <a href="https://www.eci.org/en/downloads" target="_blank" rel="noopener">eci.org</a> și se copiază în <code>C:\Windows\System32\spool\drivers\color\</code>; Scribus le vede după repornire (<em>File → Preferences → Color Management</em>).</p></div>
-
-<h2 id="c7">7. Verificarea înainte de tipar: preflight</h2>
-<p><strong>Preflight</strong> = controlul tehnic al fișierului înainte de a pleca la tipar, ca verificarea avionului înainte de decolare. Tipografia îl face oricum; dacă găsește probleme, lucrarea se întoarce și se pierde o zi. Mai bine se face în școală.</p>
-<div class="tw"><table>
-<tr><th>Ce se verifică</th><th>Valoarea corectă</th><th>Unde se vede</th></tr>
-<tr><td>Fonturi</td><td>toate <strong>incorporate</strong> (Embedded / Embedded Subset)</td><td>Acrobat Reader: <em>File → Properties → Fonts</em></td></tr>
-<tr><td>Rezoluția imaginilor</td><td><strong>≥ 300 dpi</strong> la dimensiunea finală (≥ 100 dpi doar la ecran)</td><td>Scribus: Preflight Verifier; Acrobat Pro: Output Preview</td></tr>
-<tr><td>Spațiul de culoare</td><td><strong>CMYK</strong> + profil ICC (Coated FOGRA39); fără RGB; negru pe text K100, nu negru RGB</td><td>Scribus: Preflight; export cu „Output intended for: Printer”</td></tr>
-<tr><td>Bleed</td><td><strong>3 mm</strong> pe toate laturile, „Use document bleeds” bifat</td><td>Acrobat: <em>Properties → Description → Page size</em> (303 × 426 mm pentru A3 cu bleed)</td></tr>
-<tr><td>Format de pagină</td><td>exact formatul cerut (A3 = 297 × 420 mm), fără obiecte uitate în afara paginii</td><td>Scribus: Preflight raportează „object is not on a page”</td></tr>
-<tr><td>Text și linii fine</td><td>text ≥ 6 pt; linii ≥ 0,25 pt (sub această grosime nu se tipăresc)</td><td>Scribus: Preflight</td></tr>
-<tr><td>Versiunea PDF</td><td>cea cerută de tipografie — de obicei <strong>PDF/X‑1a</strong></td><td>Acrobat: <em>Properties → Description → PDF Version</em></td></tr>
-<tr><td>Transparențe</td><td>aplatizate (X‑1a) sau permise (X‑4)</td><td>Scribus le aplatizează automat la X‑1a</td></tr>
-<tr><td>Pagini</td><td>pagini separate, nu „spread” (față + verso lipite); număr corect de pagini</td><td>Scribus: Export → General</td></tr>
-</table></div>
-<h3>Setările de export în Scribus (File → Export → Save as PDF)</h3>
-<ul>
-<li><strong>General:</strong> Compatibility <strong>PDF/X‑1a</strong>; Compression: Lossless (sau Maximum quality); Image resolution 300 dpi; pagini separate.</li>
-<li><strong>Fonts:</strong> toate fonturile în lista <strong>Embed</strong> (nu Outline, nu Subset la fonturi cu diacritice problematice).</li>
-<li><strong>Color:</strong> Output intended for <strong>Printer</strong>; Solid colors și Images cu profilul <strong>Coated FOGRA39</strong> (ISO 12647‑2); Rendering intent: Relative colorimetric.</li>
-<li><strong>Pre‑Press:</strong> <strong>Use document bleeds</strong>, <strong>Crop marks</strong>, Registration marks; offset 3 mm.</li>
-<li><strong>Preflight Verifier</strong> (se deschide automat înainte de export): zero erori roșii înainte de a apăsa Export.</li>
+<div class="box task"><div class="t">Regula practică</div><p>Întrebi tipografia: <em>„ce profil vreți?”</em>. Dacă nu răspunde: <strong>Coated FOGRA39</strong> pentru hârtie lucioasă sau mată, <strong>PSO Uncoated</strong> pentru hârtie obișnuită. Profilele FOGRA se descarcă gratuit de la <a href="https://www.eci.org/en/downloads" target="_blank" rel="noopener">eci.org</a> (pachetul „ECI offset profiles”) și se copiază în <code>C:\Windows\System32\spool\drivers\color\</code>; Scribus le vede după repornire (<em>File → Preferences → Color Management</em>).</p></div>
+<div class="box note"><div class="t">De reținut din lecția 5</div><p>Ecranul adună lumină (RGB), tiparul scade lumină (CMYK); tiparul are mai puține culori. Profilul ICC spune cum arată cu adevărat cerneala pe o anumită hârtie și lasă programul să traducă și să simuleze. Pentru Europa: FOGRA39 (cretată) / PSO Uncoated (necretată). Negru bogat pe fundal, K100 pe text.</p></div>
+</div>
+<div class="pane ws-pane" data-tab="fisa" data-id="f5">
+<div class="ws"><h2>Fișa 5 · Culorile afișului, pregătite pentru hârtie</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box task"><div class="t">Obiectiv</div><p>Să vezi ce culori se pierd la trecerea RGB → CMYK, să pornești gestiunea culorii în Scribus cu profilul potrivit și să corectezi paleta afișului.</p></div>
+<h3>Ce ai nevoie</h3><ul><li>Scribus cu profilul Coated FOGRA39 instalat (de pe eci.org) — verifică în Preferences → Color Management;</li><li>GIMP sau Inkscape; afișul tău din lecția 4;</li><li>o mostră tipărită color (o revistă lucioasă și un ziar) pentru comparație.</li></ul>
+<h3>Pași</h3>
+<ul class="chk">
+<li><input type="checkbox"><span><strong>Culori imposibile:</strong> în Scribus, Edit → Colors and Fills → New: creează 4 culori RGB: verde neon (0, 255, 0), portocaliu (255, 120, 0), albastru electric (0, 80, 255), roz (255, 0, 200). În fereastra de culoare, Scribus arată un semn de avertizare când culoarea e în afara gamutului CMYK. Notează în tabelul 1.</span></li>
+<li><input type="checkbox"><span>File → Preferences → Color Management: bifează „Activate Color Management”; RGB Images: sRGB; CMYK Images și Printer: <strong>Coated FOGRA39</strong>; Rendering intent: Relative Colorimetric. Apoi <em>View → Preview Mode</em> și <em>View → Color Management</em> (Ctrl+Shift+C) pornit/oprit: privește verdele neon în ambele stări. (întrebarea 1)</span></li>
+<li><input type="checkbox"><span>Convertește fiecare culoare RGB în CMYK (Edit → Colors and Fills → Edit → schimbă modelul pe CMYK): notează valorile rezultate și cât s-a schimbat vizual (1 = deloc, 5 = altă culoare).</span></li>
+<li><input type="checkbox"><span><strong>Negrul:</strong> desenează două dreptunghiuri mari alături: unul K100, unul „Negru bogat” (60/40/40/100). Compară în Preview Mode. Scrie un text de 8 pt pe fiecare culoare și mărește la 800 %. (întrebarea 2)</span></li>
+<li><input type="checkbox"><span>Adună TAC-ul culorilor din paleta afișului tău (C+M+Y+K). Corectează orice culoare peste 300 %. Tabelul 2.</span></li>
+<li><input type="checkbox"><span>Pune poza principală prin GIMP: View → Color Management → Soft-Proofing profile FOGRA39 și „Mark out of gamut colors”: cât la sută din poză se colorează gri (culori imposibile)? Notează.</span></li>
 </ul>
-<p>Unelte gratuite pentru verificare: <strong>Scribus – Preflight Verifier</strong>, <strong>Acrobat Reader</strong> (Properties), <strong>PDF24 Tools</strong> (validare PDF/A, informații fișier), <strong>qpdf</strong> / <strong>pdfinfo</strong> în linie de comandă, <strong>veraPDF</strong> (validator oficial PDF/A).</p>
+<h3>1. Culorile RGB → CMYK</h3>
+<div class="tw"><table><tr><th>Culoare RGB</th><th>Avertizare gamut în Scribus?</th><th>Valori CMYK după conversie</th><th>Cât s-a schimbat (1–5)</th></tr>
+<tr><td>verde neon 0/255/0</td><td><input></td><td><input></td><td><input></td></tr><tr><td>portocaliu 255/120/0</td><td><input></td><td><input></td><td><input></td></tr><tr><td>albastru electric 0/80/255</td><td><input></td><td><input></td><td><input></td></tr><tr><td>roz 255/0/200</td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<h3>2. Paleta afișului</h3>
+<div class="tw"><table><tr><th>Culoarea</th><th>C</th><th>M</th><th>Y</th><th>K</th><th>TAC = C+M+Y+K</th><th>≤ 300 %?</th><th>Unde e folosită</th></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<h3>Întrebări de control</h3>
+<div class="q"><p>1. Ce s-a întâmplat cu verdele neon când ai pornit Preview Mode cu gestiunea culorii? Cum ar fi ajutat-o asta pe Ana din poveste?</p><textarea></textarea></div>
+<div class="q"><p>2. Care negru arată mai bine pe suprafața mare? Pe care negru e mai sigur textul de 8 pt și de ce?</p><textarea></textarea></div>
+<div class="q"><p>3. Compară revista lucioasă cu ziarul: aceleași culori? Ce profil ar folosi fiecare tipografie și de ce?</p><textarea></textarea></div>
+</div></div>
+</section>
 
-<h2 id="c8">8. PDF-ul interactiv</h2>
-<p>Pentru ecran, PDF-ul poate face lucruri pe care hârtia nu le poate: legătura cu temele anterioare (carte de vizită digitală, invitație, portofoliu).</p>
+<!-- ======================= 6. PREFLIGHT ======================= -->
+<section class="lectie" data-title="Verificarea și exportul pentru tipar (preflight)" hidden>
+<div class="top"><div><span class="eyebrow">Lecția 6 · 1 oră</span><h1>Verificarea și exportul pentru tipar: preflight</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+<div class="pane on" data-tab="lectie">
+<div class="box story"><div class="t">Ziua pierdută</div><p>Afișul a plecat vineri la 16:00. Luni la 9:00 a venit e-mailul tipografiei: „Font neincorporat, două imagini sub 150 dpi, lipsă bleed pe latura de jos. Retrimiteți.” Evenimentul era miercuri. Toate cele trei probleme s-ar fi văzut vineri, în 2 minute, cu un singur clic.</p></div>
+<h2>Ce este preflight</h2>
+<p><strong>Preflight</strong> = „înainte de zbor”: controlul tehnic pe care piloții îl fac avionului înainte de decolare, după o listă. În tipar înseamnă <strong>controlul fișierului înainte să plece la tipografie</strong>, tot după o listă. Tipografia îl face oricum; dacă găsește probleme, lucrarea se întoarce și se pierde o zi (sau, mai rău, nu găsește, și se pierd 500 de afișe).</p>
+<h2>Lista de verificare</h2>
+<div class="tw"><table>
+<tr><th>Ce se verifică</th><th>Valoarea corectă</th><th>Ce se întâmplă dacă nu</th><th>Unde se vede</th></tr>
+<tr><td><strong>Fonturi</strong></td><td>toate <strong>incorporate</strong> (Embedded / Embedded Subset)</td><td>tipografia n-are fontul → alt font, text mutat</td><td>Acrobat Reader: File → Properties → Fonts</td></tr>
+<tr><td><strong>Rezoluția imaginilor</strong></td><td><strong>≥ 300 dpi</strong> la dimensiunea finală</td><td>poze pixelate, neclare</td><td>Scribus: Preflight Verifier; Acrobat Pro: Output Preview</td></tr>
+<tr><td><strong>Spațiul de culoare</strong></td><td><strong>CMYK</strong> + profil (FOGRA39); fără RGB; negru pe text K100</td><td>culori schimbate, text negru cu franjuri colorate</td><td>Scribus: Preflight; export cu „Output intended for: Printer”</td></tr>
+<tr><td><strong>Bleed</strong></td><td><strong>3 mm</strong> pe toate laturile, „Use document bleeds” bifat</td><td>fir alb pe margine</td><td>Acrobat: Properties → Page size = 303 × 426 mm (A3 + bleed)</td></tr>
+<tr><td><strong>Format de pagină</strong></td><td>exact formatul cerut; fără obiecte uitate în afara paginii</td><td>lucrare la alt format sau elemente lipsă</td><td>Scribus: Preflight raportează „object is not on a page”</td></tr>
+<tr><td><strong>Text și linii fine</strong></td><td>text ≥ 6 pt; linii ≥ 0,25 pt</td><td>text ilizibil, linii care dispar</td><td>Scribus: Preflight</td></tr>
+<tr><td><strong>Versiunea PDF</strong></td><td>cea cerută — de obicei <strong>PDF/X‑1a</strong></td><td>tipografia refuză fișierul</td><td>Acrobat: Properties → Description → PDF Version</td></tr>
+<tr><td><strong>Transparențe</strong></td><td>aplatizate (X‑1a) sau permise (X‑4)</td><td>umbre care dispar sau devin pătrate negre</td><td>Scribus le aplatizează automat la X‑1a</td></tr>
+<tr><td><strong>Pagini</strong></td><td>pagini separate (nu spread); număr corect</td><td>impunere greșită la tipografie</td><td>Scribus: Export → General</td></tr>
+<tr><td><strong>Stratul de notițe</strong></td><td>marcat „nu se tipărește” sau șters</td><td>instrucțiunile tale apar pe afiș</td><td>Windows → Layers, coloana cu imprimanta</td></tr>
+</table></div>
 <dl class="def">
-<dt>Formular</dt><dd>câmpuri de text, casete de bifat, liste, butoane; se completează în Acrobat Reader și se salvează. Se creează în LibreOffice (Form Controls) sau Acrobat Pro.</dd>
-<dt>Linkuri și cuprins</dt><dd>hiperlegături spre pagini, site-uri, e-mail; <strong>bookmarks</strong> = cuprinsul din panoul lateral, generat automat din titluri (Word, LibreOffice, Scribus).</dd>
-<dt>Semnătura digitală</dt><dd>un certificat criptografic dovedește <strong>cine</strong> a semnat și că fișierul <strong>nu a fost modificat</strong> după semnare. Diferită de o poză cu semnătura de mână (care nu dovedește nimic). Se cere la contracte, la documente oficiale.</dd>
-<dt>Parolă și permisiuni</dt><dd>parolă de deschidere (criptare AES) sau doar restricții: fără tipărire, fără copiere de text, fără modificare. Restricțiile fără parolă de deschidere sunt slabe — orice program serios le ignoră.</dd>
-<dt>Multimedia și atașamente</dt><dd>video, audio, modele 3D, fișiere atașate (de exemplu sursa .sla lângă PDF). Toate interzise în PDF/X și PDF/A.</dd>
+<dt>Aplatizare (flattening)</dt><dd>transformarea transparențelor (umbre, obiecte semitransparente, degradeuri cu transparență) în obiecte opace, „decupate” unele din altele. PDF 1.3 (baza lui X‑1a) nu știe transparență, deci Scribus le aplatizează la export. Uneori rezultatul are mici linii albe (stitching) — se verifică la 400 %.</dd>
+<dt>Spread</dt><dd>două pagini alăturate ca în revistă (stânga + dreapta) exportate ca una singură. Tipografia vrea <em>pagini separate</em>, pentru că ea le aranjează pe coală (impunere).</dd>
+<dt>Impunere</dt><dd>aranjarea paginilor pe coala mare de tipar, astfel încât după împăturire și tăiere să iasă în ordine. E treaba tipografiei, nu a ta.</dd>
+<dt>RIP</dt><dd>Raster Image Processor — calculatorul tipografiei care transformă PDF-ul în punctele de raster pentru fiecare culoare. Un RIP vechi nu înțelege PDF/X‑4 cu transparențe — de aceea X‑1a e „sigur”.</dd>
 </dl>
-<div class="box warn"><div class="t">Nu se amestecă</div><p>Un afiș pentru tipar <strong>nu are linkuri și formulare</strong>; un formular pentru ecran <strong>nu are bleed și CMYK</strong>. Din același proiect Scribus se exportă două fișiere diferite, cu setări diferite.</p></div>
+<h2>Exportul din Scribus, pas cu pas (File → Export → Save as PDF)</h2>
+<ol>
+<li><strong>Preflight Verifier</strong> se deschide singur înainte de fereastra de export. Profilul de verificare: <strong>PDF/X‑1a</strong>. Zero erori roșii înainte de a merge mai departe; avertismentele galbene se citesc și se judecă.</li>
+<li>Tab <strong>General</strong>: Compatibility <strong>PDF/X‑1a</strong>; pagini: All; Compression method <em>Lossless – Zip</em> (sau Automatic cu Quality Maximum); Resolution for EPS/PS: 300 dpi; „Maximum image resolution” 300 dpi bifat (reduce doar pozele <em>peste</em> 300, nu le mărește).</li>
+<li>Tab <strong>Fonts</strong>: toate fonturile în lista din dreapta, <strong>Embed</strong>. Nu „Outline” (transformă literele în curbe — textul nu mai e text) decât dacă tipografia cere.</li>
+<li>Tab <strong>Color</strong>: Output intended for <strong>Printer</strong>; Solid colors: Coated FOGRA39; Images: Coated FOGRA39; Rendering intent: Relative colorimetric.</li>
+<li>Tab <strong>Pre‑Press</strong>: <strong>Crop marks</strong>, <strong>Registration marks</strong>, Bleed marks; Offset 3 mm; <strong>Use document bleeds</strong> bifat; Output profile (PDF/X): Coated FOGRA39; Info string: numele lucrării.</li>
+<li>Save. Apoi <strong>verifică rezultatul</strong> în Acrobat Reader: Properties (versiune, dimensiune pagină, fonturi), mărire 400 % pe o poză și pe un text.</li>
+</ol>
+<h2>Erorile tipice din Preflight Verifier și ce înseamnă</h2>
+<div class="tw"><table>
+<tr><th>Mesajul (engleză, ca în program)</th><th>Ce înseamnă</th><th>Cum se repară</th></tr>
+<tr><td>Image resolution below 300 dpi</td><td>poza e prea mică pentru cât e întinsă</td><td>poză mai mare sau micșorezi cadrul</td></tr>
+<tr><td>Object is not on a page</td><td>ai uitat ceva pe masa de lucru, în afara paginii</td><td>șterge sau mută obiectul pe pagină</td></tr>
+<tr><td>Text overflow</td><td>textul nu încape în cadru; ce nu se vede nu se tipărește</td><td>mărește cadrul sau micșorează textul</td></tr>
+<tr><td>Missing image</td><td>Scribus nu mai găsește fișierul pozei (mutat/redenumit)</td><td>Extras → Manage Images → relink</td></tr>
+<tr><td>Object colorspace is not CMYK</td><td>o culoare RGB sau o poză RGB (cu X‑1a)</td><td>culoare CMYK; poza se convertește la export cu profilul</td></tr>
+<tr><td>Transparency used</td><td>obiect semitransparent într-un export X‑1a</td><td>se aplatizează automat; verifică rezultatul</td></tr>
+<tr><td>Object is placed on a non-printing layer</td><td>ceva util e pe stratul de notițe</td><td>mută-l pe stratul corect</td></tr>
+<tr><td>Font not embedded / Font is not available</td><td>font lipsă sau cu licență care interzice incorporarea</td><td>înlocuiește fontul</td></tr>
+</table></div>
+<p>Unelte gratuite pentru verificare: <strong>Scribus – Preflight Verifier</strong>, <strong>Acrobat Reader</strong> (Properties), <strong>PDF24 Tools</strong> (informații și validare), <strong>qpdf</strong> / <strong>pdfinfo</strong> / <strong>pdffonts</strong> în linie de comandă, <strong>veraPDF</strong> (validator oficial PDF/A).</p>
+<div class="box note"><div class="t">De reținut din lecția 6</div><p>Zece lucruri pe listă, două minute de verificat, o zi salvată. Preflight Verifier fără erori roșii → export PDF/X‑1a cu bleed și semne → verificare în Acrobat Reader. Niciodată „am trimis, sper că e bine”.</p></div>
+</div>
+<div class="pane ws-pane" data-tab="fisa" data-id="f6">
+<div class="ws"><h2>Fișa 6 · Trei PDF-uri din același afiș</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box task"><div class="t">Obiectiv</div><p>Din afișul tău se exportă trei PDF-uri (ecran, tipar, arhivă), se compară, se verifică fișierul de tipar și se corectează erorile provocate. Se predă PDF/X‑1a corect + fișa.</p></div>
+<h3>Ce ai nevoie</h3><ul><li><code>afis_nume.sla</code> din lecțiile 4–5; Scribus, Acrobat Reader, Notepad++, LibreOffice;</li><li>Gemini sau Claude pentru pasul 8.</li></ul>
+<h3>Pași</h3>
+<ul class="chk">
+<li><input type="checkbox"><span><strong>Export 1 – ecran:</strong> PDF 1.5; Compression Automatic / Maximum, 100 dpi; Color: Output intended for <em>Screen / Web</em>. Nume: <code>afis_ecran.pdf</code>.</span></li>
+<li><input type="checkbox"><span><strong>Export 2 – tipar:</strong> exact pașii 1–5 din lecție (PDF/X‑1a, Lossless, 300 dpi, Embed, Printer + FOGRA39, bleeds + crop marks). Nume: <code>afis_tipar.pdf</code>. Dacă Preflight arată erori, notează-le în tabelul 3 și exportă oricum (le repari la pasul 7).</span></li>
+<li><input type="checkbox"><span><strong>Export 3 – arhivă:</strong> deschide <code>afis_ecran.pdf</code> în LibreOffice Draw → File → Export as PDF → <em>Archive (PDF/A‑2b)</em>. Nume: <code>afis_arhiva.pdf</code>. (Scribus nu exportă PDF/A.)</span></li>
+<li><input type="checkbox"><span>Completează <strong>tabelul 1</strong>: dimensiunea fișierelor și cum arată o poză la 800 %.</span></li>
+<li><input type="checkbox"><span>Deschide <code>afis_tipar.pdf</code> în Acrobat Reader → Properties: <strong>tabelul 2</strong>.</span></li>
+<li><input type="checkbox"><span><strong>Strică intenționat</strong> o copie a machetei: o poză de 72 dpi întinsă pe jumătate de pagină; un text la 1 mm de margine; o culoare RGB; fundalul retras la marginea paginii (fără bleed); un cadru de text cu text care nu încape; un obiect lăsat lângă pagină. Rulează Preflight Verifier (Windows → Preflight Verifier, profil PDF/X‑1a): <strong>tabelul 3</strong>.</span></li>
+<li><input type="checkbox"><span>Repară pe rând fiecare eroare; scrie ce ai schimbat. Exportă din nou <code>afis_tipar.pdf</code> fără nicio eroare.</span></li>
+<li><input type="checkbox"><span>Copiază un mesaj de eroare din Preflight în Gemini/Claude, cere explicația și remedierea, apoi compară cu ce ai făcut tu (întrebarea 1).</span></li>
+<li><input type="checkbox"><span>Bifează lista finală și predă <code>afis_tipar.pdf</code> + fișa.</span></li>
+</ul>
+<h3>1. Cele trei exporturi</h3>
+<div class="tw"><table><tr><th>Fișier</th><th>Setări (versiune, dpi, comprimare, culoare)</th><th>Dimensiune (MB)</th><th>Poza la 800 %</th><th>Bleed și semne (da/nu)</th></tr>
+<tr><td class="mono">afis_ecran.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">afis_tipar.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">afis_arhiva.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<h3>2. Proprietățile fișierului de tipar</h3>
+<div class="tw"><table><tr><th>Proprietate</th><th>Valoare citită</th><th>Corect pentru tipar?</th></tr>
+<tr><td>PDF Version</td><td><input></td><td><input></td></tr><tr><td>Producer / Creator</td><td><input></td><td><input></td></tr><tr><td>Page size (mm) — cât ar trebui să fie A3 cu bleed?</td><td><input></td><td><input></td></tr><tr><td>Fonts: câte, toate Embedded?</td><td><input></td><td><input></td></tr><tr><td>Security</td><td><input></td><td><input></td></tr></table></div>
+<h3>3. Preflight: erori provocate și reparate</h3>
+<div class="tw"><table><tr><th>#</th><th>Ce am stricat</th><th>Mesajul Preflight Verifier (copiat)</th><th>Ce am schimbat ca să dispară</th></tr>
+<tr><td class="mono">1</td><td><input></td><td><input></td><td><input></td></tr><tr><td class="mono">2</td><td><input></td><td><input></td><td><input></td></tr><tr><td class="mono">3</td><td><input></td><td><input></td><td><input></td></tr><tr><td class="mono">4</td><td><input></td><td><input></td><td><input></td></tr><tr><td class="mono">5</td><td><input></td><td><input></td><td><input></td></tr><tr><td class="mono">6</td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<h3>4. Lista finală a fișierului predat</h3>
+<ul class="chk">
+<li><input type="checkbox"><span>PDF/X‑1a (Properties → PDF Version 1.3; „PDF/X‑1a:2001” în metadate)</span></li>
+<li><input type="checkbox"><span>toate fonturile Embedded</span></li>
+<li><input type="checkbox"><span>imagini ≥ 300 dpi, fără avertisment în Preflight</span></li>
+<li><input type="checkbox"><span>numai culori CMYK, output intent Coated FOGRA39</span></li>
+<li><input type="checkbox"><span>pagina 303 × 426 mm (A3 + 3 mm bleed) și semne de tăiere</span></li>
+<li><input type="checkbox"><span>textul la ≥ 5 mm de linia de tăiere</span></li>
+<li><input type="checkbox"><span>fără linkuri, formulare, straturi de notițe vizibile</span></li>
+</ul>
+<h3>Întrebări de control</h3>
+<div class="q"><p>1. Ce eroare ai dat AI-ului, ce a răspuns și unde a avut (sau nu) dreptate?</p><textarea></textarea></div>
+<div class="q"><p>2. Tipografia cere „PDF/X‑4, PSO Coated v3”. Ce schimbi la export față de ce ai făcut azi?</p><textarea></textarea></div>
+<div class="q"><p>3. Colegul îți trimite afișul ca PNG de 1920 × 1080 px „pentru tipar A3”. Ce îi răspunzi și de ce? (calculează dpi-ul)</p><textarea></textarea></div>
+</div></div>
+</section>
 
-<h2 id="c9">9. Test</h2>
-<div class="test"><ol>
+<!-- ======================= 7. INTERACTIV + PROIECT ======================= -->
+<section class="lectie" data-title="PDF-ul interactiv și proiectul final" hidden>
+<div class="top"><div><span class="eyebrow">Lecția 7 · 1 oră</span><h1>PDF-ul interactiv și proiectul final</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru · Proiect</button></div></div>
+<div class="pane on" data-tab="lectie">
+<div class="box story"><div class="t">Același pliant, două vieți</div><p>Pliantul liceului merge la tipografie în 2 000 de exemplare — dar și pe site, pe Facebook și pe WhatsApp-ul părinților. Pe hârtie, un link nu se poate apăsa; pe telefon, un bleed nu folosește la nimic. Din aceeași machetă se nasc două PDF-uri diferite.</p></div>
+<h2>Ce poate face un PDF pe ecran și nu poate pe hârtie</h2>
+<dl class="def">
+<dt>Linkuri</dt><dd>hiperlegături spre site, e-mail, telefon (<code>tel:</code>), sau spre altă pagină din același document. În Scribus: Insert → PDF Annotation → Link, sau, mai simplu, din Writer, unde orice adresă devine link la export.</dd>
+<dt>Cuprins (bookmarks)</dt><dd>lista de capitole din panoul lateral al cititorului; se generează automat din titlurile cu stil Heading (Writer: Export as PDF → General → „Export outlines”). La un document de 30 de pagini e obligatoriu.</dd>
+<dt>Formular</dt><dd>câmpuri de text, casete de bifat, liste, butoane. Se completează în Acrobat Reader și se salvează cu răspunsurile. Se creează în Writer (View → Toolbars → Form Controls) sau în Scribus (Insert → PDF Form Field). Așa sunt cererile de la ANAF sau formularele de înscriere.</dd>
+<dt>Semnătură digitală</dt><dd>un <strong>certificat</strong> (un fișier criptografic emis pe numele unei persoane) cu care se „sigilează” PDF-ul. Dovedește două lucruri: <strong>cine</strong> a semnat și că fișierul <strong>nu a fost modificat</strong> după semnare — dacă cineva schimbă o literă, Acrobat arată semnătura ca invalidă. Este cu totul altceva decât o <em>poză</em> cu semnătura de mână lipită în document, pe care oricine o poate copia și care nu dovedește nimic. În România, semnătura electronică calificată (certSIGN, DigiSign etc.) are valoarea semnăturii de mână.</dd>
+<dt>Parolă și permisiuni</dt><dd>parola de <em>deschidere</em> criptează fișierul (AES) — fără ea nu se vede nimic. <em>Permisiunile</em> („fără tipărire”, „fără copiere text”) fără parolă de deschidere sunt slabe: orice program serios le ignoră. Nu te baza pe ele ca să „protejezi” un afiș.</dd>
+<dt>Cod QR</dt><dd>puntea dintre hârtie și ecran: pătratul care, fotografiat cu telefonul, deschide un link. Se generează gratuit (Inkscape: Extensions → Render → Barcode → QR Code) și se pune <strong>ca vector</strong>, cel puțin 2 × 2 cm, cu contrast mare, în zona sigură. Se testează cu telefonul <em>înainte</em> de tipar.</dd>
+<dt>Multimedia și atașamente</dt><dd>video, audio, modele 3D, fișiere atașate (de exemplu, .sla lângă PDF). Toate interzise în PDF/X și PDF/A.</dd>
+</dl>
+<h2>Din aceeași machetă, două fișiere</h2>
+<div class="tw"><table>
+<tr><th>Setare</th><th>Pentru tipografie</th><th>Pentru ecran / telefon</th></tr>
+<tr><td>Standard / versiune</td><td>PDF/X‑1a</td><td>PDF 1.5–1.7</td></tr>
+<tr><td>Culoare</td><td>CMYK, Coated FOGRA39</td><td>RGB (sRGB) — pe ecran RGB arată mai viu</td></tr>
+<tr><td>Imagini</td><td>300 dpi, fără pierderi</td><td>100–150 dpi, JPEG bună → fișier de 1–3 MB</td></tr>
+<tr><td>Bleed, semne de tăiere</td><td>da</td><td>nu — ar arăta ciudat pe ecran</td></tr>
+<tr><td>Linkuri, QR, formular</td><td>nu (QR-ul rămâne, e imagine)</td><td>da: linkurile active, telefonul apelabil</td></tr>
+<tr><td>Pagini</td><td>separate, ca în machetă</td><td>pot fi și un „spread” — pliantul desfăcut, așa cum îl vezi în mână</td></tr>
+<tr><td>Fonturi</td><td>Embed</td><td>Embed (subset e suficient)</td></tr>
+<tr><td>Nume fișier</td><td><code>pliant_liceu_TIPAR_X1a.pdf</code></td><td><code>pliant_liceu_web.pdf</code></td></tr>
+</table></div>
+<h2>Pliantul: în C sau în Z?</h2>
+<div class="two">
+<div class="card"><div class="t">Pliere în C (roll fold)</div><p style="font-size:.95rem">Un panou se rulează înăuntru, coperta se închide peste el. Panoul care intră trebuie să fie <strong>mai îngust: 97 mm</strong>, celelalte 100 mm — altfel pliantul nu se închide. Ordinea de citire: față → interior stânga → interior mijloc → interior dreapta → clapă → spate.</p><pre style="font-size:.8rem">EXTERIOR           INTERIOR
+| 97  | 100 | 100 |   | 100 | 100 | 97  |
+|clapă|spate|FAȚĂ |   |  1  |  2  |  3  |</pre><p style="font-size:.9rem;margin:0">Șablon: <a href="scribus/sablon_pliant_trifold.py" download>sablon_pliant_trifold.py</a></p></div>
+<div class="card"><div class="t">Pliere în Z (acordeon)</div><p style="font-size:.95rem">Foaia se pliază în zig-zag; <strong>toate panourile egale, 99 mm</strong>. Interiorul e o suprafață continuă de 297 mm — se poate întinde o imagine sau un titlu peste toate trei panourile. Ordinea: față → int. 1 → 2 → 3 → mijloc → spate.</p><pre style="font-size:.8rem">EXTERIOR           INTERIOR
+| 99  | 99  | 99  |   | 99  | 99  | 99  |
+|spate|mijl.|FAȚĂ |   |  1  |  2  |  3  |</pre><p style="font-size:.9rem;margin:0">Șablon: <a href="scribus/sablon_pliant_Z.py" download>sablon_pliant_Z.py</a></p></div>
+</div>
+<dl class="def">
+<dt>Panou</dt><dd>una din cele trei „pagini” ale pliantului, delimitată de pliuri.</dd>
+<dt>Pliu</dt><dd>linia de îndoire. Textul se ține la <strong>≥ 5 mm de pliu</strong>, pentru că îndoirea nu cade exact pe linie, iar cerneala de pe pliu crapă uneori.</dd>
+<dt>Spread</dt><dd>aici: pliantul desfăcut, cele trei panouri alăturate, ca o singură pagină lată. Pentru tipar se dau paginile separate; pentru ecran, spread-ul e mai natural.</dd>
+</dl>
+<div class="box note"><div class="t">De reținut din lecția 7</div><p>Un PDF pentru tipar nu are linkuri și formulare; un PDF pentru ecran nu are bleed și CMYK. Aceeași machetă, două exporturi cu setări diferite. La pliantul în C, panoul care intră e 97 mm; în Z, toate 99 mm. QR-ul se testează înainte de tipar.</p></div>
+<h2>Testul unității</h2>
+<p>Se răspunde în scris, pe caiet sau pe foaie, fără materialele deschise.</p>
+<ol>
 <li>De ce un PDF arată la fel pe orice calculator, iar un fișier .docx nu?</li>
 <li>Ce standard se alege pentru: (a) un contract arhivat 20 de ani; (b) un afiș trimis la tipografie; (c) un manual pentru persoane nevăzătoare?</li>
 <li>Ce înseamnă bleed și cât este valoarea uzuală? Ce se întâmplă dacă lipsește?</li>
@@ -428,125 +830,68 @@ startxref
 <li>De ce negrul bogat este 60/40/40/100 și nu 100/100/100/100?</li>
 <li>Ce profil ICC se alege pentru un pliant tipărit pe hârtie cretată lucioasă la o tipografie din România?</li>
 <li>Ce diferență e între o semnătură digitală și o poză cu semnătura de mână introdusă în PDF?</li>
-</ol></div>
+<li>Care e diferența dintre vector și raster? Dă un exemplu din afișul tău pentru fiecare.</li>
+<li>Prin ce se deosebește un PDF făcut cu „Microsoft Print to PDF” de unul exportat din Scribus?</li>
+<li>Ce este un profil ICC și de ce „C100” nu înseamnă aceeași culoare pe orice hârtie?</li>
+<li>La pliantul în C, de ce un panou are 97 mm și nu 100?</li>
+<li>Ce înseamnă „text alternativ” și cine are nevoie de el?</li>
+</ol>
 </div>
-
-<!-- ============================ FIȘA ============================ -->
-<div class="pane ws-pane" data-tab="fisa" data-id="pdf-f1">
-<div class="ws" id="fisa">
-<h2 style="margin-top:0">Fișa de laborator · Trei PDF-uri din același afiș</h2>
+<div class="pane ws-pane" data-tab="fisa" data-id="f7">
+<div class="ws"><h2>Fișa 7 · Proiect: pliantul în două vieți</h2>
 <div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
-<div class="box task"><div class="t">Obiectiv</div><p>Din afișul realizat în Scribus se exportă trei PDF-uri (ecran, tipar, arhivă), se compară, se verifică fișierul de tipar și se corectează erorile găsite la preflight. La sfârșit se predă PDF/X‑1a corect + fișa completată.</p></div>
-<h3>Ce ai nevoie</h3>
-<ul>
-<li>afișul propriu în Scribus (.sla) — sau șablonul <a href="scribus/sablon_afis_A3.py" download>sablon_afis_A3.py</a> rulat cu <em>Script → Execute Script</em> (mai există <a href="scribus/sablon_pliant_trifold.py" download>pliant în C</a> și <a href="scribus/sablon_pliant_Z.py" download>pliant în Z</a>);</li>
-<li>Acrobat Reader, Notepad++ (sau VS Code), LibreOffice, browser;</li>
-<li>fișierul <a href="exemplu-minim.pdf" download>exemplu-minim.pdf</a>;</li>
-<li>Gemini sau Claude pentru pasul 6.</li>
-</ul>
+<div class="box task"><div class="t">Cerințele clientului</div><p>Liceul vrea un pliant A4 în trei (tema: prezentarea liceului / a unei specializări / a unui eveniment). Livrare: (1) <strong>PDF/X‑1a pentru tipografie</strong> — hârtie cretată lucioasă 170 g, pliere în C sau în Z (la alegere); (2) <strong>PDF pentru site și telefon</strong>, sub 3 MB, cu linkuri active și un cod QR spre site; (3) fișa aceasta, cu raportul de verificare.</p></div>
 <h3>Pași</h3>
 <ul class="chk">
-<li><input type="checkbox"><span><strong>Export 1 – ecran:</strong> File → Export → Save as PDF; Compatibility PDF 1.5; Compression Automatic / Maximum, 100 dpi; Color: Output intended for <em>Screen / Web</em>. Nume: <code>afis_ecran.pdf</code>.</span></li>
-<li><input type="checkbox"><span><strong>Export 2 – tipar:</strong> Compatibility <strong>PDF/X‑1a</strong>; Lossless; 300 dpi; Fonts: toate Embed; Color: Printer, Coated FOGRA39; Pre‑Press: Use document bleeds + Crop marks. Nume: <code>afis_tipar.pdf</code>. Dacă Preflight Verifier arată erori, notează-le la tabelul 4 și exportă oricum (le repari la pasul 5).</span></li>
-<li><input type="checkbox"><span><strong>Export 3 – arhivă:</strong> deschide <code>afis_ecran.pdf</code> în LibreOffice Draw → File → Export as PDF → bifează <em>Archive (PDF/A)</em>, alege PDF/A‑2b. Nume: <code>afis_arhiva.pdf</code>.</span></li>
-<li><input type="checkbox"><span>Completează <strong>tabelul 1</strong> cu dimensiunea celor trei fișiere (clic dreapta → Properties) și cum arată o fotografie la mărire 800 % în Acrobat Reader.</span></li>
-<li><input type="checkbox"><span>Deschide <code>afis_tipar.pdf</code> în Acrobat Reader → File → Properties și completează <strong>tabelul 2</strong>.</span></li>
-<li><input type="checkbox"><span><strong>Autopsia:</strong> deschide <code>exemplu-minim.pdf</code>, apoi <code>afis_ecran.pdf</code> în Notepad++ (Ctrl+F pentru căutare) și completează <strong>tabelul 3</strong>.</span></li>
-<li><input type="checkbox"><span><strong>Strică intenționat</strong> o copie a afișului: o imagine de 72 dpi întinsă pe jumătate de pagină, un text la 1 mm de margine, o culoare RGB, fundalul retras la marginea paginii (fără bleed). Rulează Preflight Verifier (Windows → Preflight Verifier, profil PDF/X‑1a) și completează <strong>tabelul 4</strong>.</span></li>
-<li><input type="checkbox"><span>Repară pe rând fiecare eroare; la fiecare, scrie în tabelul 4 ce ai schimbat. Exportă din nou <code>afis_tipar.pdf</code> fără erori.</span></li>
-<li><input type="checkbox"><span>Copiază un mesaj de eroare din Preflight în Gemini/Claude, cere explicația și remedierea, apoi verifică dacă răspunsul se potrivește cu ce ai făcut tu (<strong>întrebarea 6</strong>).</span></li>
-<li><input type="checkbox"><span>Predă: <code>afis_tipar.pdf</code> (fără erori) + această fișă (tipărită sau salvată).</span></li>
+<li><input type="checkbox"><span>Alege plierea (C sau Z) și motivează într-o propoziție (întrebarea 1). Rulează scriptul corespunzător, salvează ca șablon, deschide din șablon.</span></li>
+<li><input type="checkbox"><span>Machetează cele 6 panouri: față (titlu + imagine), interior (conținutul), spate (contact, adresă, QR). Text la ≥ 5 mm de pliuri, fundaluri în bleed, imagini ≥ 300 dpi, culori CMYK din paletă (lecțiile 4–5).</span></li>
+<li><input type="checkbox"><span>Generează QR-ul în Inkscape (Extensions → Render → Barcode → QR Code, URL-ul site-ului), salvează SVG, importă în Scribus pe spate, ≥ 25 mm. Testează-l cu telefonul de pe ecran.</span></li>
+<li><input type="checkbox"><span><strong>Export tipar:</strong> Preflight zero erori → PDF/X‑1a, FOGRA39, bleeds + crop marks, pagini separate → <code>pliant_nume_TIPAR.pdf</code>. Verifică în Acrobat Reader (tabelul 1).</span></li>
+<li><input type="checkbox"><span><strong>Export ecran:</strong> PDF 1.5, Screen/Web, 150 dpi, JPEG bună, fără bleed/marcaje, linkurile active (Insert → PDF Annotation → Link pe adresa site-ului și pe numărul de telefon cu <code>tel:</code>) → <code>pliant_nume_web.pdf</code>. Sub 3 MB? Deschide pe telefon: linkurile merg?</span></li>
+<li><input type="checkbox"><span><strong>Proba fizică:</strong> tipărește PDF-ul de tipar pe A4 la imprimanta școlii (Fit to page), pliază-l. Se închide? Textul e departe de pliuri? (întrebarea 2)</span></li>
+<li><input type="checkbox"><span>Predă cele două PDF-uri + fișa + pliantul pliat.</span></li>
 </ul>
-
-<h3>1. Cele trei exporturi</h3>
-<div class="tw"><table>
-<tr><th>Fișier</th><th>Setări (versiune, dpi, comprimare, culoare)</th><th>Dimensiune (MB)</th><th>Fotografia la 800 %</th><th>Bleed și semne de tăiere (da/nu)</th></tr>
-<tr><td class="mono">afis_ecran.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
-<tr><td class="mono">afis_tipar.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
-<tr><td class="mono">afis_arhiva.pdf</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
-</table></div>
-<div class="q"><p>De câte ori e mai mare fișierul de tipar decât cel de ecran? Din ce cauză?</p><textarea></textarea></div>
-
-<h3>2. Proprietățile fișierului de tipar (Acrobat Reader → Properties)</h3>
-<div class="tw"><table>
-<tr><th>Proprietate</th><th>Valoare citită</th><th>Corect pentru tipar?</th></tr>
-<tr><td>PDF Version</td><td><input></td><td><input></td></tr>
-<tr><td>Producer / Creator (programul care l-a făcut)</td><td><input></td><td><input></td></tr>
-<tr><td>Page size (mm) — cât ar trebui să fie A3 cu bleed?</td><td><input></td><td><input></td></tr>
-<tr><td>Number of pages</td><td><input></td><td><input></td></tr>
-<tr><td>Fonts: câte, toate „Embedded”?</td><td><input></td><td><input></td></tr>
-<tr><td>Security (parolă, restricții)</td><td><input></td><td><input></td></tr>
-</table></div>
-
-<h3>3. Autopsia în Notepad++</h3>
-<div class="tw"><table>
-<tr><th>Caută</th><th>exemplu-minim.pdf</th><th>afis_ecran.pdf</th></tr>
-<tr><td>Antetul (prima linie) — versiunea</td><td><input></td><td><input></td></tr>
-<tr><td>Câte apariții are <code>endobj</code> (= câte obiecte)</td><td><input></td><td><input></td></tr>
-<tr><td>Câte apariții are <code>/Type /Page</code> (atenție: nu <code>/Pages</code>)</td><td><input></td><td><input></td></tr>
-<tr><td>Câte apariții are <code>/FontFile</code> sau <code>/FontFile2</code> (fonturi incorporate)</td><td><input></td><td><input></td></tr>
-<tr><td>Apare <code>/FlateDecode</code>? (conținut comprimat)</td><td><input></td><td><input></td></tr>
-<tr><td>Ultima linie a fișierului</td><td><input></td><td><input></td></tr>
-</table></div>
-<div class="q"><p>De ce în afișul tău textul paginii nu se poate citi în Notepad++, dar în exemplul minim da?</p><textarea></textarea></div>
-
-<h3>4. Preflight: erori provocate și reparate</h3>
-<div class="tw"><table>
-<tr><th>#</th><th>Ce am stricat</th><th>Mesajul Preflight Verifier (copiat)</th><th>Ce am schimbat ca să dispară</th></tr>
-<tr><td class="mono">1</td><td><input></td><td><input></td><td><input></td></tr>
-<tr><td class="mono">2</td><td><input></td><td><input></td><td><input></td></tr>
-<tr><td class="mono">3</td><td><input></td><td><input></td><td><input></td></tr>
-<tr><td class="mono">4</td><td><input></td><td><input></td><td><input></td></tr>
-</table></div>
-
-<h3>5. Lista finală de verificare a fișierului predat</h3>
-<ul class="chk">
-<li><input type="checkbox"><span>PDF/X‑1a (Properties → PDF Version 1.3, „PDF/X‑1a:2001” în metadate)</span></li>
-<li><input type="checkbox"><span>toate fonturile Embedded</span></li>
-<li><input type="checkbox"><span>imagini ≥ 300 dpi, fără avertisment în Preflight</span></li>
-<li><input type="checkbox"><span>numai culori CMYK, output intent Coated FOGRA39</span></li>
-<li><input type="checkbox"><span>pagina 303 × 426 mm (A3 + 3 mm bleed) și semne de tăiere</span></li>
-<li><input type="checkbox"><span>textul la ≥ 5 mm de linia de tăiere</span></li>
-<li><input type="checkbox"><span>fără linkuri, formulare, straturi netipărite uitate vizibile</span></li>
-</ul>
-
+<h3>1. Raportul de verificare</h3>
+<div class="tw"><table><tr><th>Verificare</th><th>pliant_TIPAR.pdf</th><th>pliant_web.pdf</th></tr>
+<tr><td>PDF Version / standard</td><td><input></td><td><input></td></tr><tr><td>Dimensiune fișier</td><td><input></td><td><input></td></tr><tr><td>Page size (mm)</td><td><input></td><td><input></td></tr><tr><td>Număr de pagini</td><td><input></td><td><input></td></tr><tr><td>Fonturi: toate Embedded?</td><td><input></td><td><input></td></tr><tr><td>Spațiu de culoare / profil</td><td><input></td><td><input></td></tr><tr><td>Bleed și semne de tăiere</td><td><input></td><td><input></td></tr><tr><td>Linkuri active (testate pe telefon)</td><td><input></td><td><input></td></tr><tr><td>QR-ul deschide site-ul</td><td><input></td><td><input></td></tr><tr><td>Preflight: erori rămase</td><td><input></td><td><input></td></tr></table></div>
+<h3>2. Autoevaluare</h3>
+<div class="tw"><table><tr><th>Criteriu</th><th>Punctaj maxim</th><th>Eu îmi dau</th><th>Profesorul</th></tr>
+<tr><td>Macheta: lizibilitate, ierarhie, imagini potrivite</td><td class="mono">25</td><td><input></td><td><input></td></tr>
+<tr><td>Pregătirea tehnică: bleed, zonă sigură, pliuri, CMYK, 300 dpi</td><td class="mono">25</td><td><input></td><td><input></td></tr>
+<tr><td>PDF/X‑1a corect (preflight zero erori, verificat în Acrobat)</td><td class="mono">20</td><td><input></td><td><input></td></tr>
+<tr><td>PDF web: sub 3 MB, linkuri și QR funcționale</td><td class="mono">15</td><td><input></td><td><input></td></tr>
+<tr><td>Raportul de verificare și proba fizică</td><td class="mono">15</td><td><input></td><td><input></td></tr></table></div>
 <h3>Întrebări de control</h3>
-<div class="q"><p>6. Ce eroare ai dat AI-ului, ce a răspuns și unde a avut (sau nu) dreptate?</p><textarea></textarea></div>
-<div class="q"><p>7. Tipografia îți cere „PDF/X‑4, PSO Coated v3”. Ce schimbi la export față de ce ai făcut azi?</p><textarea></textarea></div>
-<div class="q"><p>8. Colegul îți trimite afișul ca PNG de 1920 × 1080 px „pentru tipar A3”. Ce îi răspunzi și de ce?</p><textarea></textarea></div>
-</div>
-</div>
+<div class="q"><p>1. De ce ai ales plierea în C sau în Z? Ce ai putut face cu ea și n-ai fi putut cu cealaltă?</p><textarea></textarea></div>
+<div class="q"><p>2. Ce ai constatat la proba fizică? Ce ai schimba în machetă?</p><textarea></textarea></div>
+<div class="q"><p>3. Enumeră cele 5 diferențe de export dintre fișierul de tipar și cel de web, din memorie.</p><textarea></textarea></div>
+</div></div>
+</section>
+
 </main>
 </div>
 </div>
 <script>(function(){
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-/* tabs */
-function setTab(t){$$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));$$('main > .pane').forEach(p=>p.classList.toggle('on',p.dataset.tab===t));try{localStorage.setItem('pdf.tab',t)}catch(e){}}
-$$('.tabs button').forEach(b=>b.onclick=()=>{setTab(b.dataset.tab);window.scrollTo({top:0})});
-$$('nav.side a.item').forEach(a=>a.addEventListener('click',e=>{const t=a.dataset.tab||'lectie';setTab(t)}));
-const msel=$('.mobile-nav select');msel.addEventListener('change',()=>{const h=msel.value;setTab(h==='#fisa'?'fisa':'lectie');location.hash=h});
-/* scroll spy */
-const heads=$$('main h2[id]');const items=$$('nav.side a.item[href^="#c"]');
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){items.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-10% 0px -80% 0px'});
-heads.forEach(h=>io.observe(h));
-/* autopsie */
-const expl={antet:['Antet','Prima linie spune versiunea: %PDF-1.4. Fișierele reale au pe linia a doua câțiva octeți „ciudați” (caractere peste 127) ca programele de transfer să știe că e fișier binar, nu text.'],
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+/* ---- pixel demo (litera A din 8x8) ---- */
+(function(){const m=['00011000','00111100','01100110','01100110','01111110','01100110','01100110','00000000'];const el=$('#pixdemo');if(!el)return;el.innerHTML=m.map(r=>[...r].map(c=>`<div style="background:${c==='1'?'#F5B841':'#1F222C'}"></div>`).join('')).join('')})();
+/* ---- autopsie ---- */
+const expl={antet:['Antet','Prima linie spune versiunea: %PDF-1.4. Fișierele reale au pe linia a doua câțiva octeți „ciudați” (caractere peste 127), ca programele de transfer să știe că e fișier binar, nu text.'],
  obiect:['Obiecte','Fiecare obiect începe cu „număr 0 obj” și se termină cu „endobj”. Obiectul 1 este catalogul (rădăcina), care arată spre arborele de pagini (obiectul 2), care listează paginile (Kids) și numărul lor (Count).'],
- pagina:['Pagina','MediaBox = formatul în puncte (595 × 842 pt = A4). Resources spune ce fonturi/imagini folosește pagina; Contents arată spre obiectul cu comenzile de desenare.'],
- font:['Fontul','Aici fontul este doar numit (Helvetica, unul din cele 14 fonturi standard pe care orice cititor le are). Într-un PDF pentru tipar aici apare și /FontFile2 cu octeții fontului — fontul incorporat.'],
- continut:['Conținutul paginii','Un „stream” cu comenzi: BT/ET = început/sfârșit text; Tf = font și mărime; Td = mută cursorul (originea e jos-stânga!); Tj = scrie textul; m, l, S = desenează o linie; RG = culoare RGB; w = grosime. În fișierele reale acest bloc e comprimat (/FlateDecode).'],
+ pagina:['Pagina','MediaBox = formatul în puncte (595 × 842 pt = A4). Resources spune ce fonturi și imagini folosește pagina; Contents arată spre obiectul cu comenzile de desenare.'],
+ font:['Fontul','Aici fontul este doar numit (Helvetica — unul dintre cele 14 fonturi standard pe care orice cititor le are). Într-un PDF pentru tipar apare și /FontFile2, cu octeții fontului: fontul incorporat.'],
+ continut:['Conținutul paginii','Un „stream” cu comenzi: BT/ET = început/sfârșit de text; Tf = font și mărime; Td = mută creionul (originea e jos-stânga!); Tj = scrie textul; m, l, S = desenează o linie; RG = culoare RGB; w = grosime. În fișierele reale blocul e comprimat (/FlateDecode).'],
  xref:['Tabelul xref','Câte o linie pentru fiecare obiect: poziția în octeți de la începutul fișierului, generația, „n” = folosit. Obiectul 0 e mereu liber (f). Cititorul sare direct la obiectul dorit — de aceea PDF-urile mari se deschid repede.'],
  trailer:['Trailer și sfârșit','Trailer-ul spune câte obiecte sunt (Size) și care e rădăcina (Root). „startxref” dă poziția tabelului xref; cititorul citește fișierul de la COADĂ spre început. %%EOF marchează sfârșitul; dacă lipsește, fișierul e „corupt”.'],
  all:['Toate părțile','Antet → obiecte → tabel xref → trailer → %%EOF. Orice PDF, de 1 sau de 1000 de pagini, are exact această structură.']};
 const pre=$('#rawpdf'),ex=$('#expl');
 $$('#chips .chip').forEach(c=>c.onclick=()=>{const p=c.dataset.p;$$('#chips .chip').forEach(x=>{x.classList.toggle('on',x===c);x.style.background=x===c?x.style.getPropertyValue('--c'):''});if(p==='all')pre.removeAttribute('data-on');else pre.dataset.on=p;ex.innerHTML=`<b>${expl[p][0]}</b>${expl[p][1]}`});
-/* bleed simulator */
+/* ---- bleed simulator ---- */
 const svg=$('#bleedsvg');const PW=297,PH=420,B=3;
 function draw(){const bleed=$('#cb-bleed').checked,safe=$('#cb-safe').checked,marks=$('#cb-marks').checked,dev=+$('#rg-dev').value,tm=+$('#rg-text').value;
  $('#dev-v').textContent=(dev>0?'+':'')+dev+' mm';$('#text-v').textContent=tm+' mm';
  const ext=bleed?B:0;let s='';
- /* ---- stânga: afișul întreg, 0.7 px/mm ---- */
  const S=0.7,ox=40,oy=45,X=mm=>ox+mm*S,Y=mm=>oy+mm*S;
  s+=`<text x="${ox}" y="20" font-family="Barlow Condensed" font-size="13" fill="#9A9AA6" letter-spacing="1">AFIȘUL ÎNTREG</text>`;
  s+=`<rect x="${X(-20)}" y="${Y(-15)}" width="${(PW+40)*S}" height="${(PH+30)*S}" fill="#f4f1e8"/>`;
@@ -558,10 +903,8 @@ function draw(){const bleed=$('#cb-bleed').checked,safe=$('#cb-safe').checked,ma
  if(safe)s+=`<rect x="${X(5)}" y="${Y(5)}" width="${(PW-10)*S}" height="${(PH-10)*S}" fill="none" stroke="#5cc48a" stroke-width="1" stroke-dasharray="2 3"/>`;
  if(marks){const L=8*S,g=3*S;[[0,0],[PW,0],[0,PH],[PW,PH]].forEach(([x,y])=>{const sx=x===0?-1:1,sy=y===0?-1:1;s+=`<line x1="${X(x)+sx*g}" y1="${Y(y)}" x2="${X(x)+sx*(g+L)}" y2="${Y(y)}" stroke="#111" stroke-width="1"/><line x1="${X(x)}" y1="${Y(y)+sy*g}" x2="${X(x)}" y2="${Y(y)+sy*(g+L)}" stroke="#111" stroke-width="1"/>`})}
  s+=`<path d="M${X(-20)} ${Y(-15)} h${(PW+40)*S} v${(PH+30)*S} h${-(PW+40)*S} z M${X(dev)} ${Y(dev)} v${PH*S} h${PW*S} v${-PH*S} z" fill="#0E0F13" fill-opacity=".6" fill-rule="evenodd"/>`;
- /* fereastra lupei */
  s+=`<rect x="${X(-6)}" y="${Y(-6)}" width="${30*S}" height="${30*S}" fill="none" stroke="#F5B841" stroke-width="1.5"/>`;
  s+=`<line x1="${X(24)}" y1="${Y(-6)}" x2="330" y2="45" stroke="#F5B841" stroke-width="1" stroke-dasharray="3 3"/><line x1="${X(24)}" y1="${Y(24)}" x2="330" y2="405" stroke="#F5B841" stroke-width="1" stroke-dasharray="3 3"/>`;
- /* ---- dreapta: lupa pe colțul stânga-sus, 12 px/mm, fereastra -6..24 mm ---- */
  const K=12,lx=330,ly=45,W0=-6;const LX=mm=>lx+(mm-W0)*K,LY=mm=>ly+(mm-W0)*K;
  s+=`<text x="${lx}" y="20" font-family="Barlow Condensed" font-size="13" fill="#9A9AA6" letter-spacing="1">LUPĂ 12× PE COLȚUL DIN STÂNGA SUS</text>`;
  s+=`<clipPath id="lupa"><rect x="${lx}" y="${ly}" width="360" height="360"/></clipPath><g clip-path="url(#lupa)">`;
@@ -571,14 +914,11 @@ function draw(){const bleed=$('#cb-bleed').checked,safe=$('#cb-safe').checked,ma
  s+=`<rect x="${LX(-B)}" y="${LY(-B)}" width="600" height="600" fill="none" stroke="#e45c5c" stroke-width="2" stroke-dasharray="8 6"/>`;
  if(safe)s+=`<rect x="${LX(5)}" y="${LY(5)}" width="600" height="600" fill="none" stroke="#5cc48a" stroke-width="2" stroke-dasharray="4 6"/>`;
  if(marks)s+=`<line x1="${LX(-6)}" y1="${LY(0)}" x2="${LX(-3)}" y2="${LY(0)}" stroke="#111" stroke-width="2"/><line x1="${LX(0)}" y1="${LY(-6)}" x2="${LX(0)}" y2="${LY(-3)}" stroke="#111" stroke-width="2"/>`;
- /* ce se aruncă: tot ce e în afara tăierii reale */
  s+=`<path d="M${lx} ${ly} h360 v360 h-360 z M${LX(dev)} ${LY(dev)} v600 h600 v-600 z" fill="#0E0F13" fill-opacity=".62" fill-rule="evenodd"/>`;
  s+=`<rect x="${LX(dev)}" y="${LY(dev)}" width="600" height="600" fill="none" stroke="#fff" stroke-width="2.5"/>`;
  s+=`</g><rect x="${lx}" y="${ly}" width="360" height="360" fill="none" stroke="#F5B841" stroke-width="1.5"/>`;
- /* rigla */
  for(let mm=-6;mm<=24;mm+=3){s+=`<line x1="${LX(mm)}" y1="${ly+360}" x2="${LX(mm)}" y2="${ly+366}" stroke="#9A9AA6"/><text x="${LX(mm)}" y="${ly+380}" font-family="JetBrains Mono" font-size="10" fill="#9A9AA6" text-anchor="middle">${mm}</text>`}
  s+=`<text x="${lx+180}" y="${ly+396}" font-family="Barlow" font-size="11" fill="#9A9AA6" text-anchor="middle">mm față de linia de tăiere teoretică (0)</text>`;
- /* legendă */
  s+=`<g font-family="Barlow" font-size="11" fill="#ECE9E0"><line x1="40" y1="372" x2="62" y2="372" stroke="#e45c5c" stroke-dasharray="4 3"/><text x="68" y="376">bleed 3 mm</text>
  <line x1="40" y1="390" x2="62" y2="390" stroke="#fff" stroke-width="2"/><text x="68" y="394">tăiere reală</text>
  <line x1="150" y1="372" x2="172" y2="372" stroke="#5cc48a" stroke-dasharray="2 3"/><text x="178" y="376">zonă sigură 5 mm</text>
@@ -595,17 +935,23 @@ function draw(){const bleed=$('#cb-bleed').checked,safe=$('#cb-safe').checked,ma
  else if(tm<10)msg.push('Textul e în zona sigură minimă; 10 mm arată mai aerisit.');
  $('#bleedmsg').textContent=msg.join(' ');}
 ['#cb-bleed','#cb-safe','#cb-marks','#rg-dev','#rg-text'].forEach(s=>$(s).addEventListener('input',draw));draw();
-/* standard cards */
+/* ---- standard cards ---- */
 $$('.std').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('open')));
-/* worksheet persistence + toolbar */
-const ws=$('.ws-pane');const bar=document.createElement('div');bar.className='wsbar';bar.innerHTML='<button class="btn">🖨 Tipărește fișa</button><button class="btn">Golește răspunsurile</button>';
-$$('button',bar)[0].onclick=()=>window.print();$$('button',bar)[1].onclick=()=>{$$('input,textarea',ws).forEach(e=>{if(e.type==='checkbox')e.checked=false;else e.value=''});save()};$('.ws',ws).prepend(bar);
-function save(){try{const d={};$$('input,textarea',ws).forEach((e,i)=>d[i]=e.type==='checkbox'?e.checked:e.value);localStorage.setItem('pdf.ws.'+ws.dataset.id,JSON.stringify(d))}catch(e){}}
-try{const d=JSON.parse(localStorage.getItem('pdf.ws.'+ws.dataset.id)||'{}');$$('input,textarea',ws).forEach((e,i)=>{if(d[i]!==undefined){if(e.type==='checkbox')e.checked=d[i];else e.value=d[i]}})}catch(e){}
-ws.addEventListener('input',save);
-/* start */
-let t='lectie';try{t=localStorage.getItem('pdf.tab')||t}catch(e){}
-if(location.hash==='#fisa')t='fisa';setTab(t);
+/* ---- navigation ---- */
+const sections=$$('section.lectie');const nav=$('nav.side .list'),msel=$('.mobile-nav select');
+sections.forEach((s,i)=>{const b=document.createElement('button');const n=i===0?'▸':String(i).padStart(2,'0');b.innerHTML=`<span class="n">${n}</span><span>${s.dataset.title}</span>`;b.onclick=()=>go(i);nav.appendChild(b);msel.add(new Option(i===0?s.dataset.title:`${i}. ${s.dataset.title}`,i))});
+function go(i,tab){i=clamp(i,0,sections.length-1);sections.forEach((s,k)=>s.hidden=k!==i);$$('nav.side button').forEach((b,k)=>b.classList.toggle('on',k===i));msel.value=i;
+  if(tab)setTab(sections[i],tab);window.scrollTo({top:0});try{localStorage.setItem('pdf7.pos',JSON.stringify([i,$('.tabs button.on',sections[i]).dataset.tab]))}catch(e){}}
+function setTab(sec,t){$$('.tabs button',sec).forEach(b=>b.classList.toggle('on',b.dataset.tab===t));$$('.pane',sec).forEach(p=>p.classList.toggle('on',p.dataset.tab===t));try{localStorage.setItem('pdf7.pos',JSON.stringify([sections.indexOf(sec),t]))}catch(e){}}
+msel.addEventListener('change',()=>go(+msel.value));
+sections.forEach((s,i)=>{$$('.tabs button',s).forEach(b=>b.onclick=()=>setTab(s,b.dataset.tab));
+  const pg=document.createElement('div');pg.className='pager';pg.innerHTML=`<button ${i===0?'disabled':''}>← ${i===1?'Prezentarea':'Lecția '+(i-1)}</button><button ${i===sections.length-1?'disabled':''}>Lecția ${i+1} →</button>`;
+  $$('button',pg)[0].onclick=()=>go(i-1);$$('button',pg)[1].onclick=()=>go(i+1);s.appendChild(pg);
+  const wsb=$('.ws-pane',s);if(wsb){const bar=document.createElement('div');bar.className='wsbar';bar.innerHTML=`<button class="btn">🖨 Tipărește fișa</button><button class="btn">Golește răspunsurile</button>`;$$('button',bar)[0].onclick=()=>window.print();$$('button',bar)[1].onclick=()=>{$$('input,textarea',wsb).forEach(e=>{if(e.type==='checkbox')e.checked=false;else e.value=''});save(wsb)};$('.ws',wsb).prepend(bar)}});
+function save(ws){try{const d={};$$('input,textarea',ws).forEach((e,i)=>d[i]=e.type==='checkbox'?e.checked:e.value);localStorage.setItem('pdf7.ws.'+ws.dataset.id,JSON.stringify(d))}catch(e){}}
+$$('.ws-pane').forEach(ws=>{try{const d=JSON.parse(localStorage.getItem('pdf7.ws.'+ws.dataset.id)||'{}');$$('input,textarea',ws).forEach((e,i)=>{if(d[i]!==undefined){if(e.type==='checkbox')e.checked=d[i];else e.value=d[i]}})}catch(e){}ws.addEventListener('input',()=>save(ws))});
+let start=[0,'lectie'];try{start=JSON.parse(localStorage.getItem('pdf7.pos'))||start}catch(e){}
+go(start[0],start[1]);
 })();
 </script>
 </body>

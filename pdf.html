@@ -315,7 +315,33 @@ startxref
 <dt>Tf, Td, Tj</dt><dd>comenzi de text: <code>Tf</code> alege fontul și mărimea, <code>Td</code> mută „creionul”, <code>Tj</code> scrie textul. <code>72 700 Td</code> = 72 pt de la stânga și 700 pt <em>de jos</em> — în PDF originea e în colțul din stânga jos, ca în matematică, nu stânga sus ca pe ecran.</dd>
 <dt>xref</dt><dd>„cross-reference”, tabelul de referințe: pentru fiecare obiect, la ce poziție (al câtelea octet) începe. Cititorul sare direct la obiectul de care are nevoie — de aceea o carte de 500 de pagini se deschide instant la pagina 300.</dd>
 </dl>
-<div class="box note"><div class="t">De reținut din lecția 1</div><p>PDF = o rețetă de desenat pagina, cu fonturile puse înăuntru și fiecare obiect la coordonate fixe. De aceea arată la fel peste tot. E standard ISO, deci al tuturor. Orice PDF are antet, obiecte, tabel xref și trailer.</p></div>
+<h2>Strămoșul: PostScript</h2>
+<p><strong>PostScript</strong> este un limbaj de programare pentru descrierea paginilor, creat de Adobe în 1984 — de aceiași oameni care au făcut apoi PDF-ul. În loc să trimită imprimantei o grilă de puncte, calculatorul îi trimite un <strong>program</strong>: „desenează o linie de aici până aici, groasă de 2 puncte; pune fontul Helvetica de 28 și scrie textul acesta la coordonatele acestea”. Imprimanta are înăuntru un mic calculator (<strong>RIP</strong>) care rulează programul și calculează singură punctele, la rezoluția ei. Așa, același fișier ieșea perfect și pe o imprimantă de birou, și pe o mașină de tipar.</p>
+<p>În 1985, imprimanta Apple LaserWriter (cu PostScript) și programul PageMaker au pornit <strong>DTP-ul</strong>: pentru prima dată, textul cu fonturi și grafica se tipăreau exact ca pe ecran, fără tipografie.</p>
+<div class="two">
+<div class="card"><div class="t">PostScript (1984) — un program</div><pre style="font-size:.8rem">%!PS
+/Helvetica findfont 28 scalefont setfont
+72 700 moveto
+(Acesta este un PostScript minim.) show
+0 0 1 setrgbcolor 4 setlinewidth
+72 600 moveto 400 600 lineto stroke
+showpage</pre></div>
+<div class="card"><div class="t">PDF (1993) — aceeași pagină, „înghețată”</div><pre style="font-size:.8rem">BT
+/F1 28 Tf
+72 700 Td
+(Acesta este un PDF minim.) Tj
+ET
+0 0 1 RG 4 w
+72 600 m 400 600 l S</pre></div>
+</div>
+<p>Aceleași idei, alte cuvinte: <code>moveto</code> = <code>m</code>, <code>lineto</code> = <code>l</code>, <code>stroke</code> = <code>S</code>, <code>show</code> = <code>Tj</code>, aceleași coordonate în puncte cu originea jos-stânga. <strong>PDF = PostScript fără partea de programare</strong>: Adobe a păstrat modelul de desenare, dar a scos buclele și variabilele (imprimanta trebuia să ruleze tot fișierul ca să afle ce e pe pagina 50) și a pus în loc obiecte numerotate cu tabel xref, ca orice pagină să se deschidă instant.</p>
+<dl class="def">
+<dt>RIP</dt><dd>Raster Image Processor — calculatorul din imprimantă sau din tipografie care transformă programul (PostScript sau PDF) în punctele de cerneală. Îl reîntâlnim la lecția 6.</dd>
+<dt>Distilare</dt><dd>metoda veche de a face PDF: programul „tipărea” un fișier .ps, iar Acrobat Distiller îl transforma în PDF. De aici vine și „imprimanta virtuală” din lecția 2.</dd>
+<dt>EPS</dt><dd>Encapsulated PostScript — un fișier PostScript cu o singură pagină sau un singur grafic (logo, diagramă), de inserat în alt document. Azi e înlocuit de PDF și SVG, dar îl mai găsești la logouri vechi.</dd>
+</dl>
+<p>Astăzi fișierele .ps se întâlnesc rar — tipografiile primesc PDF, iar RIP-urile moderne citesc direct PDF. PostScript rămâne <em>strămoșul</em>: sistemul de coordonate în puncte, comenzile de desenare și fonturile vin toate de acolo.</p>
+<div class="box note"><div class="t">De reținut din lecția 1</div><p>PDF = o rețetă de desenat pagina, cu fonturile puse înăuntru și fiecare obiect la coordonate fixe. De aceea arată la fel peste tot. E standard ISO, deci al tuturor. Se trage din PostScript, limbajul imprimantelor. Orice PDF are antet, obiecte, tabel xref și trailer.</p></div>
 </div>
 <div class="pane ws-pane" data-tab="fisa" data-id="f1">
 <div class="ws"><h2>Fișa 1 · Disecția unui PDF</h2>

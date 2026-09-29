@@ -1,0 +1,1483 @@
+<title>Culoare și LED prin DMX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>:root{
+  --bg:#0E0F13;--bg2:#141620;--card:#181A21;--card2:#1F222C;--line:#2A2D3A;--line2:#3A3E4E;
+  --text:#ECE9E0;--muted:#9A9AA6;--dim:#6C6E7A;
+  --acc:#F5B841;--acc2:#C98F1E;--acc-ink:#1a1204;
+  --ok:#5CC48A;--warn:#F08A4B;--bad:#E45C5C;
+  --r:#FF2A2A;--g:#2AFF4A;--b:#2A6BFF;--w:#F4F7FF;
+  --font:"Barlow",system-ui,sans-serif;--disp:"Barlow Condensed","Barlow",sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;
+  --radius:6px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.6;margin:0}
+body{padding-block:0}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:600;line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:2.6rem;letter-spacing:.01em}
+h2{font-size:1.9rem;color:var(--acc);margin-top:2.2rem;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.03em}
+h3{font-size:1.35rem;margin-top:1.6rem;margin-bottom:.4rem}
+h4{font-size:1.1rem;color:var(--acc);margin-top:1.2rem;text-transform:uppercase;letter-spacing:.06em}
+p{margin:.5rem 0 .9rem;max-width:70ch}
+ul,ol{max-width:70ch;padding-left:1.4rem}
+li{margin:.25rem 0}
+code,.mono{font-family:var(--mono);font-size:.9em}
+code{background:var(--card2);padding:.1em .35em;border-radius:4px;color:var(--acc)}
+strong{color:#fff}
+a{color:var(--acc)}
+.eyebrow{font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;color:var(--muted)}
+
+/* layout */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+nav.side{background:var(--bg2);border-right:1px solid var(--line);padding:1.2rem 1rem;position:sticky;top:0;height:100vh;overflow:auto}
+nav.side .brand{font-family:var(--disp);font-size:1.5rem;line-height:1.05;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.2rem}
+nav.side .sub{font-size:.8rem;color:var(--muted);margin-bottom:1.2rem}
+nav.side button{display:flex;gap:.6rem;align-items:baseline;width:100%;text-align:left;background:none;border:0;color:var(--muted);font:inherit;padding:.45rem .5rem;border-radius:var(--radius);cursor:pointer;line-height:1.25}
+nav.side button:hover{background:var(--card);color:var(--text)}
+nav.side button.on{background:var(--card2);color:var(--text);box-shadow:inset 3px 0 0 var(--acc)}
+nav.side button .n{font-family:var(--mono);font-size:.75rem;color:var(--acc);min-width:1.4em}
+nav.side button:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+main{padding:1.5rem clamp(16px,4vw,56px) 4rem;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:1rem;margin-bottom:1rem}
+.tabs{display:flex;gap:.4rem}
+.tabs button{font-family:var(--disp);text-transform:uppercase;letter-spacing:.08em;font-size:.95rem;background:var(--card);border:1px solid var(--line);color:var(--muted);padding:.5rem 1.1rem;border-radius:var(--radius);cursor:pointer}
+.tabs button.on{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.pane{display:none}.pane.on{display:block}
+.meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:var(--muted);font-size:.9rem;margin:.6rem 0 1.4rem}
+.meta b{color:var(--text);font-weight:500}
+.pager{display:flex;justify-content:space-between;gap:1rem;margin-top:3rem;border-top:1px solid var(--line);padding-top:1rem}
+.pager button{background:var(--card);border:1px solid var(--line);color:var(--text);padding:.6rem 1rem;border-radius:var(--radius);cursor:pointer;font:inherit}
+.pager button:hover{border-color:var(--acc)}
+.mobile-nav{display:none}
+
+/* boxes */
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1rem 1.2rem;margin:1rem 0}
+.box.note{border-left:4px solid var(--acc)}
+.box.warn{border-left:4px solid var(--bad)}
+.box.task{border-left:4px solid var(--ok)}
+.box .t{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;color:var(--muted);margin-bottom:.3rem}
+.def{display:grid;grid-template-columns:max-content 1fr;gap:.3rem 1rem;max-width:80ch;margin:.6rem 0 1rem}
+.def dt{font-family:var(--disp);font-size:1.05rem;color:var(--acc);text-transform:uppercase;letter-spacing:.04em}
+.def dd{margin:0;color:var(--text)}
+table{border-collapse:collapse;width:100%;font-size:.95rem;margin:.6rem 0 1rem}
+.tw{overflow-x:auto}
+th,td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;vertical-align:top}
+th{background:var(--card2);font-family:var(--disp);text-transform:uppercase;letter-spacing:.06em;font-weight:600;font-size:.85rem}
+td.mono,th.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.sw{display:inline-block;width:1.1em;height:1.1em;border-radius:3px;vertical-align:-.2em;margin-right:.35em;border:1px solid #0006}
+.steps{counter-reset:s;list-style:none;padding:0;max-width:80ch}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2.2rem 1fr;gap:.6rem;padding:.5rem 0;border-bottom:1px dashed var(--line)}
+.steps li::before{content:counter(s);font-family:var(--disp);font-size:1.4rem;color:var(--acc);line-height:1}
+.hours{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin:1rem 0}
+.hours .h{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem}
+.hours .h .t{font-family:var(--disp);color:var(--acc);text-transform:uppercase;letter-spacing:.08em;font-size:.85rem}
+.hours .h ul{padding-left:1.1rem;margin:.3rem 0 0;font-size:.95rem}
+
+/* simulators */
+.sim{background:#0A0B0F;border:1px solid var(--line2);border-radius:10px;padding:1rem 1.2rem 1.2rem;margin:1.2rem 0}
+.sim .t{font-family:var(--disp);text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;color:var(--acc);margin-bottom:.6rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.sim .t span{color:var(--muted);letter-spacing:.02em;text-transform:none;font-family:var(--font)}
+.wall{position:relative;height:150px;border-radius:8px;background:#151515;overflow:hidden;border:1px solid #000}
+.wall .glow{position:absolute;inset:0;transition:background .12s}
+.wall .glow.fade{transition:background var(--fade,0s) linear}
+.bar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:4px;padding:6px 8px;background:#222;border-radius:4px;border:1px solid #444;box-shadow:0 2px 8px #000}
+.bar i{width:11px;height:11px;border-radius:50%;background:#333;display:block;transition:background .12s,box-shadow .12s}
+.wall .cardobj{position:absolute;left:12%;top:22px;width:70px;height:90px;border-radius:4px;border:1px solid #0008;display:grid;place-items:center;font-family:var(--disp);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+.wall .cardobj.r2{left:auto;right:12%}
+.faders{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem 1.2rem;margin-top:1rem}
+.f{display:grid;grid-template-columns:2.4rem 1fr 3.2rem;align-items:center;gap:.5rem}
+.f label{font-family:var(--disp);font-size:1.05rem;letter-spacing:.06em}
+.f output{font-family:var(--mono);font-size:.95rem;text-align:right;color:var(--acc);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--acc);height:24px;margin:0}
+.f.r label{color:var(--r)}.f.g label{color:var(--g)}.f.b label{color:var(--b)}.f.w label{color:var(--w)}
+.f.r input{accent-color:var(--r)}.f.g input{accent-color:var(--g)}.f.b input{accent-color:var(--b)}.f.w input{accent-color:var(--w)}
+.readout{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:.8rem;font-family:var(--mono);font-size:.9rem;color:var(--muted)}
+.readout b{color:var(--text);font-weight:500}
+.btns{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
+.btn{background:var(--card2);border:1px solid var(--line2);color:var(--text);padding:.4rem .8rem;border-radius:var(--radius);cursor:pointer;font:inherit;font-size:.9rem}
+.btn:hover{border-color:var(--acc)}
+.btn.acc{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600}
+.btn.small{padding:.25rem .6rem;font-size:.8rem}
+select,input[type=number],input[type=text]{background:var(--card2);border:1px solid var(--line2);color:var(--text);padding:.35rem .5rem;border-radius:var(--radius);font:inherit;font-size:.9rem}
+input[type=number]{width:5.5rem;font-family:var(--mono)}
+.ctrl{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin-top:.8rem;font-size:.9rem}
+.ctrl label{color:var(--muted)}
+
+/* DMX packet */
+.pkt{display:flex;gap:3px;flex-wrap:wrap;margin-top:.6rem}
+.pkt .c{width:46px;height:56px;border:1px solid var(--line2);border-radius:4px;display:grid;grid-template-rows:1fr 1fr;place-items:center;font-family:var(--mono);font-size:.72rem;background:var(--card);color:var(--muted);position:relative}
+.pkt .c b{font-size:.95rem;color:var(--text);font-weight:500}
+.pkt .c.hdr{background:var(--card2);width:60px}
+.pkt .c.b1{border-color:#5DCAA5;background:#0f2a22}
+.pkt .c.b2{border-color:#85B7EB;background:#0f1f33}
+.pkt .c.both{border-color:var(--bad);background:#3a1414}
+.pkt .c small{position:absolute;top:2px;right:4px;font-size:.6rem;color:var(--acc)}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin-top:.6rem}
+.legend i{display:inline-block;width:.9em;height:.9em;border-radius:3px;vertical-align:-.1em;margin-right:.3em;border:1px solid}
+.msg{margin-top:.6rem;font-size:.9rem;min-height:1.4em}
+.msg.bad{color:var(--bad)}.msg.ok{color:var(--ok)}
+
+/* wheel */
+.wheelwrap{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:1.2rem;align-items:center}
+.wheel{width:100%;aspect-ratio:1;border-radius:50%;background:conic-gradient(from -90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00);position:relative;cursor:crosshair;box-shadow:0 0 0 6px #000,0 0 0 7px var(--line2)}
+.wheel::after{content:"";position:absolute;inset:32%;border-radius:50%;background:#0A0B0F;border:1px solid var(--line2)}
+.wheel .pin{position:absolute;width:16px;height:16px;border:3px solid #fff;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 2px #000;pointer-events:none}
+.wheel .pin.c2{border-color:var(--acc)}
+.swatchrow{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.6rem}
+.swatch{width:70px;height:48px;border-radius:4px;border:1px solid #0008;display:grid;place-items:end center;font-family:var(--mono);font-size:.65rem;color:#000c;padding-bottom:2px;position:relative}
+.swatch span{position:absolute;top:-1.2rem;left:0;color:var(--muted);font-family:var(--disp);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+
+/* pwm */
+.pwm svg{width:100%;height:auto;display:block}
+.gam svg{width:100%;height:auto;display:block}
+
+/* scenes */
+.scenes{display:grid;grid-template-columns:1fr;gap:.4rem;margin-top:.8rem}
+.scene{display:grid;grid-template-columns:2rem 44px repeat(4,4.2rem) 5rem 5rem auto;gap:.5rem;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.4rem .6rem;font-family:var(--mono);font-size:.85rem}
+.scene.on{border-color:var(--acc)}
+.scene .sw{width:44px;height:26px;margin:0;border-radius:4px}
+.scene input{width:100%;padding:.2rem .3rem}
+.scene .lbl{font-family:var(--disp);color:var(--muted);text-transform:uppercase;font-size:.7rem;letter-spacing:.06em}
+
+/* quiz / fault */
+.choice{display:grid;gap:.4rem;margin-top:.6rem;max-width:70ch}
+.choice button{text-align:left;background:var(--card);border:1px solid var(--line);color:var(--text);padding:.5rem .8rem;border-radius:6px;cursor:pointer;font:inherit}
+.choice button.ok{border-color:var(--ok);background:#12281c}
+.choice button.no{border-color:var(--bad);background:#2d1414}
+
+/* worksheet */
+.ws{background:#F7F5EE;color:#1a1a1a;border-radius:10px;padding:1.6rem clamp(16px,3vw,40px) 2rem;max-width:900px;font-size:15px}
+.ws h2{color:#1a1a1a;margin-top:0;font-size:1.7rem}
+.ws h3{color:#7a4f00;margin-top:1.4rem}
+.ws .hdr{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 2rem;border-bottom:2px solid #1a1a1a;padding-bottom:.6rem;margin-bottom:1rem;font-size:.9rem}
+.ws .hdr span{border-bottom:1px dotted #888;display:block}
+.ws .hdr input{border:0;border-bottom:1px dotted #888;background:transparent;width:100%;font:inherit;color:#1a1a1a;padding:.1rem .2rem;border-radius:0}
+.ws p{color:#1a1a1a}
+.ws strong{color:#1a1a1a}
+.ws code{background:#e9e4d5;color:#7a4f00}
+.ws table{font-size:.9rem}
+.ws th{background:#e9e4d5;color:#1a1a1a}
+.ws th,.ws td{border-color:#999}
+.ws td input,.ws td textarea{width:100%;min-width:3.5rem;border:0;border-bottom:1px dotted #999;background:transparent;font:inherit;color:#1a1a1a;padding:.15rem .2rem;border-radius:0;font-family:var(--mono);font-size:.85rem}
+.ws textarea{width:100%;min-height:4.5rem;border:1px solid #bbb;background:#fff;font:inherit;color:#1a1a1a;padding:.4rem .5rem;border-radius:4px;resize:vertical}
+.ws td textarea{border:0;border-bottom:1px dotted #999;background:transparent;min-height:2.2rem;font-family:var(--font);font-size:.9rem;padding:.1rem .2rem}
+.ws .q{margin:.9rem 0;padding-left:2rem;position:relative;max-width:none}
+.ws .q::before{content:attr(data-n);position:absolute;left:0;top:0;font-family:var(--disp);font-size:1.3rem;color:#7a4f00;line-height:1.2}
+.ws .lines{border-bottom:1px dotted #999;height:1.6rem}
+.ws .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem 1.5rem}
+.ws .chk{display:flex;gap:.5rem;align-items:flex-start;margin:.3rem 0}
+.ws .chk input{margin-top:.35rem;accent-color:#7a4f00}
+.ws .box{background:#fff;border:1px solid #bbb;color:#1a1a1a}
+.ws .box .t{color:#7a4f00}
+.ws .note{border-left:4px solid #7a4f00}
+.ws ul,.ws ol{color:#1a1a1a}
+.ws .pal{display:flex;gap:.5rem;flex-wrap:wrap}
+.ws .pal div{width:60px;height:40px;border:1px solid #999;border-radius:4px}
+.wsbar{display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap}
+
+@media print{
+  nav.side,.top,.pager,.wsbar,.mobile-nav{display:none!important}
+  .app{display:block}
+  main{padding:0}
+  body,html{background:#fff;color:#000}
+  .pane{display:none!important}.pane.ws-pane.on{display:block!important}
+  .ws{background:#fff;border-radius:0;padding:0;max-width:none;font-size:12.5px}
+  .ws textarea{min-height:3.5rem}
+  .ws td input{border-bottom:1px dotted #999}
+}
+@media (max-width:820px){
+  .app{grid-template-columns:1fr}
+  nav.side{position:static;height:auto;display:none}
+  .mobile-nav{display:block;padding:.8rem 16px;background:var(--bg2);border-bottom:1px solid var(--line)}
+  .mobile-nav select{width:100%}
+  .wheelwrap{grid-template-columns:1fr}
+  .scene{grid-template-columns:1.6rem 36px repeat(4,3.4rem) 4rem 4rem;font-size:.75rem}
+  .scene .del{grid-column:1/-1}
+  .def{grid-template-columns:1fr}
+  .ws .hdr,.ws .grid2{grid-template-columns:1fr}
+  h1{font-size:2rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<div class="app">
+<nav class="side"><div class="brand">Culoare și LED<br>prin DMX</div><div class="sub">Instruire practică · 30 ore<br>FOS Bar 24×4 W + myDMX 3.0</div><div class="list"></div></nav>
+<div><div class="mobile-nav"><select aria-label="Atelierul"></select></div>
+<main>
+<section class="atelier" data-title="Prezentarea modulului" hidden>
+<div class="top"><div><span class="eyebrow">Instruire practică · 30 de ore · clasa a XII-a</span><h1>Comanda culorii și a LED-urilor prin DMX</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Prezentare</button><button data-tab="fisa">Jurnal de practică</button></div></div>
+<div class="pane on" data-tab="lectie">
+<p style="font-size:1.15rem;max-width:75ch">Zece ateliere de câte trei ore în jurul unei bare LED profesionale, FOS Bar 24×4 W RGBW, comandată de la laptop prin interfața ADJ myDMX 3.0. Se începe direct cu bara și culorile ei, se leagă prin DMX, se învață canalele, adresele și depanarea, apoi amestecul culorilor, armoniile, modul cu 8 canale și programarea scenelor. La final, fiecare echipă prezintă un spectacol de lumină de 60 de secunde programat de ea.</p>
+<div class="sim" data-sim="mixer" data-opts='{"title":"Bara virtuală","hint":"Aceeași bară apare în fiecare atelier. Încearcă acum.","init":[255,120,0,0],"presets":[["Roșu",[255,0,0,0]],["Galben",[255,170,0,0]],["Cyan",[0,255,255,0]],["Alb cald",[120,40,0,255]],["Stins",[0,0,0,0]]]}'></div>
+<h2>Cele 10 ateliere</h2>
+<div class="tw"><table><tr><th>#</th><th>Atelier</th><th>Ce rămâne la final</th></tr>
+<tr><td class="mono">1</td><td>Bara LED RGBW și culorile ei</td><td>bara comandată din meniu, prima culoare amestecată</td></tr>
+<tr><td class="mono">2</td><td>DMX: cablare, lanț, terminator, prima conectare</td><td>bara comandată de la laptop, terminator confecționat</td></tr>
+<tr><td class="mono">3</td><td>Canale, valori 0–255, adrese, depanare</td><td>harta adreselor, 6 defecte depanate</td></tr>
+<tr><td class="mono">4</td><td>Amestecul culorilor RGB și cele două feluri de alb</td><td>tabel primare/secundare, alb cald reglat</td></tr>
+<tr><td class="mono">5</td><td>Nuanță, saturație, luminozitate</td><td>10 rețete de culori cu valori DMX</td></tr>
+<tr><td class="mono">6</td><td>Roata culorilor și armonii</td><td>4 scene pe armonii</td></tr>
+<tr><td class="mono">7</td><td>Obiecte sub lumină colorată; foto și video</td><td>tabel obiect × lumină, fotografii comparate</td></tr>
+<tr><td class="mono">8</td><td>Modul 8CH: dimmer, stroboscop, programe</td><td>cele 8 canale descoperite, profil creat</td></tr>
+<tr><td class="mono">9</td><td>Scene, fade, hold, chase în myDMX 3.0</td><td>secvența Tricolor, chase de 8 pași</td></tr>
+<tr><td class="mono">10</td><td>Proiect final</td><td>spectacol de 60 s + jurnal de practică</td></tr></table></div>
+<h2>Echipamentul</h2>
+<ul>
+<li>FOS Bar 24×4 W RGBW IP65, 45°, cu cablul de alimentare și mufe XLR 3 pini.</li>
+<li>Interfață ADJ myDMX 3.0 + laptop cu programul myDMX 3.0 (inclusiv Scan Library Editor).</li>
+<li>Cablu DMX XLR–XLR de 3 m și un cablu de microfon lung, de 20–25 m, pentru probe.</li>
+<li>Mufă XLR tată + rezistor 120 Ω / 0,25 W pentru terminator; multimetru; ciocan de lipit; lupă.</li>
+<li>Perete alb; cartoane colorate (roșu, verde, albastru, galben, alb, negru); un afiș tipărit color; un steag tricolor; un fruct și o coală albă pentru fotografii.</li>
+</ul>
+<h2>Cum se lucrează</h2>
+<p>Fiecare atelier are o <strong>lecție</strong> (tabul din stânga), cu explicații, scheme și simulatoare, și o <strong>fișă de lucru</strong> (tabul din dreapta), cu același tipar: obiectiv, ce ai nevoie, pași de bifat, tabele de completat, întrebări de control. Fișa se completează pe ecran sau se tipărește. Fișele completate formează jurnalul de practică și se predau la atelierul 10. Răspunsurile scrise pe ecran rămân salvate în browserul respectiv.</p>
+<p>La bară lucrează o echipă de 4–5 elevi, 20–25 de minute; celelalte echipe pregătesc valorile în simulatoarele din lecție sau în myDMX 3.0 și se rotesc.</p>
+<div class="box warn"><div class="t">Protecție</div><p style="margin:0">Lucru la 30–50 % intensitate. Nimeni nu privește în LED-uri de aproape. Fără stroboscop. Bara se mută doar scoasă din priză. Cablurile nu stau în calea de trecere.</p></div>
+</div>
+<div class="pane ws-pane" data-tab="fisa" data-id="f0">
+<div class="ws"><h2>Jurnal de practică</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>An școlar <input></label><label>Echipa <input></label></div>
+<p>Se completează la sfârșitul fiecărui atelier. Se predă împreună cu fișele 1–10 la ultimul atelier.</p>
+<div class="tw"><table><tr><th>#</th><th>Data</th><th>Ce am făcut concret (2 rânduri)</th><th>Ce am învățat nou</th><th>Ce nu mi-a ieșit / întrebări</th></tr>
+<tr><td class="mono">1</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">2</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">3</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">4</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">5</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">6</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">7</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">8</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">9</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr><tr><td class="mono">10</td><td><input style="min-width:5rem"></td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr></table></div>
+<div class="q" data-n="✎"><p>La sfârșitul modulului: trei lucruri pe care le știu face acum și nu le știam înainte.</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Bara LED RGBW și culorile ei" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 1 · 3 ore</span><h1>Bara LED RGBW și culorile ei</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>FOS Bar 24×4 W RGBW, perete alb</b></span><span>Rezultat: <b>bara comandată din meniul ei, prima culoare amestecată</b></span></div>
+
+<h2>Ce este bara</h2>
+<p>FOS Bar este un corp de iluminat profesional, lung de un metru, cu 24 de LED-uri. Se folosește pe scene, la evenimente și la iluminatul fațadelor. Poate lumina în orice culoare și poate fi comandată de la distanță, printr-un cablu, de la o consolă sau de la un laptop. Modul de comandă se numește DMX și este subiectul atelierului 2. Astăzi bara se comandă direct, din butoanele ei.</p>
+<dl class="def">
+<dt>LED</dt><dd>Diodă electroluminescentă: o piesă electronică mică ce produce lumină de o singură culoare când trece curent prin ea. Nu are filament, nu se încălzește ca un bec și ține peste 50 000 de ore.</dd>
+<dt>RGBW</dt><dd>Red, Green, Blue, White: roșu, verde, albastru, alb. Fiecare LED al barei are înăuntru patru cipuri, câte unul pentru fiecare culoare.</dd>
+<dt>4-în-1</dt><dd>Cele patru cipuri stau împreună sub aceeași lentilă. De la 2–3 m nu se mai văd separat; se vede o singură culoare, amestecată.</dd>
+<dt>24 × 4 W</dt><dd>24 de LED-uri de câte 4 W. Bara consumă în total 96 W la 230 V.</dd>
+<dt>Unghi de 45°</dt><dd>Cât de larg se deschide fasciculul. La 2 m de perete, bara luminează o fâșie de aproximativ 1,6 m înălțime.</dd>
+<dt>IP65</dt><dd>Codul de protecție a carcasei: 6 = etanșă la praf, 5 = rezistă la jet de apă. Poate sta afară în ploaie.</dd>
+</dl>
+<div class="box note"><div class="t">Datele din manualul barei</div>
+<div class="tw"><table><tr><th>Alimentare</th><td>100–240 V, 50/60 Hz, 96 W</td></tr><tr><th>LED-uri</th><td>24 × 4 W RGBW 4-în-1</td></tr><tr><th>Unghi</th><td>45°</td></tr><tr><th>Comandă</th><td>DMX512 (4 sau 8 canale), master/slave, automat, muzică</td></tr><tr><th>Mufe</th><td>alimentare in/out; DMX in/out pe XLR 3 pini</td></tr><tr><th>Masă / lungime</th><td>3,6 kg / 100 cm</td></tr></table></div></div>
+
+<h2>Cum se face o culoare cu patru LED-uri</h2>
+<p>Ochiul omenesc are pe fundul lui trei feluri de celule sensibile la lumină: unele reacționează la roșu, altele la verde, altele la albastru. Creierul primește doar trei semnale și din ele construiește toate culorile. De aceea ajung trei surse de lumină, roșu, verde și albastru, ca să se obțină orice culoare: ochiul nu poate deosebi un galben adevărat de un amestec de roșu și verde. Pe acest lucru se bazează ecranul telefonului, televizorul și bara LED.</p>
+<p>Fiecare culoare a barei se reglează cu un număr între <strong>0</strong> (stins) și <strong>255</strong> (maxim). Patru numere, R, G, B, W, descriu complet ce face bara. Aceste patru numere vor fi, din atelierul 2, cele patru <em>canale</em> DMX ale barei.</p>
+<div class="tw"><table><tr><th>Ce se dorește</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th></tr>
+<tr><td><i class="sw" style="background:#f00"></i>roșu</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td></tr>
+<tr><td><i class="sw" style="background:#ff0"></i>galben</td><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td></tr>
+<tr><td><i class="sw" style="background:#f0f"></i>magenta (roz-violet)</td><td class="mono">255</td><td class="mono">0</td><td class="mono">255</td><td class="mono">0</td></tr>
+<tr><td><i class="sw" style="background:#f80"></i>portocaliu</td><td class="mono">255</td><td class="mono">100</td><td class="mono">0</td><td class="mono">0</td></tr>
+<tr><td><i class="sw" style="background:#fff"></i>alb din LED-ul alb</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">255</td></tr>
+<tr><td><i class="sw" style="background:#f99"></i>roz (roșu + alb)</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td class="mono">150</td></tr></table></div>
+
+<div class="sim" data-sim="mixer" data-opts='{"title":"Bara virtuală","hint":"Aceleași patru numere ca pe bara reală. Încearcă valorile din tabel.","presets":[["Roșu",[255,0,0,0]],["Galben",[255,255,0,0]],["Magenta",[255,0,255,0]],["Portocaliu",[255,100,0,0]],["Alb W",[0,0,0,255]],["Roz",[255,0,0,150]],["Stins",[0,0,0,0]]]}'></div>
+
+<h2>Meniul barei</h2>
+<p>Pe spatele barei sunt un afișaj cu 4 caractere și 4 butoane. <strong>A</strong> schimbă funcția, <strong>B</strong> și <strong>C</strong> modifică valoarea, <strong>D</strong> confirmă. Primele două caractere de pe afișaj arată funcția, ultimele două arată o adresă sau o viteză.</p>
+<div class="tw"><table><tr><th>Afișaj</th><th>Ce face bara</th></tr>
+<tr><td class="mono">R255</td><td>Roșu, cu valoarea 0–255. Se schimbă cu B și C.</td></tr>
+<tr><td class="mono">G255</td><td>Verde, 0–255.</td></tr>
+<tr><td class="mono">B255</td><td>Albastru, 0–255.</td></tr>
+<tr><td class="mono">O255</td><td>Alb, 0–255. Litera O ține loc de W, care nu se poate afișa pe 7 segmente.</td></tr>
+<tr><td class="mono">CC00</td><td>Program automat: culorile se schimbă prin salt. Ultimele două cifre = viteza (01–99).</td></tr>
+<tr><td class="mono">CP00</td><td>Program automat: culorile trec lin una în alta și pulsează. Viteza 01–99.</td></tr>
+<tr><td class="mono">DE00</td><td>Program automat: schimbare de culoare. Viteza 01–99.</td></tr>
+<tr><td class="mono">D001</td><td>Comandă DMX cu 4 canale, adresa 001. Se folosește din atelierul 2.</td></tr>
+<tr><td class="mono">A001</td><td>Comandă DMX cu 8 canale, adresa 001. Se folosește în atelierul 8.</td></tr></table></div>
+<p>Cele patru valori R, G, B, O din meniu se <strong>adună</strong>: cu R255 și G255 setate amândouă, bara luminează galben. Așa se face prima culoare amestecată, chiar fără consolă.</p>
+
+<h2>Reguli de protecție</h2>
+<div class="box warn"><div class="t">Obligatoriu la fiecare atelier</div>
+<ul>
+<li>Bara se leagă la 230 V numai cu cablul ei, cu împământare. Se mută doar scoasă din priză.</li>
+<li>Nu se privește în LED-uri de aproape. La atelier se lucrează la 30–50 % din maxim.</li>
+<li>Efectul stroboscopic (clipire rapidă) nu se folosește: poate declanșa crize la persoane sensibile.</li>
+<li>Bara se încălzește. Stă la cel puțin 0,5 m de hârtie, perdele sau alte materiale care ard, și nu se acoperă.</li>
+<li>Cablurile nu stau în calea de trecere.</li>
+</ul></div>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · bara</div><ul><li>Eticheta: tensiune, putere, IP.</li><li>Mufele: alimentare in/out, DMX in/out. Afișajul, butoanele.</li><li>Bara pusă pe perete, la 2 m, la R255: se măsoară fâșia luminată.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · culorile din meniu</div><ul><li>Pe rând: R255, G255, B255, O255.</li><li>Amestecuri: R+G, R+B, G+B, R+G+B, R+O.</li><li>Fiecare scrie în fișă ce crede că iese, apoi ce a ieșit.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · programele și fișa</div><ul><li>CC, CP, DE la viteze 05, 50, 99.</li><li>Fiecare echipă găsește valorile pentru trei culori cerute de profesor.</li><li>Completarea fișei.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f1">
+<div class="ws">
+<h2>Fișa 1 · Bara LED RGBW și culorile ei</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final știi ce este bara, ce înseamnă R, G, B, W și poți face o culoare cerută, din meniul barei.</p></div>
+<p><strong>Ai nevoie de:</strong> bara, priză cu împământare, perete alb, ruletă.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Citește eticheta barei și completează tabelul 1.</span></div>
+<div class="chk"><input type="checkbox"><span>Pune bara la 2 m de perete, pe pardoseală, cu LED-urile spre perete.</span></div>
+<div class="chk"><input type="checkbox"><span>Cu butonul A ajungi la R, apoi cu B/C la 255. Măsoară cu ruleta cât de înaltă e fâșia luminată.</span></div>
+<div class="chk"><input type="checkbox"><span>Completează tabelul 2 (culorile), întâi coloana „cred că iese”, apoi coloana „a ieșit”.</span></div>
+<div class="chk"><input type="checkbox"><span>Găsește valorile pentru cele trei culori cerute de profesor (tabelul 3).</span></div>
+<div class="chk"><input type="checkbox"><span>Răspunde la întrebările de control.</span></div>
+
+<h3>1. Datele barei</h3>
+<div class="tw"><table><tr><th>Tensiune de alimentare</th><td><input></td></tr><tr><th>Putere consumată</th><td><input></td></tr><tr><th>Număr LED-uri × putere</th><td><input></td></tr><tr><th>R / G / B / W înseamnă</th><td><input></td></tr><tr><th>Grad de protecție</th><td><input></td></tr><tr><th>Înălțimea fâșiei luminate la 2 m</th><td><input></td></tr></table></div>
+
+<h3>2. Culorile din meniu</h3>
+<div class="tw"><table><tr><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">O (W)</th><th>Cred că iese</th><th>A ieșit</th></tr>
+<tr><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">0</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">0</td><td class="mono">0</td><td class="mono">255</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">255</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">255</td><td class="mono">0</td><td class="mono">255</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">0</td><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">255</td><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td class="mono">150</td><td><input></td><td><input></td></tr></table></div>
+
+<h3>3. Culorile cerute de profesor</h3>
+<div class="tw"><table><tr><th>Culoarea cerută</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">O (W)</th></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>4. Programele automate</h3>
+<div class="tw"><table><tr><th>Afișaj</th><th>Ce face bara</th></tr><tr><td class="mono">CC05</td><td><input></td></tr><tr><td class="mono">CP50</td><td><input></td></tr><tr><td class="mono">DE99</td><td><input></td></tr></table></div>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>Ce înseamnă valoarea 0 și valoarea 255 pentru un LED al barei?</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>De ce ajung trei culori de LED (R, G, B) ca să se facă orice culoare?</p><textarea></textarea></div>
+<div class="q" data-n="3"><p>Ce afișaj trebuie să apară pe bară ca să poată fi comandată prin DMX cu 4 canale?</p><input style="width:50%"></div>
+<div class="q" data-n="4"><p>Scrie două reguli de protecție de la atelier.</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="DMX: cablare și prima conectare" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 2 · 3 ore</span><h1>DMX: cablare, lanț, terminator și prima conectare</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara, interfața ADJ myDMX 3.0 + laptop, cablu DMX, mufă XLR tată, rezistor 120 Ω, multimetru, ciocan de lipit</b></span><span>Rezultat: <b>bara comandată de la laptop, terminator confecționat</b></span></div>
+
+<h2>Ce este DMX</h2>
+<p><strong>DMX512</strong> este limbajul prin care o consolă de lumini sau un calculator comandă aparatele de iluminat: bare LED, proiectoare, capete mobile, mașini de fum. A fost creat în 1986 de asociația tehnicienilor de teatru din SUA, ca aparatele oricărui producător să poată fi legate între ele. Astăzi este standard internațional (ANSI E1.11). Numele vine de la <em>Digital MultipleX</em>; 512 este numărul de canale.</p>
+<p>O imagine simplă: consola este un profesor care strigă un catalog cu 512 numere, de vreo 44 de ori pe secundă, fără oprire. Fiecare aparat are locul lui în catalog și ascultă doar numerele de acolo. Aparatele nu răspund niciodată; consola vorbește, ele ascultă.</p>
+<dl class="def">
+<dt>Canal</dt><dd>Una din cele 512 poziții. Poartă un număr între 0 și 255. Bara folosește 4 canale: R, G, B, W.</dd>
+<dt>Adresă</dt><dd>Primul canal pe care îl ascultă un aparat. Se setează pe aparat. Bara pe <span class="mono">D001</span> ascultă canalele 1–4.</dd>
+<dt>Univers</dt><dd>Un set complet de 512 canale, adică tot ce încape pe un cablu DMX.</dd>
+<dt>Lanț</dt><dd>Felul în care se leagă aparatele: consolă → IN primul aparat → OUT → IN următorul → …</dd>
+</dl>
+
+<h2>Cablul și mufele</h2>
+<p>Semnalul merge pe două fire răsucite, <strong>Data+</strong> și <strong>Data−</strong>, „în oglindă”: când pe unul tensiunea urcă, pe celălalt coboară. Aparatul citește diferența dintre ele. O perturbație (un motor, un cablu de forță în apropiere) lovește ambele fire la fel, deci diferența nu se schimbă. De aceea DMX merge pe zeci de metri fără erori. Tehnic, se numește RS-485.</p>
+<ul>
+<li><strong>Cablu de DMX</strong>: pereche răsucită, ecranată, impedanță 110–120 Ω. Cablul de microfon arată la fel și merge pe câțiva metri, dar pe distanțe mari dă pâlpâiri.</li>
+<li><strong>Mufe XLR</strong>. Standardul prevede 5 pini; bara FOS și majoritatea aparatelor obișnuite au 3 pini.</li>
+<li><strong>Numai în lanț</strong>: nu se leagă în stea, nu se folosesc cabluri „în Y”. Pentru ramificații se folosește un <strong>splitter DMX</strong>.</li>
+<li>Cel mult <strong>32 de aparate</strong> și circa 300 m pe o linie.</li>
+<li><strong>Terminator</strong> la capătul lanțului: rezistor de 120 Ω între pinii 2 și 3, în mufa OUT a ultimului aparat.</li>
+</ul>
+<div class="box note"><div class="t">Pinii mufei XLR cu 3 pini</div>
+<div class="tw"><table><tr><th>Pin</th><th>Funcție</th><th>Fir uzual</th></tr><tr><td class="mono">1</td><td>ecran / masă</td><td>împletitura sau firul neizolat</td></tr><tr><td class="mono">2</td><td>Data −</td><td>alb sau negru</td></tr><tr><td class="mono">3</td><td>Data +</td><td>roșu sau albastru</td></tr></table></div>
+<p style="margin:0">Numerele sunt ștanțate pe mufă, lângă fiecare pin.</p></div>
+
+<h3>De ce e nevoie de terminator</h3>
+<p>Un semnal care ajunge la capătul unui cablu neterminat se reflectă înapoi, ca ecoul într-un tunel, și se suprapune peste semnalul care vine. Aparatele citesc valori greșite pentru o fracțiune de secundă și luminile pâlpâie. Rezistorul de 120 Ω, egal cu impedanța cablului, „absoarbe” semnalul la capăt. Manualul barei FOS cere explicit acest terminator.</p>
+
+<figure class="box"><svg viewBox="0 0 680 330" width="100%" role="img" aria-label="Lanț DMX, mufă XLR și terminator" style="max-width:680px;display:block;font-family:Barlow,sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#9A9AA6" stroke-width="1.5"/></marker></defs>
+<rect x="20" y="30" width="130" height="56" rx="6" fill="#1F222C" stroke="#3A3E4E"/><text x="85" y="54" fill="#ECE9E0" font-size="15" text-anchor="middle" font-weight="600">Laptop + myDMX</text><text x="85" y="74" fill="#9A9AA6" font-size="12" text-anchor="middle">ieșire DMX OUT</text>
+<line x1="152" y1="58" x2="186" y2="58" stroke="#9A9AA6" stroke-width="1.5" marker-end="url(#ar)"/>
+<rect x="190" y="30" width="130" height="56" rx="6" fill="#0f2a22" stroke="#5DCAA5"/><text x="255" y="54" fill="#ECE9E0" font-size="15" text-anchor="middle" font-weight="600">Bara 1</text><text x="255" y="74" fill="#9A9AA6" font-size="12" text-anchor="middle">IN → OUT · D001</text>
+<line x1="322" y1="58" x2="356" y2="58" stroke="#9A9AA6" stroke-width="1.5" marker-end="url(#ar)"/>
+<rect x="360" y="30" width="130" height="56" rx="6" fill="#0f2a22" stroke="#5DCAA5"/><text x="425" y="54" fill="#ECE9E0" font-size="15" text-anchor="middle" font-weight="600">Bara 2</text><text x="425" y="74" fill="#9A9AA6" font-size="12" text-anchor="middle">IN → OUT · D005</text>
+<line x1="492" y1="58" x2="526" y2="58" stroke="#9A9AA6" stroke-width="1.5" marker-end="url(#ar)"/>
+<rect x="530" y="30" width="130" height="56" rx="6" fill="#3a1414" stroke="#E45C5C"/><text x="595" y="54" fill="#ECE9E0" font-size="15" text-anchor="middle" font-weight="600">Terminator</text><text x="595" y="74" fill="#9A9AA6" font-size="12" text-anchor="middle">120 Ω în OUT-ul barei 2</text>
+<text x="20" y="140" fill="#F5B841" font-size="15" font-weight="600">Mufa XLR 3 pini (mufă tată, din față)</text>
+<circle cx="100" cy="230" r="58" fill="none" stroke="#9A9AA6"/>
+<circle cx="76" cy="210" r="12" fill="#1F222C" stroke="#9A9AA6"/><text x="76" y="215" fill="#ECE9E0" font-size="13" text-anchor="middle">1</text>
+<circle cx="124" cy="210" r="12" fill="#1F222C" stroke="#9A9AA6"/><text x="124" y="215" fill="#ECE9E0" font-size="13" text-anchor="middle">2</text>
+<circle cx="100" cy="256" r="12" fill="#1F222C" stroke="#9A9AA6"/><text x="100" y="261" fill="#ECE9E0" font-size="13" text-anchor="middle">3</text>
+<text x="180" y="212" fill="#ECE9E0" font-size="14">1 – ecran (masă)</text><text x="180" y="236" fill="#ECE9E0" font-size="14">2 – Data −</text><text x="180" y="260" fill="#ECE9E0" font-size="14">3 – Data +</text>
+<text x="380" y="140" fill="#F5B841" font-size="15" font-weight="600">Terminatorul, pe dinăuntru</text>
+<circle cx="400" cy="195" r="12" fill="#1F222C" stroke="#9A9AA6"/><text x="400" y="200" fill="#ECE9E0" font-size="13" text-anchor="middle">1</text><text x="420" y="199" fill="#9A9AA6" font-size="12">rămâne liber</text>
+<circle cx="400" cy="235" r="12" fill="#1F222C" stroke="#9A9AA6"/><text x="400" y="240" fill="#ECE9E0" font-size="13" text-anchor="middle">2</text>
+<circle cx="400" cy="285" r="12" fill="#1F222C" stroke="#9A9AA6"/><text x="400" y="290" fill="#ECE9E0" font-size="13" text-anchor="middle">3</text>
+<path d="M412 235 H480 V246" fill="none" stroke="#9A9AA6" stroke-width="1.5"/><path d="M412 285 H480 V274" fill="none" stroke="#9A9AA6" stroke-width="1.5"/>
+<rect x="470" y="246" width="20" height="28" rx="3" fill="#3a1414" stroke="#E45C5C"/><text x="500" y="265" fill="#ECE9E0" font-size="14">rezistor 120 Ω, 0,25 W</text>
+</svg></figure>
+
+<h2>Interfața myDMX 3.0</h2>
+<p><strong>myDMX 3.0</strong> este o cutie mică de la ADJ, cu USB pe o parte și XLR pe cealaltă, plus programul cu același nume. Laptopul devine consola: pe ecran apar fadere (cursoare) pentru fiecare canal, iar interfața transformă comenzile în semnal DMX pe cablu. Programul poate comanda un univers întreg, 512 canale.</p>
+<ol class="steps">
+<li>Programul se instalează de pe site-ul ADJ, cu toate componentele bifate. Pe Windows apare separat asistentul pentru driver: se parcurge până la capăt. La prima pornire, mesajul de firewall primește „Allow”.</li>
+<li>Se leagă: laptop → USB → interfață → cablu DMX → <strong>DMX IN</strong> la bară. În <strong>DMX OUT</strong> al barei se pune terminatorul.</li>
+<li>Pe bară, din meniu: <span class="mono">D001</span>. Se confirmă cu D.</li>
+<li>În program, butonul <strong>Patch</strong>. Din lista de profile se alege un profil generic <strong>RGBW</strong> cu 4 canale și se trage pe tabel la adresa 1. Un <strong>profil</strong> este fișierul care îi spune programului ce face fiecare canal al aparatului; dacă profilul e greșit, faderul de „roșu” poate comanda albastrul.</li>
+<li>Se selectează bara pe ecran și se mișcă faderele R, G, B, W. Bara răspunde imediat.</li>
+</ol>
+<div class="box task"><div class="t">Dacă bara nu răspunde</div><p style="margin:0">Se verifică în ordine: 1) afișajul barei arată D001? 2) driverul interfeței e instalat (LED-ul interfeței luminează)? 3) cablul e în DMX IN, nu în OUT? 4) adresa din Patch este 1? 5) cablul: pinii 2 și 3 nu sunt inversați?</p></div>
+
+<div class="sim" data-sim="mixer" data-opts='{"title":"Faderele din myDMX 3.0","hint":"Așa arată cele 4 canale ale barei pe ecran. Bara pe D001 primește canalele 1–4.","presets":[["Roșu",[255,0,0,0]],["Galben",[255,255,0,0]],["Alb W",[0,0,0,255]],["Stins",[0,0,0,0]]]}'></div>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · cablul și mufele</div><ul><li>Ce este DMX, lanțul, terminatorul.</li><li>Identificarea pinilor pe o mufă XLR cu lupa.</li><li>Comparație cablu DMX / cablu de microfon.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · prima conectare</div><ul><li>Laptop → interfață → bară. D001. Patch.</li><li>Cele 4 fadere pe rând, apoi amestecuri.</li><li>Probă fără terminator și cu un cablu de microfon de 20 m.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · terminatorul</div><ul><li>Lipirea rezistorului de 120 Ω între pinii 2 și 3 ai unei mufe XLR tată.</li><li>Verificare cu multimetrul, montare în OUT-ul barei.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f2">
+<div class="ws">
+<h2>Fișa 2 · DMX: cablare și prima conectare</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final poți lega bara la laptop prin DMX, o comanzi din myDMX 3.0 și ai făcut un terminator care funcționează.</p></div>
+<p><strong>Ai nevoie de:</strong> bara, interfața myDMX 3.0, laptop, cablu DMX 3 m, cablu de microfon lung, mufă XLR tată, rezistor 120 Ω, multimetru, ciocan de lipit, lupă.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Identifică pe mufa XLR pinii 1, 2, 3 și completează tabelul 1.</span></div>
+<div class="chk"><input type="checkbox"><span>Leagă: laptop → USB → interfață → cablu DMX → DMX IN bară. Terminatorul în DMX OUT.</span></div>
+<div class="chk"><input type="checkbox"><span>Pune bara pe D001.</span></div>
+<div class="chk"><input type="checkbox"><span>În myDMX 3.0: Patch → profil RGBW 4 canale → adresa 1.</span></div>
+<div class="chk"><input type="checkbox"><span>Mișcă faderele 1–4 și completează tabelul 2.</span></div>
+<div class="chk"><input type="checkbox"><span>Scoate terminatorul, apoi înlocuiește cablul cu cel de microfon lung. Notează în tabelul 3.</span></div>
+<div class="chk"><input type="checkbox"><span>Confecționează terminatorul și măsoară-l (tabelul 4).</span></div>
+
+<h3>1. Pinii mufei XLR</h3>
+<div class="tw"><table><tr><th>Pin</th><th>Funcție</th></tr><tr><td class="mono">1</td><td><input></td></tr><tr><td class="mono">2</td><td><input></td></tr><tr><td class="mono">3</td><td><input></td></tr></table></div>
+
+<h3>2. Faderele din program</h3>
+<div class="tw"><table><tr><th>Fader (canal)</th><th>Ce face bara când e ridicat singur la 255</th></tr><tr><td class="mono">1</td><td><input></td></tr><tr><td class="mono">2</td><td><input></td></tr><tr><td class="mono">3</td><td><input></td></tr><tr><td class="mono">4</td><td><input></td></tr></table></div>
+
+<h3>3. Cu și fără terminator</h3>
+<div class="tw"><table><tr><th>Situație</th><th>Ce face bara</th></tr><tr><td>cablu DMX 3 m, cu terminator</td><td><input></td></tr><tr><td>cablu DMX 3 m, fără terminator</td><td><input></td></tr><tr><td>cablu de microfon lung, fără terminator</td><td><input></td></tr></table></div>
+
+<h3>4. Terminatorul confecționat</h3>
+<div class="tw"><table><tr><th>Măsurat între pinii</th><th>Valoare citită</th><th>Valoare corectă</th></tr><tr><td class="mono">2 – 3</td><td><input></td><td><input></td></tr><tr><td class="mono">1 – 2</td><td><input></td><td><input></td></tr><tr><td class="mono">1 – 3</td><td><input></td><td><input></td></tr></table></div>
+
+<h3>5. Schema montajului</h3>
+<p>Desenează lanțul: laptop, interfață, bară (cu IN și OUT), terminator. Scrie adresa barei.</p>
+<div style="height:120px;border:1px solid #bbb;border-radius:4px;background:#fff"></div>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>Ce se întâmplă cu semnalul la capătul unui cablu fără terminator?</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>De ce nu se leagă aparatele DMX în stea (cu cablu în Y)?</p><textarea></textarea></div>
+<div class="q" data-n="3"><p>Bara nu răspunde deloc la fadere. Scrie trei lucruri pe care le verifici, în ordine.</p><textarea></textarea></div>
+<div class="q" data-n="4"><p>Ce este un profil în myDMX 3.0?</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Canale, valori, adrese, depanare" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 3 · 3 ore</span><h1>Canale, valori 0–255, adrese și depanare</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara, laptop cu myDMX 3.0, cabluri</b></span><span>Rezultat: <b>harta adreselor pentru mai multe bare, 6 defecte depanate</b></span></div>
+
+<h2>De ce valorile merg de la 0 la 255</h2>
+<p>Fiecare canal DMX transportă un singur număr. Numărul este trimis ca un <strong>octet</strong> (byte), adică 8 cifre binare, fiecare 0 sau 1. Cu 8 cifre binare se pot scrie exact 256 de combinații, de la 00000000 (= 0) la 11111111 (= 255). De aici limita.</p>
+<p>Ce înseamnă numărul depinde de canal. La un canal de culoare: 0 = stins, 255 = maxim, 128 = aproximativ jumătate. La un canal de viteză: 0 = lent, 255 = rapid. La canalele „de funcție” din modul 8CH, intervale de valori aleg funcții diferite (atelierul 8).</p>
+<div class="box note"><div class="t">Câte culori poate face bara</div><p style="margin:0">4 canale × 256 de valori fiecare: 256 × 256 × 256 × 256 = 4 294 967 296 de combinații. Ochiul deosebește doar câteva milioane.</p></div>
+
+<h2>Cum arată pachetul trimis pe cablu</h2>
+<p>Laptopul trimite fără oprire același pachet, de circa 44 de ori pe secundă. Pachetul are, în ordine: o pauză lungă (<strong>Break</strong>), care anunță „începe un pachet nou”; o pauză scurtă (<strong>MAB</strong>); un <strong>cod de start</strong> (0 pentru lumini); apoi cele 512 valori, canal după canal. Un pachet întreg durează cam 23 de miimi de secundă.</p>
+<p>DMX nu verifică dacă valorile au ajuns corect și nu așteaptă confirmare. Dacă un număr ajunge stricat, aparatul îl execută o fracțiune de secundă, până vine pachetul următor. La lumini nu contează. De aceea DMX nu are voie să comande artificii sau mecanisme care pot răni pe cineva.</p>
+
+<h2>Adresa</h2>
+<p><strong>Adresa</strong> este primul canal citit de aparat. De acolo, aparatul citește atâtea canale câte are modul lui. Bara pe <span class="mono">D001</span> citește canalele 1, 2, 3, 4. Pe <span class="mono">D005</span> citește 5, 6, 7, 8.</p>
+<p><strong>Regula:</strong> adresa următorului aparat = adresa aparatului curent + numărul lui de canale.</p>
+<ul>
+<li>Două bare pe aceeași adresă și același mod fac exact același lucru. Este util când mai multe bare trebuie să fie mereu identice: toate pe <span class="mono">D001</span>.</li>
+<li>Adrese suprapuse parțial (una pe 001, alta pe 003) dau comportament haotic: faderul 3 comandă și albastrul primei bare, și roșul celei de-a doua. Este cea mai frecventă greșeală.</li>
+<li>Într-un univers încap 128 de bare în modul 4CH. Pe un cablu nu pot sta însă decât 32 de aparate; pentru mai multe se folosește splitter.</li>
+</ul>
+
+<div class="sim" data-sim="packet"></div>
+<div class="sim" data-sim="addr" data-opts='{"hint":"Șase bare în modul 4CH, una după alta, fără goluri. Completează adresele de start și verifică.","bars":[4,4,4,4,4,4]}'></div>
+<div class="sim" data-sim="addr" data-opts='{"hint":"Trei bare în modul 8CH urmate de două bare în modul 4CH.","bars":[8,8,8,4,4]}'></div>
+
+<h2>Depanarea</h2>
+<p>Un montaj DMX care nu merge are aproape întotdeauna una dintre cauzele de mai jos. Se verifică în această ordine:</p>
+<ol class="steps">
+<li><strong>Bara este în modul DMX?</strong> Pe afișaj trebuie să fie D sau A urmat de adresă. Dacă e CC, CP, DE sau R/G/B/O, bara nu ascultă laptopul.</li>
+<li><strong>Adresa și modul sunt cele din Patch?</strong> D001 pe bară = adresa 1, profil cu 4 canale, în program.</li>
+<li><strong>Ajunge semnalul?</strong> LED-ul interfeței clipește când trimite. Dacă nu, driverul sau USB-ul.</li>
+<li><strong>Polaritatea.</strong> Într-o mufă lipită de mână, pinii 2 și 3 pot fi inversați. Aparatul nu răspunde deloc.</li>
+<li><strong>Terminatorul și cablul.</strong> Pâlpâirile aleatorii, mai ales la cabluri lungi, vin de aici.</li>
+<li><strong>Două mastere pe linie.</strong> Manualul FOS: dacă două aparate sunt master, nimic nu merge. Unul se pune slave.</li>
+</ol>
+<div class="sim" data-sim="fault"></div>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · valori și pachet</div><ul><li>Pachetul desenat pe tablă ca șir de căsuțe; primele 4 colorate R, G, B, W.</li><li>Pe bară: ce culoare dau 255/128/0/0, 0/255/255/0, 255/0/0/200.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · adresarea</div><ul><li>Exercițiile de adresare, pe hârtie, apoi verificate în simulator.</li><li>Pe bara reală: adresa mutată pe D003, D010, D512; se notează ce fadere o comandă acum.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · depanarea</div><ul><li>Profesorul introduce pe rând câte un defect; echipa notează simptomul și găsește cauza.</li><li>Fiecare echipă introduce un defect pentru echipa următoare.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f3">
+<div class="ws">
+<h2>Fișa 3 · Canale, valori, adrese, depanare</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final știi să dai adrese corecte mai multor aparate și să găsești cauza când un montaj DMX nu merge.</p></div>
+<p><strong>Ai nevoie de:</strong> bara, laptop cu myDMX 3.0, cablu DMX, terminator.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Bara pe D001. Pune valorile din tabelul 1 și scrie culoarea văzută.</span></div>
+<div class="chk"><input type="checkbox"><span>Completează tabelele 2 și 3 (adresare) pe hârtie, apoi verifică în simulatorul din lecție.</span></div>
+<div class="chk"><input type="checkbox"><span>Mută adresa barei pe D003, apoi D010. Completează tabelul 4.</span></div>
+<div class="chk"><input type="checkbox"><span>Depanare: pentru fiecare defect introdus de profesor, completează un rând în tabelul 5.</span></div>
+
+<h3>1. Valori → culoare</h3>
+<div class="tw"><table><tr><th class="mono">Ch1 R</th><th class="mono">Ch2 G</th><th class="mono">Ch3 B</th><th class="mono">Ch4 W</th><th>Culoarea văzută</th></tr>
+<tr><td class="mono">255</td><td class="mono">128</td><td class="mono">0</td><td class="mono">0</td><td><input></td></tr>
+<tr><td class="mono">0</td><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td><input></td></tr>
+<tr><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td class="mono">200</td><td><input></td></tr>
+<tr><td class="mono">40</td><td class="mono">0</td><td class="mono">120</td><td class="mono">0</td><td><input></td></tr>
+<tr><td class="mono">128</td><td class="mono">128</td><td class="mono">128</td><td class="mono">0</td><td><input></td></tr></table></div>
+
+<h3>2. Șase bare în modul 4CH</h3>
+<div class="tw"><table><tr><th>Bara</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr><tr><td>Adresa (pe afișaj)</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr><tr><td>Canale citite</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>3. Trei bare 8CH, apoi două bare 4CH</h3>
+<div class="tw"><table><tr><th>Bara</th><th>1 (8CH)</th><th>2 (8CH)</th><th>3 (8CH)</th><th>4 (4CH)</th><th>5 (4CH)</th></tr><tr><td>Adresa (pe afișaj)</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr><tr><td>Canale citite</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>4. Adresa mutată</h3>
+<div class="tw"><table><tr><th>Afișaj</th><th>Ce fader comandă roșul</th><th>Ce fader comandă albul</th></tr><tr><td class="mono">D001</td><td><input></td><td><input></td></tr><tr><td class="mono">D003</td><td><input></td><td><input></td></tr><tr><td class="mono">D010</td><td><input></td><td><input></td></tr></table></div>
+
+<h3>5. Depanare</h3>
+<div class="tw"><table><tr><th>#</th><th>Simptomul observat</th><th>Cauza găsită</th><th>Remediul</th></tr>
+<tr><td>1</td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td>2</td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td>3</td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td>4</td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td>5</td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr>
+<tr><td>6</td><td><textarea></textarea></td><td><textarea></textarea></td><td><textarea></textarea></td></tr></table></div>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>De ce valoarea maximă a unui canal este 255 și nu 100 sau 1000?</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>Două bare sunt amândouă pe D001. Ce se întâmplă? Când e util?</p><textarea></textarea></div>
+<div class="q" data-n="3"><p>Bara e pe D003. Ce fadere din program o comandă?</p><input style="width:50%"></div>
+<div class="q" data-n="4"><p>De ce nu are voie DMX să comande artificii?</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Amestecul culorilor RGB și albul" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 4 · 3 ore</span><h1>Amestecul culorilor RGB și cele două feluri de alb</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara pe D001, laptop, perete alb, un afiș tipărit color, lupă</b></span><span>Rezultat: <b>tabelul primare/secundare; alb cald reglat de mână</b></span></div>
+
+<h2>Lumina se adună, vopseaua se scade</h2>
+<p>Există două sisteme de amestec al culorilor și se comportă exact invers.</p>
+<dl class="def">
+<dt>Sinteza aditivă</dt><dd>Se pornește din întuneric și se <strong>adaugă</strong> lumini. Primarele sunt <strong>roșu, verde, albastru</strong> (RGB). Toate trei la maxim dau alb. Așa lucrează bara, ecranul, videoproiectorul.</dd>
+<dt>Sinteza substractivă</dt><dd>Se pornește de la hârtia albă, care reflectă toată lumina, și se <strong>scade</strong> din ea cu cerneluri, care absorb o parte. Primarele sunt <strong>cyan, magenta, galben</strong> (CMY). Toate trei împreună dau aproape negru; tiparul adaugă și negru (K): CMYK.</dd>
+</dl>
+<p>Legătura dintre ele: secundarele luminii sunt primarele tiparului. Roșu + verde = galben. Verde + albastru = cyan. Roșu + albastru = magenta.</p>
+
+<figure class="box"><svg viewBox="0 0 680 330" width="100%" role="img" aria-label="Sinteza aditivă și substractivă" style="max-width:680px;display:block;font-family:Barlow,sans-serif">
+<text x="185" y="30" fill="#F5B841" font-size="16" text-anchor="middle" font-weight="600">Aditiv: lumină (LED, ecran)</text>
+<text x="495" y="30" fill="#F5B841" font-size="16" text-anchor="middle" font-weight="600">Substractiv: cerneală (tipar)</text>
+<g style="isolation:isolate"><rect x="40" y="44" width="290" height="230" rx="8" fill="#000"/>
+<circle cx="150" cy="130" r="66" fill="#FF0000" style="mix-blend-mode:screen"/><circle cx="220" cy="130" r="66" fill="#00FF00" style="mix-blend-mode:screen"/><circle cx="185" cy="190" r="66" fill="#0000FF" style="mix-blend-mode:screen"/></g>
+<g style="isolation:isolate"><rect x="350" y="44" width="290" height="230" rx="8" fill="#fff"/>
+<circle cx="460" cy="130" r="66" fill="#00FFFF" style="mix-blend-mode:multiply"/><circle cx="530" cy="130" r="66" fill="#FF00FF" style="mix-blend-mode:multiply"/><circle cx="495" cy="190" r="66" fill="#FFFF00" style="mix-blend-mode:multiply"/></g>
+<text x="185" y="298" fill="#9A9AA6" font-size="13" text-anchor="middle">R+G = galben · G+B = cyan · R+B = magenta · toate = alb</text>
+<text x="495" y="298" fill="#9A9AA6" font-size="13" text-anchor="middle">C+M = albastru · M+Y = roșu · C+Y = verde · toate = negru</text>
+</svg></figure>
+
+<h2>Primarele și secundarele pe bară</h2>
+<div class="tw"><table><tr><th>Amestec</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th><th>Rezultat</th></tr>
+<tr><td><i class="sw" style="background:#f00"></i>Roșu</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td>primară</td></tr>
+<tr><td><i class="sw" style="background:#0f0"></i>Verde</td><td class="mono">0</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td>primară</td></tr>
+<tr><td><i class="sw" style="background:#00f"></i>Albastru</td><td class="mono">0</td><td class="mono">0</td><td class="mono">255</td><td class="mono">0</td><td>primară</td></tr>
+<tr><td><i class="sw" style="background:#ff0"></i>Roșu + verde</td><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td>galben</td></tr>
+<tr><td><i class="sw" style="background:#0ff"></i>Verde + albastru</td><td class="mono">0</td><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td>cyan</td></tr>
+<tr><td><i class="sw" style="background:#f0f"></i>Roșu + albastru</td><td class="mono">255</td><td class="mono">0</td><td class="mono">255</td><td class="mono">0</td><td>magenta</td></tr>
+<tr><td><i class="sw" style="background:#fff"></i>Toate trei</td><td class="mono">255</td><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td>alb</td></tr></table></div>
+<p>Surpriza clasică: roșu + verde nu dă maro, ca la vopsele, ci galben. Cu vopsele se scade lumină, cu LED-uri se adaugă.</p>
+<p>Cele trei primare la 255 nu par la fel de puternice. <strong>Verdele pare cel mai luminos</strong>, albastrul cel mai slab, deși LED-urile au aceeași putere. Motivul e în ochi: celulele pentru verde sunt cele mai sensibile. Consecința practică: un galben făcut din 255/255/0 iese verzui; pentru un galben curat, verdele se scade la circa 170.</p>
+
+<div class="sim" data-sim="mixer" data-opts='{"hint":"Scrie în fișă ce crezi că iese, apoi apasă.","presets":[["R",[255,0,0,0]],["G",[0,255,0,0]],["B",[0,0,255,0]],["R+G",[255,255,0,0]],["G+B",[0,255,255,0]],["R+B",[255,0,255,0]],["R+G+B",[255,255,255,0]],["Galben corectat",[255,170,0,0]]]}'></div>
+
+<h2>Două feluri de alb</h2>
+<p>Bara face alb în două moduri: din R+G+B la 255, sau din LED-ul alb (canalul W). Nu arată la fel. Albul din RGB este un amestec de trei culori înguste și bate în albăstrui sau roz; obiectele de sub el par ciudate. LED-ul W este un cip albastru acoperit cu un strat galben de fosfor; dă un alb mai „plin”, sub care obiectele arată mai natural.</p>
+<h3>Temperatura de culoare</h3>
+<p>Niciun alb nu e perfect alb: bate fie în galben, fie în albastru. Măsura se numește <strong>temperatură de culoare</strong> și se dă în <strong>kelvini (K)</strong>. Numele vine de la culoarea unui metal încălzit: la temperaturi mici e roșu-portocaliu, la temperaturi mari devine alb-albăstrui.</p>
+<div class="tw"><table><tr><th>Temperatura</th><th>Cum arată</th><th>Exemple</th></tr>
+<tr><td class="mono">2700 K</td><td>alb cald, gălbui</td><td>bec cu filament, lumânare</td></tr>
+<tr><td class="mono">4000 K</td><td>alb neutru</td><td>tuburi din birouri, magazine</td></tr>
+<tr><td class="mono">5500 K</td><td>lumina zilei</td><td>soare la amiază</td></tr>
+<tr><td class="mono">6500–7000 K</td><td>alb rece, albăstrui</td><td>cer înnorat, <strong>LED-ul W al barei (≈ 6800 K)</strong></td></tr></table></div>
+<p>Atenție la sensul aparent invers: „cald” înseamnă kelvini <em>puțini</em>, „rece” înseamnă kelvini <em>mulți</em>.</p>
+<p>LED-ul W al barei este rece. Un <strong>alb cald</strong>, ca de bec, se face din W plus puțin roșu și verde: de exemplu W 255, R 120, G 40. Așa se „încălzește” albul. Pentru o fațadă de clădire veche se folosește de obicei alb cald; pentru o vitrină de electronice, alb rece.</p>
+
+<div class="sim" data-sim="mixer" data-opts='{"title":"Cele două feluri de alb","hint":"Compară albul RGB cu albul W, apoi încălzește albul W cu R și G.","init":[0,0,0,255],"presets":[["Alb RGB",[255,255,255,0]],["Alb W (rece)",[0,0,0,255]],["Alb cald",[120,40,0,255]],["Alb foarte cald",[200,70,0,255]]]}'></div>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · primarele</div><ul><li>Fiecare fader la 255, pe rând. Descrierea culorii în cuvinte.</li><li>Comparație de luminozitate R / G / B.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · secundarele</div><ul><li>Fiecare scrie ce crede că iese, apoi se face amestecul.</li><li>Galbenul corectat: verdele scăzut până iese curat.</li><li>Afișul tipărit privit cu lupa: punctele CMYK.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · albul</div><ul><li>Alb RGB lângă alb W.</li><li>Alb cald reglat de mână, comparat cu un bec clasic.</li><li>Fișa.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f4">
+<div class="ws">
+<h2>Fișa 4 · Amestecul culorilor RGB și albul</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final știi ce dau amestecurile de R, G, B, de ce lumina se adună și vopseaua se scade, și poți regla un alb cald sau rece.</p></div>
+<p><strong>Ai nevoie de:</strong> bara pe D001, laptop, perete alb, un afiș tipărit, lupă, un bec clasic (sau o lanternă cu lumină caldă).</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Completează coloana „cred că iese” din tabelul 1, <strong>înainte</strong> de a apăsa.</span></div>
+<div class="chk"><input type="checkbox"><span>Fă fiecare amestec pe bară și completează „a ieșit”.</span></div>
+<div class="chk"><input type="checkbox"><span>Galben: pornește de la 255/255/0 și scade verdele până iese galben curat. Notează valoarea.</span></div>
+<div class="chk"><input type="checkbox"><span>Privește afișul cu lupa. Completează întrebarea 3.</span></div>
+<div class="chk"><input type="checkbox"><span>Alb RGB lângă alb W. Apoi reglează un alb cald și compară-l cu becul. Completează tabelul 2.</span></div>
+
+<h3>1. Amestecuri</h3>
+<div class="tw"><table><tr><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th>Cred că iese</th><th>A ieșit</th></tr>
+<tr><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">0</td><td class="mono">255</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">0</td><td class="mono">0</td><td class="mono">255</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">255</td><td class="mono">255</td><td class="mono">0</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">0</td><td class="mono">255</td><td class="mono">255</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">255</td><td class="mono">0</td><td class="mono">255</td><td><input></td><td><input></td></tr>
+<tr><td class="mono">255</td><td class="mono">255</td><td class="mono">255</td><td><input></td><td><input></td></tr></table></div>
+<p>Galben curat: R 255, G <input style="width:4rem">, B 0. Care primară pare cea mai luminoasă la 255? <input style="width:30%"></p>
+
+<h3>2. Albul</h3>
+<div class="tw"><table><tr><th>Alb</th><th class="mono">R / G / B / W</th><th>Bate în…</th><th>Cald / neutru / rece</th></tr>
+<tr><td>din RGB</td><td class="mono">255 / 255 / 255 / 0</td><td><input></td><td><input></td></tr>
+<tr><td>din W</td><td class="mono">0 / 0 / 0 / 255</td><td><input></td><td><input></td></tr>
+<tr><td>alb cald (rețeta echipei)</td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>De ce roșu + verde dă galben pe bară, dar maro cu vopsele?</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>Care sunt primarele luminii și care sunt primarele tiparului?</p><div class="grid2"><label>Lumină: <input></label><label>Tipar: <input></label></div></div>
+<div class="q" data-n="3"><p>Ce culori au punctele de pe afișul tipărit, văzute cu lupa?</p><input style="width:70%"></div>
+<div class="q" data-n="4"><p>Un alb de 2700 K este cald sau rece? Dar LED-ul W al barei, la circa 6800 K?</p><textarea></textarea></div>
+<div class="q" data-n="5"><p>Pentru fațada unei clădiri vechi din piatră, ce alb ai alege și ce valori ai pune pe bară?</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Nuanță, saturație, luminozitate" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 5 · 3 ore</span><h1>Nuanță, saturație, luminozitate: rețete de culori</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara pe D001, laptop, perete alb</b></span><span>Rezultat: <b>10 rețete de culori, cu valori DMX</b></span></div>
+
+<h2>Cele trei însușiri ale unei culori</h2>
+<p>Valorile R, G, B, W spun barei ce să facă, dar nu spun cum <em>arată</em> culoarea. Pentru asta se folosesc trei însușiri, mai ușor de înțeles. Programele de grafică le numesc HSV (Hue, Saturation, Value).</p>
+<dl class="def">
+<dt>Nuanța</dt><dd><em>Ce</em> culoare este: roșu, portocaliu, galben, verde… Se dă ca unghi pe roata culorilor, de la 0° la 360° (atelierul 6).</dd>
+<dt>Saturația</dt><dd>Cât de <em>pură</em> este culoarea. 100 % = vie, curată. 0 % = gri, fără culoare. Rozul este un roșu cu saturație mică.</dd>
+<dt>Luminozitatea</dt><dd>Cât de <em>deschisă</em> sau de <em>închisă</em> este. 100 % = cât poate da bara. 0 % = stins.</dd>
+</dl>
+<p>Simulatorul de mai jos arată sub fadere, la fiecare schimbare, nuanța în grade, saturația și luminozitatea în procente. Se urmăresc cele trei numere în timp ce se mișcă faderele.</p>
+
+<h2>Saturația: canalul W</h2>
+<p>Peste un roșu pur (255/0/0/0) se adaugă alb (W). Roșul devine roz. Nuanța rămâne roșu; saturația scade. Cu cât mai mult alb, cu atât mai pastel. Toate culorile pastel se fac așa: culoare + alb.</p>
+<div class="tw"><table><tr><th class="mono">R / G / B / W</th><th>Culoarea</th><th>Saturația</th></tr>
+<tr><td class="mono">255 / 0 / 0 / 0</td><td><i class="sw" style="background:#f00"></i>roșu viu</td><td>100 %</td></tr>
+<tr><td class="mono">255 / 0 / 0 / 100</td><td><i class="sw" style="background:#f66"></i>roșu-roz</td><td>≈ 60 %</td></tr>
+<tr><td class="mono">255 / 0 / 0 / 200</td><td><i class="sw" style="background:#fbb"></i>roz pastel</td><td>≈ 25 %</td></tr>
+<tr><td class="mono">255 / 0 / 0 / 255</td><td><i class="sw" style="background:#fdd"></i>aproape alb</td><td>≈ 10 %</td></tr></table></div>
+
+<h2>Luminozitatea: toate canalele în aceeași proporție</h2>
+<p>Dacă toate canalele scad <em>în aceeași proporție</em>, nuanța și saturația rămân la fel; scade doar luminozitatea. Portocaliul 255/128/0 și portocaliul 64/32/0 sunt aceeași nuanță; al doilea e doar de patru ori mai întunecat.</p>
+<p>Curiozitate utilă: un portocaliu întunecat pare <strong>maro</strong>, dar numai când lângă el există ceva mai luminos. Maroul nu există ca lumină singură; e un portocaliu văzut lângă o zonă mai luminoasă. La fel, „gri” e un alb slab lângă un alb puternic.</p>
+
+<div class="sim" data-sim="mixer" data-opts='{"hint":"Urmărește nuanța, saturația și luminozitatea de sub fadere.","init":[255,0,0,0],"presets":[["Roșu pur",[255,0,0,0]],["+W 100",[255,0,0,100]],["+W 200",[255,0,0,200]],["Portocaliu 100 %",[255,128,0,0]],["Portocaliu 50 %",[128,64,0,0]],["Portocaliu 25 %",[64,32,0,0]],["Albastru pastel",[60,80,255,180]]]}'></div>
+
+<h2>Cum se construiește o culoare cerută</h2>
+<ol class="steps">
+<li><strong>Nuanța:</strong> se aleg cele două primare vecine. Pentru portocaliu: R și G. Pentru violet: B și R. Pentru turcoaz: G și B.</li>
+<li><strong>Proporția:</strong> primara mai apropiată la 255, cealaltă mai jos. Portocaliu: R 255, G 100. Galben-verzui: G 255, R 120.</li>
+<li><strong>Saturația:</strong> se adaugă W pentru pastel. Fără W = culoare vie.</li>
+<li><strong>Luminozitatea:</strong> se scad toate canalele proporțional pentru o culoare închisă.</li>
+</ol>
+<div class="tw"><table><tr><th>Culoare cerută</th><th>Rețetă de pornire (R / G / B / W)</th></tr>
+<tr><td>portocaliu</td><td class="mono">255 / 100 / 0 / 0</td></tr>
+<tr><td>turcoaz</td><td class="mono">0 / 255 / 180 / 0</td></tr>
+<tr><td>violet</td><td class="mono">120 / 0 / 255 / 0</td></tr>
+<tr><td>roz</td><td class="mono">255 / 0 / 60 / 150</td></tr>
+<tr><td>verde-închis (brad)</td><td class="mono">0 / 90 / 20 / 0</td></tr>
+<tr><td>bleu (albastru deschis)</td><td class="mono">0 / 120 / 255 / 200</td></tr>
+<tr><td>auriu</td><td class="mono">255 / 150 / 0 / 60</td></tr></table></div>
+<p>Rețetele sunt puncte de pornire. Se corectează pe bara reală, din ochi.</p>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · saturația</div><ul><li>Roșu 255, apoi W crescut din 50 în 50. Se numește culoarea la fiecare treaptă.</li><li>La fel pentru albastru și verde.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · luminozitatea</div><ul><li>Portocaliu 255/128/0 → 128/64/0 → 64/32/0.</li><li>Maroul: portocaliu închis lângă alb.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · rețetele</div><ul><li>Fiecare echipă construiește cele 7 culori din tabel, corectate din ochi.</li><li>Apoi 3 culori proprii, cu nume.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f5">
+<div class="ws">
+<h2>Fișa 5 · Nuanță, saturație, luminozitate</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final poți construi pe bară orice culoare cerută, alegând nuanța, saturația și luminozitatea.</p></div>
+<p><strong>Ai nevoie de:</strong> bara pe D001, laptop, perete alb.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Roșu 255 și W crescut. Completează tabelul 1.</span></div>
+<div class="chk"><input type="checkbox"><span>Portocaliu la 100 %, 50 %, 25 %. Completează tabelul 2.</span></div>
+<div class="chk"><input type="checkbox"><span>Construiește cele 7 culori din tabelul 3, pornind de la rețetele din lecție; corectează din ochi și notează valorile finale.</span></div>
+<div class="chk"><input type="checkbox"><span>Inventează 3 culori proprii (tabelul 4).</span></div>
+
+<h3>1. Saturația (roșu 255 + W)</h3>
+<div class="tw"><table><tr><th class="mono">W</th><th class="mono">0</th><th class="mono">50</th><th class="mono">100</th><th class="mono">150</th><th class="mono">200</th><th class="mono">255</th></tr><tr><td>numele culorii</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>2. Luminozitatea (portocaliu)</h3>
+<div class="tw"><table><tr><th class="mono">R / G / B</th><th>Cum arată</th><th>S-a schimbat nuanța?</th></tr><tr><td class="mono">255 / 128 / 0</td><td><input></td><td><input></td></tr><tr><td class="mono">128 / 64 / 0</td><td><input></td><td><input></td></tr><tr><td class="mono">64 / 32 / 0</td><td><input></td><td><input></td></tr></table></div>
+
+<h3>3. Culori cerute</h3>
+<div class="tw"><table><tr><th>Culoare</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th><th>Ce a trebuit corectat față de rețetă</th></tr>
+<tr><td>portocaliu</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>turcoaz</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>violet</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>roz</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>verde-închis</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>bleu</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>auriu</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>4. Culorile echipei</h3>
+<div class="tw"><table><tr><th>Nume inventat</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th><th>Nuanță / saturație / luminozitate, în cuvinte</th></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>Ce canal se ridică pentru a face o culoare pastel? Ce însușire a culorii se schimbă?</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>Cum se face o culoare mai închisă fără să i se schimbe nuanța?</p><textarea></textarea></div>
+<div class="q" data-n="3"><p>Scrie o rețetă (R/G/B/W) pentru un galben pastel.</p><input style="width:50%"></div>
+<div class="q" data-n="4"><p>De ce un portocaliu întunecat pare maro doar lângă ceva luminos?</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Roata culorilor și armonii" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 6 · 3 ore</span><h1>Roata culorilor și armonii</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara pe D001, laptop, perete alb</b></span><span>Rezultat: <b>4 scene construite pe armonii</b></span></div>
+
+<h2>Roata culorilor</h2>
+<p><strong>Roata culorilor</strong> așază nuanțele în cerc, în ordinea din curcubeu, iar capătul (violet) se leagă înapoi de început (roșu). Poziția unei nuanțe se dă în grade. Pe roata luminii, roșul e la 0°, verdele la 120°, albastrul la 240°. Între ele, la 60°, 180° și 300°, stau secundarele: galben, cyan, magenta.</p>
+<p>Roata din manualele de pictură are alte primare (roșu, galben, albastru), pentru că vopselele lucrează substractiv. La lumini se folosește roata RGB.</p>
+<div class="sim" data-sim="wheel"></div>
+
+<div class="tw"><table><tr><th>Nuanță</th><th>Unghi</th><th class="mono">R / G / B</th><th>Nuanță</th><th>Unghi</th><th class="mono">R / G / B</th></tr>
+<tr><td><i class="sw" style="background:#f00"></i>roșu</td><td class="mono">0°</td><td class="mono">255 / 0 / 0</td><td><i class="sw" style="background:#0ff"></i>cyan</td><td class="mono">180°</td><td class="mono">0 / 255 / 255</td></tr>
+<tr><td><i class="sw" style="background:#f80"></i>portocaliu</td><td class="mono">30°</td><td class="mono">255 / 128 / 0</td><td><i class="sw" style="background:#08f"></i>azuriu</td><td class="mono">210°</td><td class="mono">0 / 128 / 255</td></tr>
+<tr><td><i class="sw" style="background:#ff0"></i>galben</td><td class="mono">60°</td><td class="mono">255 / 255 / 0</td><td><i class="sw" style="background:#00f"></i>albastru</td><td class="mono">240°</td><td class="mono">0 / 0 / 255</td></tr>
+<tr><td><i class="sw" style="background:#8f0"></i>verde-gălbui</td><td class="mono">90°</td><td class="mono">128 / 255 / 0</td><td><i class="sw" style="background:#80f"></i>violet</td><td class="mono">270°</td><td class="mono">128 / 0 / 255</td></tr>
+<tr><td><i class="sw" style="background:#0f0"></i>verde</td><td class="mono">120°</td><td class="mono">0 / 255 / 0</td><td><i class="sw" style="background:#f0f"></i>magenta</td><td class="mono">300°</td><td class="mono">255 / 0 / 255</td></tr>
+<tr><td><i class="sw" style="background:#0f8"></i>verde-marin</td><td class="mono">150°</td><td class="mono">0 / 255 / 128</td><td><i class="sw" style="background:#f08"></i>roz-roșu</td><td class="mono">330°</td><td class="mono">255 / 0 / 128</td></tr></table></div>
+
+<h2>Armonii</h2>
+<p>O <strong>armonie</strong> este o regulă de a alege culori care „merg împreună”. Regulile sunt geometrice și se citesc direct pe roată.</p>
+<dl class="def">
+<dt>Complementare</dt><dd>Două culori față în față, la 180°: roșu–cyan, verde–magenta, albastru–galben. Contrast maxim. Amestecate ca lumină, dau alb.</dd>
+<dt>Analoage</dt><dd>Culori vecine, la ±30°: roșu, portocaliu, galben. Senzație liniștită, unitară. Un apus de soare e o armonie de analoage calde.</dd>
+<dt>Triadă</dt><dd>Trei culori la câte 120°: roșu–verde–albastru sau galben–cyan–magenta. Aspect viu, „de jucărie”.</dd>
+<dt>Complementară despicată</dt><dd>O culoare plus cei doi vecini ai complementarei ei. Contrast mare, dar mai puțin brutal.</dd>
+</dl>
+<h3>Cald și rece</h3>
+<p>Jumătatea roșu–portocaliu–galben este <strong>caldă</strong>: apropie, energizează, atrage atenția. Jumătatea cyan–albastru–violet este <strong>rece</strong>: depărtează, liniștește. Într-o vitrină, lumina caldă face produsele să pară apropiate; într-un hol, lumina rece pare curată și spațioasă. Pe o fațadă, albastrul rece pare „monumental”, auriul cald pare „de sărbătoare”.</p>
+
+<h2>Scene pe armonii</h2>
+<div class="tw"><table><tr><th>Scena</th><th>Armonia</th><th>Culorile (R / G / B / W)</th></tr>
+<tr><td>Apus de soare</td><td>analoage calde</td><td class="mono">255/40/0/0 → 255/100/0/0 → 255/180/0/30</td></tr>
+<tr><td>Gheață</td><td>analoage reci + alb</td><td class="mono">0/120/255/100 → 0/255/255/80 → 0/0/0/255</td></tr>
+<tr><td>Afiș de concert</td><td>complementare</td><td class="mono">255/0/120/0 ↔ 0/255/120/0</td></tr>
+<tr><td>Loc de joacă</td><td>triadă</td><td class="mono">255/170/0/0 → 0/255/255/0 → 255/0/255/0</td></tr></table></div>
+<p>Cu o singură bară, culorile unei scene se arată pe rând; în atelierul 9 vor deveni pași ai unei scene cu fade și hold.</p>
+
+<div class="sim" data-sim="mixer" data-opts='{"hint":"Cele patru scene, culoare cu culoare.","presets":[["Apus 1",[255,40,0,0]],["Apus 2",[255,100,0,0]],["Apus 3",[255,180,0,30]],["Gheață 1",[0,120,255,100]],["Gheață 2",[0,255,255,80]],["Gheață 3",[0,0,0,255]],["Concert A",[255,0,120,0]],["Concert B",[0,255,120,0]],["Joacă 1",[255,170,0,0]],["Joacă 2",[0,255,255,0]],["Joacă 3",[255,0,255,0]]]}'></div>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · roata</div><ul><li>Cele 12 nuanțe din tabel, pe rând, pe bară.</li><li>Găsirea complementarei unei culori date, pe roată și pe bară.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · armoniile</div><ul><li>Cele 4 scene din tabel, pe bara reală.</li><li>Discuție: unde s-ar folosi fiecare (vitrină, fațadă, concert, grădiniță).</li></ul></div>
+<div class="h"><div class="t">Ora 3 · scene proprii</div><ul><li>Fiecare echipă primește un loc (fațadă de primărie, bar, sală de sport, biserică) și construiește o scenă de 3 culori pe o armonie aleasă.</li><li>Prezentare pe bară, colegii ghicesc armonia.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f6">
+<div class="ws">
+<h2>Fișa 6 · Roata culorilor și armonii</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final știi să găsești pe roată complementara, analoagele și triada unei culori și să construiești o scenă de lumină pe o armonie.</p></div>
+<p><strong>Ai nevoie de:</strong> bara pe D001, laptop, perete alb.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Pune pe bară cele 12 nuanțe din lecție. Completează tabelul 1.</span></div>
+<div class="chk"><input type="checkbox"><span>Completează tabelul 2 (complementare) pe hârtie, apoi verifică pe bară.</span></div>
+<div class="chk"><input type="checkbox"><span>Fă cele 4 scene din lecție. Completează tabelul 3.</span></div>
+<div class="chk"><input type="checkbox"><span>Construiește scena echipei (tabelul 4).</span></div>
+
+<h3>1. Cele 12 nuanțe</h3>
+<div class="tw"><table><tr><th>Unghi</th><th class="mono">0°</th><th class="mono">30°</th><th class="mono">60°</th><th class="mono">90°</th><th class="mono">120°</th><th class="mono">150°</th><th class="mono">180°</th><th class="mono">210°</th><th class="mono">240°</th><th class="mono">270°</th><th class="mono">300°</th><th class="mono">330°</th></tr>
+<tr><td>pare luminoasă / medie / întunecată</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>caldă / rece</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>2. Complementare</h3>
+<div class="tw"><table><tr><th>Culoare</th><th class="mono">R / G / B</th><th>Complementara</th><th class="mono">R / G / B</th></tr><tr><td>roșu</td><td><input></td><td><input></td><td><input></td></tr><tr><td>galben</td><td><input></td><td><input></td><td><input></td></tr><tr><td>verde</td><td><input></td><td><input></td><td><input></td></tr><tr><td>portocaliu</td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>3. Cele patru scene</h3>
+<div class="tw"><table><tr><th>Scena</th><th>Armonia</th><th>Unde s-ar folosi</th><th>Ce am corectat din ochi</th></tr>
+<tr><td>Apus de soare</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>Gheață</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>Afiș de concert</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>Loc de joacă</td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>4. Scena echipei</h3>
+<p>Locul primit: <input style="width:40%"> Armonia aleasă: <input style="width:30%"></p>
+<div class="tw"><table><tr><th>Culoarea</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th><th>Unghi pe roată</th></tr>
+<tr><td>1</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>2</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>3</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>Ce sunt culorile complementare și ce dau când se amestecă ca lumină?</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>Numește o armonie potrivită pentru o vitrină de cofetărie și una pentru un magazin de electronice. De ce?</p><textarea></textarea></div>
+<div class="q" data-n="3"><p>Scrie valorile R/G/B pentru triada galben–cyan–magenta.</p><input style="width:70%"></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Obiecte sub lumină; foto și video" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 7 · 3 ore</span><h1>Obiecte sub lumină colorată; lumina pentru foto și video</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara, laptop, cartoane colorate (roșu, verde, albastru, galben, alb, negru), un afiș tipărit, telefoane, un fruct</b></span><span>Rezultat: <b>tabel obiect × lumină; set de fotografii comparate</b></span></div>
+
+<h2>Obiectele nu au lumină proprie</h2>
+<p>Un obiect <strong>reflectă</strong> o parte din lumina care cade pe el și <strong>absoarbe</strong> restul. Un carton roșu e roșu pentru că reflectă roșul și absoarbe verdele și albastrul. Culoarea văzută este ce rămâne din lumina sursei după ce obiectul a absorbit ce absoarbe el.</p>
+<p>Consecințe:</p>
+<ul>
+<li>Sub lumină verde, cartonul roșu nu are ce reflecta. Apare <strong>negru</strong>.</li>
+<li>Sub lumină galbenă (R+G), cartonul roșu apare roșu: din galben reflectă componenta roșie.</li>
+<li>Un obiect alb reflectă tot și ia culoarea luminii. Un obiect negru absoarbe tot și rămâne negru sub orice lumină.</li>
+</ul>
+<p>Regula de calcul, aproximativ: culoarea văzută = culoarea obiectului × culoarea luminii, canal cu canal. Roșu (255/0/0) sub cyan (0/255/255) dă 0/0/0.</p>
+
+<div class="sim" data-sim="mixer" data-opts='{"title":"Cartoane sub lumină colorată","hint":"Alege cartoanele și schimbă lumina.","objects":true,"init":[0,255,0,0],"presets":[["Alb W",[0,0,0,255]],["Roșu",[255,0,0,0]],["Verde",[0,255,0,0]],["Albastru",[0,0,255,0]],["Galben",[255,255,0,0]],["Cyan",[0,255,255,0]]]}'></div>
+
+<div class="box warn"><div class="t">De ce contează la o fațadă sau la o vitrină</div><p style="margin:0">O fațadă din piatră gălbuie luminată în albastru pare gri-murdară, pentru că piatra nu are ce albastru să reflecte. Aceeași fațadă în auriu „strălucește”. O reclamă roșie într-o vitrină luminată în verde dispare. Cine alege culoarea luminii trebuie să știe culoarea a ceea ce luminează.</p></div>
+
+<h2>Ce vede camera: flicker</h2>
+<p>Bara reglează luminozitatea unui LED aprinzându-l și stingându-l de sute de ori pe secundă (<strong>PWM</strong>, detalii în atelierul 8). Ochiul nu vede clipirea. Camera telefonului o poate vedea: senzorul citește imaginea linie cu linie, iar dacă LED-ul s-a stins între timp, în poză sau în video apar <strong>benzi întunecate</strong> care se mișcă. Fenomenul se numește <strong>flicker</strong>. E mai vizibil la intensitate mică și la filmare cu încetinitorul. La 100 % nu există, pentru că LED-ul nu se stinge deloc.</p>
+
+<h2>Balansul de alb</h2>
+<p>Camera nu știe ce e „alb”. Măsoară cât R, G, B vin de la fiecare punct și trebuie să decidă ce combinație înseamnă alb: <strong>balansul de alb</strong>. Pe automat, ghicește. Pe manual, se alege sursa: „bec” (≈ 3000 K), „lumina zilei” (≈ 5500 K), „înnorat” (≈ 6500 K). Reglată pe „bec” sub LED-ul W al barei (≈ 6800 K), fotografia iese albastră. Reglată pe „înnorat” sub un bec, iese portocalie. Ochiul face corecția singur; camera trebuie ajutată.</p>
+
+<h2>CRI: cât de corect arată culorile</h2>
+<p><strong>CRI</strong> (indice de redare a culorilor) spune, pe o scară până la 100, cât de corect arată obiectele sub o lumină, față de lumina zilei. Bec cu filament: aproape 100. Lampă stradală cu sodiu (portocalie): sub 25; sub ea, o mașină roșie și una verde arată aproape la fel. Bara are <strong>CRI 77</strong> la LED-ul alb: bun pentru efecte și fațade, insuficient pentru fotografie de produs sau portrete, unde culorile pielii și ale fructelor ies șterse. Pentru asta se folosesc surse cu CRI peste 90.</p>
+
+<h2>Regula de la studio</h2>
+<p>Lumina principală, albă, din față-lateral; culorile <strong>în spate</strong>, pe fundal, ca accent. Obiectul rămâne cu culorile lui, fundalul dă atmosfera. Pe o fațadă e la fel: barele bat pe zid și tavan, nu pe oamenii din față.</p>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · obiectele</div><ul><li>Cartoanele și afișul sub alb, roșu, verde, albastru, galben.</li><li>Tabelul obiect × lumină.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · flicker și balans</div><ul><li>Bara la 100 / 50 / 20 / 5 %, filmată normal și slow motion.</li><li>Coala albă sub LED-ul W, cu balansul pe automat, bec, zi, înnorat.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · foto de produs</div><ul><li>Fructul la fereastră și sub bară.</li><li>Foto „de reclamă”: alb în față, culoare în spate.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f7">
+<div class="ws">
+<h2>Fișa 7 · Obiecte sub lumină; foto și video</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final știi cum arată un obiect sub o lumină colorată și ce probleme apar când lumina LED e fotografiată sau filmată.</p></div>
+<p><strong>Ai nevoie de:</strong> bara pe D001, laptop, cartoane colorate, afiș tipărit, coală albă, un fruct, telefon.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Pune fiecare carton sub fiecare lumină. Completează tabelul 1.</span></div>
+<div class="chk"><input type="checkbox"><span>Bara pe alb la 100 %, 50 %, 20 %, 5 %. Filmează peretele normal și slow motion. Tabelul 2.</span></div>
+<div class="chk"><input type="checkbox"><span>Coala albă sub LED-ul W. Fotografiază cu balansul pe automat, bec, zi, înnorat. Tabelul 3.</span></div>
+<div class="chk"><input type="checkbox"><span>Fructul la fereastră și sub bara pe W. Compară. Întrebarea 3.</span></div>
+<div class="chk"><input type="checkbox"><span>Foto „de reclamă”: obiectul cu bara pe alb în față, apoi cu bara colorată în spate.</span></div>
+
+<h3>1. Carton × lumină (ce culoare se vede)</h3>
+<div class="tw"><table><tr><th>Carton \ lumină</th><th>alb W</th><th>roșu</th><th>verde</th><th>albastru</th><th>galben</th></tr>
+<tr><td>roșu</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>verde</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>albastru</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>galben</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>alb</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>negru</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>2. Flicker</h3>
+<div class="tw"><table><tr><th>Intensitate</th><th>Filmare normală (benzi da/nu)</th><th>Slow motion (benzi da/nu)</th></tr>
+<tr><td class="mono">100 %</td><td><input></td><td><input></td></tr><tr><td class="mono">50 %</td><td><input></td><td><input></td></tr><tr><td class="mono">20 %</td><td><input></td><td><input></td></tr><tr><td class="mono">5 %</td><td><input></td><td><input></td></tr></table></div>
+
+<h3>3. Balans de alb (coala albă sub LED-ul W)</h3>
+<div class="tw"><table><tr><th>Setare</th><th>Coala bate în…</th><th>Notă 1 (colorată) – 5 (alb curat)</th></tr>
+<tr><td>automat</td><td><input></td><td><input></td></tr><tr><td>bec</td><td><input></td><td><input></td></tr><tr><td>lumina zilei</td><td><input></td><td><input></td></tr><tr><td>înnorat</td><td><input></td><td><input></td></tr></table></div>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>De ce cartonul roșu pare negru sub lumină verde? Folosește „reflectă” și „absoarbe”.</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>La ce intensitate apar benzile pe telefon și de ce nu apar la 100 %?</p><textarea></textarea></div>
+<div class="q" data-n="3"><p>Fructul la fereastră față de fructul sub bară: ce diferență se vede? Ce valoare CRI are bara?</p><textarea></textarea></div>
+<div class="q" data-n="4"><p>O fațadă din piatră gălbuie: ce culoare de lumină o face să arate bine și ce culoare o „murdărește”?</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Modul 8CH: dimmer, strobe, programe" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 8 · 3 ore</span><h1>Modul 8CH: dimmer, stroboscop și programe</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara, laptop cu myDMX 3.0 + Scan Library Editor</b></span><span>Rezultat: <b>tabelul celor 8 canale, descoperit experimental; profil 8CH creat</b></span></div>
+
+<h2>De la 4 la 8 canale</h2>
+<p>Până acum bara a fost pe <span class="mono">D001</span>, cu 4 canale: R, G, B, W. Pe <span class="mono">A001</span> bara trece în modul cu 8 canale. Culorile rămân, dar se mută pe canalele 5–8, iar înaintea lor apar patru canale noi: dimmer, stroboscop, selector de program, viteză. Tabelul este cel din manualul FOS.</p>
+<div class="tw"><table><tr><th>Canal</th><th>Funcție</th><th>Valori</th></tr>
+<tr><td class="mono">1</td><td><strong>Dimmer general</strong></td><td>0 = stins → 255 = maxim. Scalează toate culorile deodată.</td></tr>
+<tr><td class="mono">2</td><td><strong>Stroboscop</strong></td><td>0 = fără; apoi de la lent la rapid. <strong>Nu se folosește la atelier.</strong></td></tr>
+<tr><td class="mono">3</td><td><strong>Selector de funcție</strong></td><td>0–49 comandă DMX (culorile de pe 5–8) · 50–99 salturi de culoare · 100–149 treceri line · 150–200 pulsații · 201–255 fără funcție</td></tr>
+<tr><td class="mono">4</td><td><strong>Viteza</strong> programului ales pe canalul 3</td><td>0 = lent → 255 = rapid</td></tr>
+<tr><td class="mono">5</td><td>Roșu</td><td>0–255</td></tr>
+<tr><td class="mono">6</td><td>Verde</td><td>0–255</td></tr>
+<tr><td class="mono">7</td><td>Albastru</td><td>0–255</td></tr>
+<tr><td class="mono">8</td><td>Alb</td><td>0–255</td></tr></table></div>
+<div class="box warn"><div class="t">Capcana modului 8CH</div><p style="margin:0">Culorile de pe canalele 5–8 se văd doar dacă <strong>dimmerul (canalul 1) este ridicat</strong> și <strong>canalul 3 stă între 0 și 49</strong>. Cu dimmerul pe 0, bara stă stinsă orice ar fi pe culori. Cu canalul 3 pe 120, bara rulează programul intern și ignoră culorile.</p></div>
+
+<div class="sim" data-sim="ch8"></div>
+
+<h2>La ce folosește dimmerul separat</h2>
+<p>O scenă poate avea culoarea fixă pe 5–8, iar doar dimmerul să urce lin de la 0 la 255. E mai simplu decât să se crească patru canale deodată, și nuanța rămâne exact aceeași. Pentru o fațadă: aprindere lentă seara, cu dimmerul de la 0 la 255 în 10 secunde, culoarea fiind deja setată.</p>
+
+<h2>Cum reglează bara luminozitatea: PWM</h2>
+<p>Un LED nu se poate „da mai încet” ca un bec. Sub o anumită tensiune se stinge, peste ea e aprins. Ca să pară pe jumătate, bara îl <strong>aprinde și îl stinge foarte repede</strong> și reglează cât timp stă aprins din fiecare perioadă. Ochiul face media. Metoda se numește <strong>PWM</strong> (modulare în lățime de impuls). Dimmerul pe 64 înseamnă LED aprins 25 % din timp. Aceeași metodă e folosită și pe canalele de culoare.</p>
+<div class="sim" data-sim="pwm"></div>
+
+<h2>Profilul 8CH în myDMX 3.0</h2>
+<p>Programul are nevoie de un <strong>profil</strong> care să-i spună ce face fiecare canal. Pentru 8CH se face unul nou în <strong>Scan Library Editor</strong> (instalat odată cu programul):</p>
+<ol class="steps">
+<li>Scan Library Editor → profil nou, producător „FOS”, nume „Bar 24x4 8CH”, 8 canale.</li>
+<li>Canalul 1: tip <em>Dimmer</em>. Canalul 2: <em>Shutter/Strobe</em>. Canalul 3: <em>Macro</em>, cu cele cinci intervale din tabel, denumite. Canalul 4: <em>Speed</em>. Canalele 5–8: <em>Red, Green, Blue, White</em>.</li>
+<li>Salvare. În myDMX 3.0: Patch → profilul nou → adresa 1. Bara pe <span class="mono">A001</span>.</li>
+<li>Dacă dimmerul e declarat corect, programul îl ridică singur la „Beam Open”, iar capcana de mai sus dispare.</li>
+</ol>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · descoperirea</div><ul><li>Bara pe A001, profil generic cu 8 canale sau fadere simple.</li><li>Fără tabel: se ridică pe rând câte un fader și se notează ce face.</li><li>Comparație cu manualul.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · dimmer și PWM</div><ul><li>Culoare fixă, dimmerul de la 0 la 255 lent; apoi filmat cu telefonul la dimmer 20 %.</li><li>Programele interne prin canalul 3, viteza prin 4.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · profilul</div><ul><li>Profilul 8CH în Scan Library Editor, Patch, verificare.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f8">
+<div class="ws">
+<h2>Fișa 8 · Modul 8CH</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final știi ce face fiecare dintre cele 8 canale ale barei, folosești dimmerul general și ai creat un profil în myDMX 3.0.</p></div>
+<p><strong>Ai nevoie de:</strong> bara, laptop cu myDMX 3.0 și Scan Library Editor, cablu DMX, terminator, telefon.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Pune bara pe A001. În program, Patch cu un profil generic de 8 canale (sau fadere directe).</span></div>
+<div class="chk"><input type="checkbox"><span>Ridică faderul 1 la 255 și 5 la 255. Apoi coboară pe rând câte un fader și notează ce se întâmplă (tabelul 1, coloana „observat”), <strong>fără</strong> să te uiți în manual.</span></div>
+<div class="chk"><input type="checkbox"><span>Completează coloana „din manual” și compară.</span></div>
+<div class="chk"><input type="checkbox"><span>Canalul 3 pe 20, 70, 120, 170, 220 cu canalul 4 la 50 și la 200. Tabelul 2.</span></div>
+<div class="chk"><input type="checkbox"><span>Culoare fixă pe 5–8, dimmerul de la 0 la 255 lent. Filmează cu telefonul la dimmer 50 (≈ 20 %).</span></div>
+<div class="chk"><input type="checkbox"><span>Creează profilul 8CH în Scan Library Editor și verifică-l în Patch.</span></div>
+
+<h3>1. Canalele descoperite</h3>
+<div class="tw"><table><tr><th>Canal</th><th>Ce face (observat)</th><th>Din manual</th></tr>
+<tr><td class="mono">1</td><td><input></td><td><input></td></tr><tr><td class="mono">2</td><td><input></td><td><input></td></tr><tr><td class="mono">3</td><td><input></td><td><input></td></tr><tr><td class="mono">4</td><td><input></td><td><input></td></tr><tr><td class="mono">5</td><td><input></td><td><input></td></tr><tr><td class="mono">6</td><td><input></td><td><input></td></tr><tr><td class="mono">7</td><td><input></td><td><input></td></tr><tr><td class="mono">8</td><td><input></td><td><input></td></tr></table></div>
+
+<h3>2. Canalul 3 (selector) și canalul 4 (viteză)</h3>
+<div class="tw"><table><tr><th>Canal 3</th><th>Ce face bara</th><th>Canal 4 = 50</th><th>Canal 4 = 200</th></tr>
+<tr><td class="mono">20</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">70</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">120</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">170</td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td class="mono">220</td><td><input></td><td><input></td><td><input></td></tr></table></div>
+
+<h3>3. Profilul creat</h3>
+<div class="tw"><table><tr><th>Canal</th><th>Tipul ales în Scan Library Editor</th></tr><tr><td class="mono">1</td><td><input></td></tr><tr><td class="mono">2</td><td><input></td></tr><tr><td class="mono">3</td><td><input></td></tr><tr><td class="mono">4</td><td><input></td></tr><tr><td class="mono">5–8</td><td><input></td></tr></table></div>
+<p>Profilul funcționează în Patch? <input style="width:30%"></p>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>Faderele 5–8 sunt la 255, dar bara e stinsă. Care sunt cele două cauze posibile?</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>Ce avantaj are dimmerul general față de scăderea celor patru culori deodată?</p><textarea></textarea></div>
+<div class="q" data-n="3"><p>Ce înseamnă PWM și ce s-a văzut pe telefon la dimmer 20 %?</p><textarea></textarea></div>
+<div class="q" data-n="4"><p>Pentru o fațadă ținută mereu la 100 %, ce mod al barei ajunge: 4CH sau 8CH? De ce?</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Scene, fade, hold, chase în myDMX" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 9 · 3 ore</span><h1>Scene, fade, hold și chase în myDMX 3.0</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara pe D001, laptop cu myDMX 3.0, un steag tricolor</b></span><span>Rezultat: <b>secvența „Tricolor” și un chase de 8 pași, programate</b></span></div>
+
+<h2>Scene și pași</h2>
+<dl class="def">
+<dt>Scenă</dt><dd>O stare memorată a tuturor canalelor: o „fotografie” a faderelor, cu nume, rechemată cu un click.</dd>
+<dt>Pas (step)</dt><dd>În myDMX 3.0, o scenă poate avea mai mulți pași, redați unul după altul. Tot ce se reglează din fadere se salvează în pasul selectat.</dd>
+<dt>Fade</dt><dd>Timpul în care se trece <em>lin</em> de la un pas la următorul. 0 = salt brusc. 5 s = trecere abia perceptibilă.</dd>
+<dt>Hold</dt><dd>Cât timp stă pasul pe loc, după ce fade-ul s-a terminat.</dd>
+<dt>Chase</dt><dd>Un șir de pași redați în buclă, de obicei cu fade 0 și hold scurt: culorile „aleargă”.</dd>
+</dl>
+<h3>În myDMX 3.0</h3>
+<ol class="steps">
+<li>Butonul <strong>Scenes</strong> (sau „+”) creează o scenă nouă; i se dă un nume.</li>
+<li>Cu scena selectată, faderele se pun pe culoarea dorită. Valorile intră în pasul 1.</li>
+<li><strong>Add</strong> adaugă pasul 2; faderele se pun pe culoarea următoare. Și tot așa.</li>
+<li>În lista de pași, dublu-click pe timpul de fade sau de hold îl schimbă.</li>
+<li><strong>Play</strong> redă scena în buclă. Se oprește cu un nou click.</li>
+<li>Scenele se pot lega și de muzică: click dreapta pe scenă → BPM sau Pulse.</li>
+</ol>
+
+<div class="sim" data-sim="scenes"></div>
+
+<h3>Ce timp se potrivește</h3>
+<div class="tw"><table><tr><th>Situație</th><th>Fade</th><th>Hold</th><th>De ce</th></tr>
+<tr><td>vitrină, fațadă de clădire</td><td class="mono">5–20 s</td><td class="mono">30–120 s</td><td>schimbarea nu trebuie observată; lumina pare vie, nu agitată</td></tr>
+<tr><td>spectacol, moment calm</td><td class="mono">2–4 s</td><td class="mono">după muzică</td><td>trecerea se simte, dar nu sare</td></tr>
+<tr><td>concert, refren</td><td class="mono">0–0,3 s</td><td class="mono">pe bătaie</td><td>lumina „lovește” odată cu ritmul</td></tr>
+<tr><td>chase decorativ</td><td class="mono">0</td><td class="mono">0,2–0,5 s</td><td>culorile aleargă</td></tr></table></div>
+
+<h2>Secvența „Tricolor”</h2>
+<p>Trei pași: albastru, galben, roșu. Valorile de pornire sunt cele „teoretice” și se corectează din ochi, cu un steag real lângă perete.</p>
+<div class="tw"><table><tr><th>Pas</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th><th>Fade</th><th>Hold</th><th>Observație</th></tr>
+<tr><td>1 albastru</td><td class="mono">0</td><td class="mono">30</td><td class="mono">255</td><td class="mono">0</td><td class="mono">2 s</td><td class="mono">3 s</td><td>puțin verde împiedică albastrul să bată în violet</td></tr>
+<tr><td>2 galben</td><td class="mono">255</td><td class="mono">170</td><td class="mono">0</td><td class="mono">0</td><td class="mono">2 s</td><td class="mono">3 s</td><td>verdele redus; la 255 iese verzui</td></tr>
+<tr><td>3 roșu</td><td class="mono">255</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">2 s</td><td class="mono">3 s</td><td>curat</td></tr></table></div>
+<p>Cu trei bare pe adrese diferite (D001, D005, D009), aceeași scenă poate arăta cele trei culori <em>deodată</em>, una pe fiecare bară: așa se face un tricolor pe o fațadă cu trei zone.</p>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · scene și fade</div><ul><li>4 scene memorate, redate cu fade 0, 2 și 5 s.</li><li>Discuție: ce timp pentru vitrină, ce timp pentru concert.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · Tricolor</div><ul><li>Cei trei pași, corectați lângă steag.</li><li>Varianta cu dimmer (A001): aprindere lentă a fiecărei culori.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · chase</div><ul><li>Un chase propriu de 8 pași, cu fade 0 și hold 0,3 s.</li><li>Același chase legat de muzică (BPM).</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f9">
+<div class="ws">
+<h2>Fișa 9 · Scene, fade, hold, chase</h2>
+<div class="hdr"><label>Nume <input></label><label>Clasa <input></label><label>Data <input></label><label>Echipa <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">La final poți programa în myDMX 3.0 o scenă cu mai mulți pași, cu timpi de fade și hold aleși cu rost, și un chase.</p></div>
+<p><strong>Ai nevoie de:</strong> bara pe D001, laptop cu myDMX 3.0, steag tricolor.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Creează o scenă „Test” cu 2 pași: albastru și roșu. Redă cu fade 0, 2, 5 s. Tabelul 1.</span></div>
+<div class="chk"><input type="checkbox"><span>Creează scena „Tricolor” cu 3 pași. Corectează lângă steag. Tabelul 2.</span></div>
+<div class="chk"><input type="checkbox"><span>Creează scena „Chase” cu 8 pași, fade 0, hold 0,3 s. Tabelul 3.</span></div>
+<div class="chk"><input type="checkbox"><span>Leagă chase-ul de muzică (click dreapta → BPM) și notează ce se întâmplă.</span></div>
+
+<h3>1. Fade</h3>
+<div class="tw"><table><tr><th>Fade</th><th>Cum se simte trecerea</th><th>Unde s-ar folosi</th></tr><tr><td class="mono">0 s</td><td><input></td><td><input></td></tr><tr><td class="mono">2 s</td><td><input></td><td><input></td></tr><tr><td class="mono">5 s</td><td><input></td><td><input></td></tr></table></div>
+
+<h3>2. Tricolor (valori finale)</h3>
+<div class="tw"><table><tr><th>Pas</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th><th>Fade</th><th>Hold</th></tr>
+<tr><td>albastru</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>galben</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>roșu</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<p>Ce s-a corectat față de valorile teoretice și de ce? <input style="width:80%"></p>
+
+<h3>3. Chase</h3>
+<div class="tw"><table><tr><th>Pas</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th></tr>
+<tr><td>1</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>2</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>3</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>4</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>5</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>6</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>7</td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+<tr><td>8</td><td><input></td><td><input></td><td><input></td><td><input></td></tr></table></div>
+<p>Legat de muzică (BPM): <input style="width:70%"></p>
+
+<h3>Întrebări de control</h3>
+<div class="q" data-n="1"><p>Explică diferența dintre fade și hold.</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>Ce timpi de fade și hold ai pune pentru fațada unei clădiri? De ce?</p><textarea></textarea></div>
+<div class="q" data-n="3"><p>Cum se arată tricolorul cu cele trei culori deodată, pe trei bare? Ce adrese primesc barele?</p><textarea></textarea></div>
+</div></div>
+</section>
+<section class="atelier" data-title="Proiect final: spectacol de 60 s" hidden>
+<div class="top"><div><span class="eyebrow">Atelierul 10 · 3 ore</span><h1>Proiect final: un spectacol de lumină de 60 de secunde</h1></div>
+<div class="tabs"><button class="on" data-tab="lectie">Lecție</button><button data-tab="fisa">Fișă de lucru</button></div></div>
+
+<div class="pane on" data-tab="lectie">
+<div class="meta"><span>Echipament: <b>bara, laptop cu myDMX 3.0, telefon pentru filmare</b></span><span>Rezultat: <b>spectacol de 60 s, storyboard, prezentare</b></span></div>
+
+<h2>Tema</h2>
+<p>Fiecare echipă realizează un spectacol de lumină de <strong>60 de secunde</strong>, pe o temă aleasă de ea: un anotimp, o emoție, reclama unui produs, un fragment de melodie, o poveste scurtă. Spectacolul se programează în myDMX 3.0 ca o scenă cu mai mulți pași și se prezintă clasei pe bara reală.</p>
+<div class="box task"><div class="t">Cerințe minime</div>
+<ul style="margin:0">
+<li>cel puțin <strong>6 pași</strong> (scene) diferiți;</li>
+<li>cel puțin <strong>o armonie cromatică</strong> folosită conștient și numită în prezentare (complementare, analoage, triadă…);</li>
+<li>cel puțin <strong>două tipuri de tranziție</strong> (un fade lung și un salt brusc, de exemplu);</li>
+<li>durata totală (suma fade + hold) de 55–65 s;</li>
+<li>fără stroboscop;</li>
+<li>un <strong>storyboard</strong> completat înainte de programare;</li>
+<li>lanțul DMX montat și adresa setată <strong>de echipă, fără ajutor</strong>.</li>
+</ul></div>
+
+<h2>Storyboardul</h2>
+<p>Un <strong>storyboard</strong> este planul spectacolului desenat pe hârtie, pas cu pas, înainte de a atinge programul. Pentru fiecare pas se notează: culoarea (cu valorile R/G/B/W), durata fade-ului, durata hold-ului și ce vrea să transmită acel moment. Cine sare peste storyboard pierde timp la calculator încercând la întâmplare.</p>
+<p>Un exemplu, tema „Furtună de vară”:</p>
+<div class="tw"><table><tr><th>#</th><th>Momentul</th><th class="mono">R/G/B/W</th><th>Fade</th><th>Hold</th><th>De ce</th></tr>
+<tr><td>1</td><td>după-amiază caldă</td><td class="mono">255/150/30/60</td><td class="mono">0</td><td class="mono">8 s</td><td>galben-portocaliu, analoage calde</td></tr>
+<tr><td>2</td><td>norii vin</td><td class="mono">80/80/120/40</td><td class="mono">10 s</td><td class="mono">5 s</td><td>saturația scade, luminozitatea scade</td></tr>
+<tr><td>3</td><td>fulger</td><td class="mono">0/0/0/255</td><td class="mono">0</td><td class="mono">0,3 s</td><td>salt brusc la alb pur</td></tr>
+<tr><td>4</td><td>întuneric</td><td class="mono">0/0/40/0</td><td class="mono">0</td><td class="mono">4 s</td><td>contrast maxim cu fulgerul</td></tr>
+<tr><td>5</td><td>ploaie</td><td class="mono">0/60/200/20</td><td class="mono">6 s</td><td class="mono">10 s</td><td>albastru rece</td></tr>
+<tr><td>6</td><td>curcubeu → soare</td><td class="mono">255/200/60/80</td><td class="mono">12 s</td><td class="mono">6 s</td><td>întoarcere la cald, complementara albastrului</td></tr></table></div>
+
+<div class="sim" data-sim="scenes" data-opts='{"steps":[[255,150,30,60,0,8],[80,80,120,40,10,5],[0,0,0,255,0,0.3],[0,0,40,0,0,4],[0,60,200,20,6,10],[255,200,60,80,12,6]]}'></div>
+
+<h2>Prezentarea</h2>
+<p>Fiecare echipă are 3 minute: un minut de spectacol și două minute de explicații. În explicații se folosesc termenii învățați: canal, adresă, fade, hold, nuanță, saturație, complementar. Prezentarea se filmează; colegii completează grila de evaluare.</p>
+
+<h2>Grila de evaluare</h2>
+<div class="tw"><table><tr><th>Criteriu</th><th>Puncte</th><th>Ce se urmărește</th></tr>
+<tr><td>Lanț DMX montat corect, adresă și mod setate fără ajutor</td><td class="mono">20</td><td>terminator la locul lui, D001 pe bară, Patch corect</td></tr>
+<tr><td>Storyboard complet; valorile de pe hârtie corespund cu ce se vede</td><td class="mono">20</td><td>planul a fost făcut înainte, nu după</td></tr>
+<tr><td>Armonie cromatică folosită și explicată corect</td><td class="mono">20</td><td>numită în prezentare, vizibilă în spectacol</td></tr>
+<tr><td>Tranziții potrivite cu tema</td><td class="mono">15</td><td>fade lung unde e calm, salt unde e șoc</td></tr>
+<tr><td>Prezentare cu termenii corecți</td><td class="mono">15</td><td>canal, adresă, fade, hold, nuanță, saturație…</td></tr>
+<tr><td>Jurnal de practică complet la toate cele 10 ateliere</td><td class="mono">10</td><td>fișele 1–9 completate</td></tr>
+<tr><th>Total</th><th class="mono">100</th><th></th></tr></table></div>
+
+<h2>Desfășurarea atelierului</h2>
+<div class="hours">
+<div class="h"><div class="t">Ora 1 · planul</div><ul><li>Alegerea temei.</li><li>Storyboardul pe fișă, cu valori și timpi.</li><li>Verificarea: suma timpilor = 60 s.</li></ul></div>
+<div class="h"><div class="t">Ora 2 · programarea</div><ul><li>Pe rând la bară: montaj, adresă, Patch, introducerea pașilor.</li><li>Celelalte echipe își pregătesc pașii în program, fără bară.</li><li>O repetiție cu cronometru.</li></ul></div>
+<div class="h"><div class="t">Ora 3 · prezentările</div><ul><li>3 minute pe echipă, filmate.</li><li>Grila completată de colegi.</li><li>Predarea jurnalului de practică.</li></ul></div>
+</div>
+</div>
+
+<div class="pane ws-pane" data-tab="fisa" data-id="f10">
+<div class="ws">
+<h2>Fișa 10 · Proiect final</h2>
+<div class="hdr"><label>Echipa <input></label><label>Membri <input></label><label>Data <input></label><label>Tema <input></label></div>
+<div class="box note"><div class="t">Obiectiv</div><p style="margin:0">Un spectacol de lumină de 60 s, planificat pe hârtie, programat în myDMX 3.0 și prezentat clasei, cu montajul DMX făcut de echipă.</p></div>
+<p><strong>Ai nevoie de:</strong> bara, laptop cu myDMX 3.0, cablu DMX, terminator, cronometru, telefon pentru filmare.</p>
+
+<h3>Pași</h3>
+<div class="chk"><input type="checkbox"><span>Alege tema și scrie în două rânduri ce vrea să transmită spectacolul (1).</span></div>
+<div class="chk"><input type="checkbox"><span>Alege armonia cromatică și culorile (2).</span></div>
+<div class="chk"><input type="checkbox"><span>Completează storyboardul (3). Verifică: suma fade + hold = 55–65 s.</span></div>
+<div class="chk"><input type="checkbox"><span>Montează lanțul DMX și setează adresa fără ajutor. Bifează lista (4).</span></div>
+<div class="chk"><input type="checkbox"><span>Programează pașii în myDMX 3.0. O repetiție cu cronometrul.</span></div>
+<div class="chk"><input type="checkbox"><span>Prezintă (1 min spectacol + 2 min explicații). Completează (5) și (6) după.</span></div>
+
+<h3>1. Tema</h3><textarea></textarea>
+<h3>2. Armonia și culorile</h3><textarea></textarea>
+
+<h3>3. Storyboard</h3>
+<div class="tw"><table><tr><th>#</th><th>Momentul</th><th class="mono">R</th><th class="mono">G</th><th class="mono">B</th><th class="mono">W</th><th>Fade s</th><th>Hold s</th><th>De ce</th></tr>
+<tr><td>1</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><textarea></textarea></td></tr><tr><td>2</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><textarea></textarea></td></tr><tr><td>3</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><textarea></textarea></td></tr><tr><td>4</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><textarea></textarea></td></tr><tr><td>5</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><textarea></textarea></td></tr><tr><td>6</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><textarea></textarea></td></tr><tr><td>7</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><textarea></textarea></td></tr><tr><td>8</td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td><td><textarea></textarea></td></tr></table></div>
+<p>Durata totală: <input style="width:15%"> s</p>
+
+<h3>4. Înainte de prezentare</h3>
+<div class="chk"><input type="checkbox"><span>Cablul DMX din interfață în DMX IN; terminatorul în DMX OUT.</span></div>
+<div class="chk"><input type="checkbox"><span>Bara pe D001 (sau A001 dacă se folosește dimmerul).</span></div>
+<div class="chk"><input type="checkbox"><span>Profilul potrivit în Patch, la adresa 1.</span></div>
+<div class="chk"><input type="checkbox"><span>Toți pașii introduși, cu fade și hold ca în storyboard.</span></div>
+<div class="chk"><input type="checkbox"><span>Repetiție cronometrată: 55–65 s.</span></div>
+<div class="chk"><input type="checkbox"><span>Fără stroboscop.</span></div>
+
+<h3>5. Grila completată de colegi</h3>
+<div class="tw"><table><tr><th>Criteriu</th><th>Max</th><th>Acordat</th></tr>
+<tr><td>Lanț DMX, adresă, mod fără ajutor</td><td class="mono">20</td><td><input></td></tr>
+<tr><td>Storyboard complet și respectat</td><td class="mono">20</td><td><input></td></tr>
+<tr><td>Armonie cromatică folosită și explicată</td><td class="mono">20</td><td><input></td></tr>
+<tr><td>Tranziții potrivite cu tema</td><td class="mono">15</td><td><input></td></tr>
+<tr><td>Prezentare cu termenii corecți</td><td class="mono">15</td><td><input></td></tr>
+<tr><td>Jurnal de practică complet</td><td class="mono">10</td><td><input></td></tr>
+<tr><th>Total</th><th class="mono">100</th><th><input></th></tr></table></div>
+
+<h3>6. După prezentare</h3>
+<div class="q" data-n="1"><p>Ce a ieșit altfel decât în storyboard și de ce?</p><textarea></textarea></div>
+<div class="q" data-n="2"><p>Ce ai schimba dacă ai avea trei bare în loc de una?</p><textarea></textarea></div>
+</div></div>
+</section>
+
+</main></div></div>
+<script>(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const hex2=v=>v.toString(16).padStart(2,'0').toUpperCase();
+
+/* ---------- color helpers ---------- */
+function rgbwToRgb(r,g,b,w){
+  // LED alb rece ~6800K: usor albastrui
+  const wr=w*0.92, wg=w*0.96, wb=w*1.0;
+  return [clamp(Math.round(r+wr),0,255),clamp(Math.round(g+wg),0,255),clamp(Math.round(b+wb),0,255)];
+}
+function css(rgb){return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`}
+function lum(rgb){return (0.2126*rgb[0]+0.7152*rgb[1]+0.0722*rgb[2])/255}
+function hsvToRgb(h,s,v){
+  const c=v*s, x=c*(1-Math.abs((h/60)%2-1)), m=v-c; let r=0,g=0,b=0;
+  if(h<60){r=c;g=x}else if(h<120){r=x;g=c}else if(h<180){g=c;b=x}else if(h<240){g=x;b=c}else if(h<300){r=x;b=c}else{r=c;b=x}
+  return [Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)];
+}
+function rgbToHsv(r,g,b){
+  r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;let h=0;
+  if(d){ if(mx===r)h=60*(((g-b)/d)%6); else if(mx===g)h=60*((b-r)/d+2); else h=60*((r-g)/d+4);} if(h<0)h+=360;
+  return [Math.round(h),Math.round((mx?d/mx:0)*100),Math.round(mx*100)];
+}
+
+/* ---------- wall + bar renderer ---------- */
+function makeWall(opts={}){
+  const wall=document.createElement('div');wall.className='wall';
+  wall.innerHTML=`<div class="glow"></div>${opts.objects?'<div class="cardobj"></div><div class="cardobj r2"></div>':''}<div class="bar">${'<i></i>'.repeat(24)}</div>`;
+  const glow=$('.glow',wall), leds=$$('.bar i',wall), objs=$$('.cardobj',wall);
+  function set(rgbw,fadeMs){
+    const rgb=rgbwToRgb(...rgbw); const L=lum(rgb);
+    glow.style.setProperty('--fade',(fadeMs||0)+'ms'); glow.classList.toggle('fade',!!fadeMs);
+    glow.style.background=`radial-gradient(ellipse 80% 100% at 50% 100%, rgba(${rgb.join(',')},${(0.15+0.85*L).toFixed(2)}) 0%, rgba(${rgb.join(',')},${(0.35*L).toFixed(2)}) 45%, #151515 100%)`;
+    leds.forEach(i=>{i.style.background=L>0.02?css(rgb):'#333';i.style.boxShadow=L>0.02?`0 0 ${4+10*L}px ${css(rgb)}`:'none'});
+    return rgb;
+  }
+  function setObjects(cards,lightRgb){
+    objs.forEach((o,k)=>{const c=cards[k];if(!c){o.hidden=true;return}o.hidden=false;
+      const seen=[0,1,2].map(i=>Math.round(c.rgb[i]*lightRgb[i]/255));
+      o.style.background=css(seen);o.textContent=c.name;o.style.color=lum(seen)>0.4?'#000':'#ddd';});
+  }
+  return {el:wall,set,setObjects};
+}
+function fader(cls,label,val,max=255){
+  const d=document.createElement('div');d.className='f '+cls;
+  d.innerHTML=`<label>${label}</label><input type="range" min="0" max="${max}" value="${val}"><output>${val}</output>`;
+  const inp=$('input',d),out=$('output',d);inp.addEventListener('input',()=>out.textContent=inp.value);
+  return {el:d,inp,out,get v(){return +inp.value},set v(x){inp.value=x;out.textContent=x;}};
+}
+
+/* ---------- SIM: mixer RGBW ---------- */
+function simMixer(host){
+  const o=JSON.parse(host.dataset.opts||'{}');
+  host.innerHTML=`<div class="t">${o.title||'Bara virtuală FOS 24×4 W RGBW'}<span>${o.hint||'Mișcă faderele. Bara este în modul 4CH, adresa 001.'}</span></div>`;
+  const wall=makeWall({objects:o.objects});host.appendChild(wall.el);
+  const fd=document.createElement('div');fd.className='faders';host.appendChild(fd);
+  const F={r:fader('r','R',o.init?o.init[0]:0),g:fader('g','G',o.init?o.init[1]:0),b:fader('b','B',o.init?o.init[2]:0),w:fader('w','W',o.init?o.init[3]:0)};
+  Object.values(F).forEach(f=>fd.appendChild(f.el));
+  const ro=document.createElement('div');ro.className='readout';host.appendChild(ro);
+  let cards=null;
+  if(o.objects){
+    const c=document.createElement('div');c.className='ctrl';
+    c.innerHTML=`<label>Carton stânga</label><select class="c1"></select><label>Carton dreapta</label><select class="c2"></select>`;
+    const CARDS=[['roșu',[220,30,30]],['verde',[30,190,60]],['albastru',[30,70,220]],['galben',[240,220,40]],['alb',[240,240,240]],['negru',[20,20,20]],['portocaliu',[240,130,30]]];
+    $$('select',c).forEach((s,i)=>{CARDS.forEach(([n],k)=>s.add(new Option(n,k)));s.value=i===0?0:3;s.addEventListener('change',upd)});
+    host.appendChild(c);cards=()=>$$('select',c).map(s=>({name:CARDS[+s.value][0],rgb:CARDS[+s.value][1]}));
+  }
+  if(o.presets){
+    const b=document.createElement('div');b.className='btns';
+    o.presets.forEach(p=>{const bt=document.createElement('button');bt.className='btn small';bt.textContent=p[0];bt.onclick=()=>{[F.r.v,F.g.v,F.b.v,F.w.v]=p[1];upd()};b.appendChild(bt)});
+    host.appendChild(b);
+  }
+  function upd(){
+    const v=[F.r.v,F.g.v,F.b.v,F.w.v];const rgb=wall.set(v);
+    if(cards)wall.setObjects(cards(),rgb);
+    const hsv=rgbToHsv(...rgb);
+    ro.innerHTML=`<span>Canale DMX 1–4: <b>${v.join(' / ')}</b></span><span>Cod #: <b>#${hex2(rgb[0])}${hex2(rgb[1])}${hex2(rgb[2])}</b></span><span>Nuanță <b>${hsv[0]}°</b> · saturație <b>${hsv[1]} %</b> · luminozitate <b>${hsv[2]} %</b></span>`;
+  }
+  Object.values(F).forEach(f=>f.inp.addEventListener('input',upd));upd();
+}
+
+/* ---------- SIM: DMX packet & addressing ---------- */
+function simPacket(host){
+  host.innerHTML=`<div class="t">Pachetul DMX și adresele<span>Schimbă adresa și modul fiecărei bare. Căsuțele colorate arată ce citește fiecare bară.</span></div>
+  <div class="ctrl"><label>Bara 1: mod</label><select class="m1"><option value="4">4CH (D)</option><option value="8">8CH (A)</option></select><label>adresă</label><input type="number" class="a1" min="1" max="512" value="1">
+  <label>Bara 2: mod</label><select class="m2"><option value="4">4CH (D)</option><option value="8">8CH (A)</option></select><label>adresă</label><input type="number" class="a2" min="1" max="512" value="5"></div>
+  <div class="pkt"></div><div class="legend"><span><i style="border-color:#5DCAA5;background:#0f2a22"></i>bara 1</span><span><i style="border-color:#85B7EB;background:#0f1f33"></i>bara 2</span><span><i style="border-color:#E45C5C;background:#3a1414"></i>suprapunere</span></div><div class="msg"></div>`;
+  const pkt=$('.pkt',host),msg=$('.msg',host);
+  const names4=['R','G','B','W'],names8=['Dim','Strb','Macro','Vit','R','G','B','W'];
+  function upd(){
+    const m1=+$('.m1',host).value,a1=clamp(+$('.a1',host).value||1,1,512),m2=+$('.m2',host).value,a2=clamp(+$('.a2',host).value||1,1,512);
+    const end1=a1+m1-1,end2=a2+m2-1,show=Math.min(512,Math.max(16,end1+2,end2+2));
+    let h=`<div class="c hdr"><b>Break</b><span>pauză</span></div><div class="c hdr"><b>MAB</b><span>pauză</span></div><div class="c hdr"><b>0</b><span>start</span></div>`;
+    for(let ch=1;ch<=show;ch++){
+      const in1=ch>=a1&&ch<=end1,in2=ch>=a2&&ch<=end2;let cls='c';let lbl='';
+      if(in1&&in2){cls+=' both';lbl='!'}else if(in1){cls+=' b1';lbl=(m1===4?names4:names8)[ch-a1]}else if(in2){cls+=' b2';lbl=(m2===4?names4:names8)[ch-a2]}
+      h+=`<div class="${cls}"><b>${ch}</b><span>${lbl}</span></div>`;
+    }
+    h+=`<div class="c hdr"><b>…</b><span>512</span></div>`;pkt.innerHTML=h;
+    const overlap=Math.max(a1,a2)<=Math.min(end1,end2);
+    if(overlap&&a1===a2&&m1===m2)msg.className='msg ok',msg.textContent='Aceeași adresă și același mod: cele două bare fac exact același lucru (sincronizate).';
+    else if(overlap)msg.className='msg bad',msg.textContent=`Suprapunere pe canalele ${Math.max(a1,a2)}–${Math.min(end1,end2)}: bara 2 va răspunde la faderele barei 1. Comportament haotic.`;
+    else if(end1>512||end2>512)msg.className='msg bad',msg.textContent='Adresa depășește canalul 512: aparatul nu încape în univers.';
+    else msg.className='msg ok',msg.textContent=`Bara 1 citește canalele ${a1}–${end1}, bara 2 citește ${a2}–${end2}. Următoarea adresă liberă: ${Math.max(end1,end2)+1}.`;
+  }
+  $$('select,input',host).forEach(e=>e.addEventListener('input',upd));upd();
+}
+
+/* ---------- SIM: color wheel ---------- */
+function simWheel(host){
+  host.innerHTML=`<div class="t">Roata culorilor luminii<span>Click pe roată. Se afișează culoarea, complementara și triada, cu valorile R/G/B.</span></div>
+  <div class="wheelwrap"><div class="wheel"><div class="pin p0"></div><div class="pin p1 c2"></div><div class="pin p2 c2"></div><div class="pin p3 c2"></div></div>
+  <div><div class="swatchrow" style="margin-top:1.4rem"><div class="swatch s0"><span>aleasă</span></div><div class="swatch s1"><span>complementară</span></div><div class="swatch s2"><span>triadă</span></div><div class="swatch s3"><span>triadă</span></div></div>
+  <div class="swatchrow" style="margin-top:1.8rem"><div class="swatch s4"><span>analoagă −30°</span></div><div class="swatch s5"><span>analoagă +30°</span></div></div>
+  <div class="readout r"></div></div></div>`;
+  const wheel=$('.wheel',host);
+  function place(pin,h){const r=42;const a=(h-90)*Math.PI/180;pin.style.left=(50+r*Math.cos(a))+'%';pin.style.top=(50+r*Math.sin(a))+'%';}
+  function set(h){
+    const hs=[h,(h+180)%360,(h+120)%360,(h+240)%360,(h+330)%360,(h+30)%360];
+    hs.forEach((hh,i)=>{const rgb=hsvToRgb(hh,1,1);const s=$('.s'+i,host);s.style.background=css(rgb);s.innerHTML=`<span>${s.querySelector('span').textContent}</span>${rgb.join('/')}`;if(i<4)place($('.p'+i,host),hh)});
+    const rgb=hsvToRgb(h,1,1);
+    $('.r',host).innerHTML=`<span>Nuanță <b>${Math.round(h)}°</b></span><span>DMX R/G/B/W: <b>${rgb.join(' / ')} / 0</b></span>`;
+  }
+  wheel.addEventListener('pointerdown',e=>{const r=wheel.getBoundingClientRect();const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;let h=Math.atan2(y,x)*180/Math.PI+90;if(h<0)h+=360;set(Math.round(h))});
+  set(30);
+}
+
+/* ---------- SIM: gamma (screen vs DMX) ---------- */
+function simGamma(host){
+  host.innerHTML=`<div class="t">De la valoarea de pe ecran la valoarea DMX<span>Ecranul nu este liniar (gamma 2,2). LED-ul comandat prin DMX este aproape liniar.</span></div>
+  <div class="gam"></div><div class="f" style="max-width:420px;margin-top:.6rem"><label>Ecran</label><input type="range" min="0" max="255" value="128"><output>128</output></div><div class="readout r"></div>`;
+  const inp=$('input',host),out=$('output',host),g=$('.gam',host),r=$('.r',host);
+  function upd(){
+    const s=+inp.value;out.textContent=s;const lin=Math.pow(s/255,2.2);const dmx=Math.round(lin*255);
+    const W=600,H=300,px=v=>60+v/255*(W-80),py=v=>H-40-v*(H-70);
+    let path='';for(let i=0;i<=255;i+=5){path+=(i?'L':'M')+px(i).toFixed(1)+' '+py(Math.pow(i/255,2.2)).toFixed(1)+' '}
+    g.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Curba gamma"><line x1="60" y1="${H-40}" x2="${W-20}" y2="${H-40}" stroke="#555"/><line x1="60" y1="${H-40}" x2="60" y2="20" stroke="#555"/>
+    <path d="M${px(0)} ${py(0)} L${px(255)} ${py(1)}" stroke="#555" stroke-dasharray="4 4" fill="none"/><path d="${path}" stroke="#F5B841" stroke-width="2.5" fill="none"/>
+    <line x1="${px(s)}" y1="${H-40}" x2="${px(s)}" y2="${py(lin)}" stroke="#fff" stroke-dasharray="3 3"/><line x1="60" y1="${py(lin)}" x2="${px(s)}" y2="${py(lin)}" stroke="#fff" stroke-dasharray="3 3"/><circle cx="${px(s)}" cy="${py(lin)}" r="6" fill="#F5B841"/>
+    <text x="${W/2}" y="${H-10}" fill="#9A9AA6" font-size="13" text-anchor="middle" font-family="Barlow">valoare în Inkscape (0–255)</text>
+    <text x="18" y="${H/2}" fill="#9A9AA6" font-size="13" text-anchor="middle" font-family="Barlow" transform="rotate(-90 18 ${H/2})">lumină reală (%)</text>
+    <text x="${px(255)-4}" y="${py(1)-8}" fill="#9A9AA6" font-size="12" text-anchor="end" font-family="Barlow">LED prin DMX (liniar)</text>
+    <text x="${px(190)}" y="${py(Math.pow(190/255,2.2))+22}" fill="#F5B841" font-size="12" text-anchor="middle" font-family="Barlow">ecran (gamma 2,2)</text></svg>`;
+    r.innerHTML=`<span>Ecran <b>${s}</b> → lumină reală <b>${Math.round(lin*100)} %</b> → pe fader DMX pui <b>${dmx}</b></span><span style="display:inline-flex;gap:.4rem;align-items:center">pe ecran <i class="sw" style="background:rgb(${s},${s},${s})"></i> vs DMX ${s} pe bară <i class="sw" style="background:rgb(${Math.round(Math.pow(s/255,1/2.2)*255)},${Math.round(Math.pow(s/255,1/2.2)*255)},${Math.round(Math.pow(s/255,1/2.2)*255)})"></i></span>`;
+  }
+  inp.addEventListener('input',upd);upd();
+}
+
+/* ---------- SIM: PWM ---------- */
+function simPwm(host){
+  host.innerHTML=`<div class="t">Cum reglează bara luminozitatea: PWM<span>LED-ul este doar aprins sau stins. Reglezi cât timp stă aprins într-o perioadă.</span></div>
+  <div class="pwm"></div><div class="f" style="max-width:420px;margin-top:.6rem"><label>DMX</label><input type="range" min="0" max="255" value="128"><output>128</output></div><div class="readout r"></div>`;
+  const inp=$('input',host),out=$('output',host),g=$('.pwm',host),r=$('.r',host);
+  function upd(){
+    const v=+inp.value;out.textContent=v;const d=v/255;const W=600,H=170,T=120,x0=40,y1=40,y0=120;let p=`M${x0} ${y0}`;
+    for(let k=0;k<4;k++){const a=x0+k*T,b=a+d*T;p+=` L${a} ${y0} L${a} ${y1} L${b} ${y1} L${b} ${y0}`}p+=` L${x0+4*T} ${y0}`;
+    g.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Semnal PWM"><text x="${x0-6}" y="${y1+4}" fill="#9A9AA6" font-size="12" text-anchor="end" font-family="Barlow">aprins</text><text x="${x0-6}" y="${y0+4}" fill="#9A9AA6" font-size="12" text-anchor="end" font-family="Barlow">stins</text>
+    <path d="${p}" stroke="#F5B841" stroke-width="2.5" fill="none"/><line x1="${x0}" y1="${y0+14}" x2="${x0+T}" y2="${y0+14}" stroke="#777"/><text x="${x0+T/2}" y="${y0+30}" fill="#9A9AA6" font-size="12" text-anchor="middle" font-family="Barlow">o perioadă (≈ 1/1000 s)</text>
+    <rect x="${x0+4*T+20}" y="${y1}" width="50" height="${y0-y1}" rx="6" fill="rgba(245,184,65,${(0.08+0.92*d).toFixed(2)})" stroke="#444"/><text x="${x0+4*T+45}" y="${y0+30}" fill="#9A9AA6" font-size="12" text-anchor="middle" font-family="Barlow">ochiul</text></svg>`;
+    r.innerHTML=`<span>DMX <b>${v}</b> → LED aprins <b>${Math.round(d*100)} %</b> din timp → ochiul vede <b>${Math.round(d*100)} %</b> luminozitate</span>`;
+  }
+  inp.addEventListener('input',upd);upd();
+}
+
+/* ---------- SIM: 8CH mode ---------- */
+function simCh8(host){
+  host.innerHTML=`<div class="t">Bara în modul 8CH (A001)<span>Canalele 5–8 luminează doar dacă dimmerul (1) este ridicat și canalul 3 stă între 0 și 49.</span></div>`;
+  const wall=makeWall();host.appendChild(wall.el);
+  const fd=document.createElement('div');fd.className='faders';host.appendChild(fd);
+  const defs=[['','1 Dim',0],['','2 Strobe',0],['','3 Macro',0],['','4 Viteză',0],['r','5 R',255],['g','6 G',0],['b','7 B',0],['w','8 W',0]];
+  const F=defs.map(d=>{const f=fader(d[0],d[1],d[2]);fd.appendChild(f.el);return f});
+  const ro=document.createElement('div');ro.className='readout';host.appendChild(ro);
+  let t=0,timer=null,macroT=0;
+  function upd(){
+    const [dim,str,mac,spd,r,g,b,w]=F.map(f=>f.v);let mode='comandă DMX (culorile de pe 5–8)';let rgbw=[r,g,b,w];
+    if(mac>=50&&mac<=99)mode='program: salturi de culoare';else if(mac>=100&&mac<=149)mode='program: treceri line';else if(mac>=150&&mac<=200)mode='program: pulsații';else if(mac>200)mode='fără funcție (201–255)';
+    if(mac>=50&&mac<=200){const hues=[0,60,120,180,240,300];const k=Math.floor(macroT)%6;
+      if(mac<100)rgbw=[...hsvToRgb(hues[k],1,1),0];else if(mac<150){const f=macroT%1;const c1=hsvToRgb(hues[k],1,1),c2=hsvToRgb(hues[(k+1)%6],1,1);rgbw=[0,1,2].map(i=>Math.round(c1[i]*(1-f)+c2[i]*f)).concat(0)}else{const f=Math.abs(Math.sin(macroT*Math.PI));rgbw=hsvToRgb(hues[k],1,f).concat(0)}}
+    else if(mac>200)rgbw=[0,0,0,0];
+    const k=dim/255;let s=1;if(str>0){s=(Math.floor(t*(2+str/12))%2)?0:1}
+    wall.set(rgbw.map(v=>Math.round(v*k*s)));
+    ro.innerHTML=`<span>Canal 3 = <b>${mac}</b> → <b>${mode}</b></span><span>Dimmer <b>${Math.round(k*100)} %</b></span>${dim===0?'<span style="color:var(--bad)">Dimmerul e pe 0: bara stă stinsă orice ai pune pe culori.</span>':''}`;
+  }
+  F.forEach(f=>f.inp.addEventListener('input',upd));
+  timer=setInterval(()=>{t+=0.05;const spd=F[3].v;macroT+=0.05*(0.3+spd/60);if(F[1].v>0||(F[2].v>=50&&F[2].v<=200))upd()},50);
+  upd();
+}
+
+/* ---------- SIM: scene sequencer ---------- */
+function simScenes(host){
+  const o=JSON.parse(host.dataset.opts||'{}');
+  host.innerHTML=`<div class="t">Scene, fade și hold<span>Ca în myDMX 3.0: o scenă are pași, fiecare pas are timp de fade și timp de hold.</span></div>`;
+  const wall=makeWall();host.appendChild(wall.el);
+  const list=document.createElement('div');list.className='scenes';host.appendChild(list);
+  const btns=document.createElement('div');btns.className='btns';btns.innerHTML=`<button class="btn acc play">▶ Play</button><button class="btn stop">■ Stop</button><button class="btn add">+ Adaugă pas</button>`;host.appendChild(btns);
+  const ro=document.createElement('div');ro.className='readout';host.appendChild(ro);
+  let steps=o.steps||[[0,30,255,0,2,3],[255,170,0,0,2,3],[255,0,0,0,2,3]];let playing=false,cur=-1,raf=null;
+  function render(){list.innerHTML='';steps.forEach((s,i)=>{const d=document.createElement('div');d.className='scene'+(i===cur?' on':'');
+    d.innerHTML=`<span class="lbl">${i+1}</span><i class="sw" style="background:${css(rgbwToRgb(s[0],s[1],s[2],s[3]))}"></i>${[0,1,2,3].map(k=>`<input type="number" min="0" max="255" value="${s[k]}" data-k="${k}" title="${'RGBW'[k]}">`).join('')}<input type="number" min="0" step="0.5" value="${s[4]}" data-k="4" title="fade (s)"><input type="number" min="0" step="0.5" value="${s[5]}" data-k="5" title="hold (s)"><button class="btn small del">✕</button>`;
+    $$('input',d).forEach(inp=>inp.addEventListener('input',()=>{s[+inp.dataset.k]=+inp.value;$('.sw',d).style.background=css(rgbwToRgb(s[0],s[1],s[2],s[3]))}));
+    $('.del',d).onclick=()=>{steps.splice(i,1);render()};list.appendChild(d)});
+    if(!list.dataset.hdr){const h=document.createElement('div');h.className='scene';h.style.border='0';h.innerHTML=`<span></span><span class="lbl">culoare</span><span class="lbl">R</span><span class="lbl">G</span><span class="lbl">B</span><span class="lbl">W</span><span class="lbl">fade s</span><span class="lbl">hold s</span>`;list.prepend(h)}
+  }
+  function play(){if(!steps.length)return;playing=true;let i=0;const go=()=>{if(!playing)return;cur=i;render();const s=steps[i];const fadeMs=s[4]*1000;wall.set(s.slice(0,4),fadeMs);ro.innerHTML=`<span>Pasul <b>${i+1}</b>: fade <b>${s[4]} s</b>, apoi hold <b>${s[5]} s</b></span>`;i=(i+1)%steps.length;raf=setTimeout(go,fadeMs+s[5]*1000)};go()}
+  $('.play',host).onclick=()=>{if(!playing)play()};$('.stop',host).onclick=()=>{playing=false;clearTimeout(raf);cur=-1;render();wall.set([0,0,0,0]);ro.innerHTML=''};
+  $('.add',host).onclick=()=>{steps.push([0,0,0,255,1,2]);render()};
+  render();wall.set(steps[0].slice(0,4));
+}
+
+/* ---------- SIM: fault finder ---------- */
+function simFault(host){
+  const Q=[
+    ['Faderele 1 și 2 nu fac nimic. Faderul 3 aprinde roșu, faderul 4 aprinde verde.',['Adresa barei este 003 în loc de 001','Lipsește terminatorul','Bara e în mod automat'],0,'Bara citește de la canalul 3: faderul 3 ajunge pe canalul ei 1 (roșu), faderul 4 pe canalul 2 (verde).'],
+    ['Bara își schimbă singură culorile, indiferent ce se face la consolă.',['Cablul DMX are pinii 2 și 3 inversați','Bara este în mod automat (CC/CP/DE), nu în DMX','Adresa este 512'],1,'În modurile CC00, CP00, DE00 bara rulează programul intern și ignoră consola. Se pune pe D001.'],
+    ['Luminile pâlpâie aleatoriu, mai ales la culori slabe. Cablul are 25 m și e cablu de microfon.',['Lipsește terminatorul de 120 Ω și cablul nu e de DMX','Bara e defectă','Consola trimite prea multe canale'],0,'Semnalul se reflectă la capătul liniei. Terminatorul absoarbe reflexia; cablul de microfon are altă impedanță și înrăutățește lucrurile.'],
+    ['Bara nu răspunde deloc. LED-ul de semnal DMX de pe bară nu clipește.',['Adresa e greșită','Cablul e întrerupt sau pinii 2/3 sunt inversați într-o mufă lipită manual','Faderele sunt pe 0'],1,'Dacă semnalul nu ajunge deloc, cauza e în cablu sau mufe. Manualul FOS spune la fel: „polaritate DMX inversată”.'],
+    ['Bara e pe A001. Faderele 5–8 sunt la maxim, dar bara stă stinsă.',['Faderul 1 (dimmer general) este pe 0','Lipsește terminatorul','Adresa trebuie să fie D001'],0,'În modul 8CH canalul 1 este dimmerul general. Pe 0, culorile nu se văd.'],
+    ['Faderul 1 aprinde bara alb, faderele 2–4 nu fac nimic, faderul 5 o aprinde roșu.',['Bara e în mod 8CH (A001) când consola e pregătită pentru 4CH','Terminatorul e pus la intrare','Cablul e prea scurt'],0,'Ordinea canalelor la 8CH: 1 dimmer, 2 strobe, 3 macro, 4 viteză, 5 roșu... Faderul 1 e dimmerul (cu ultima culoare), 5 e roșul.'],
+  ];
+  let i=0,score=0;host.innerHTML=`<div class="t">Depanare: găsește cauza<span>Citește simptomul, alege cauza.</span></div><div class="body"></div>`;
+  const body=$('.body',host);
+  function show(){if(i>=Q.length){body.innerHTML=`<p><strong>${score} din ${Q.length}</strong> corecte din prima. <button class="btn small again">Reia</button></p>`;$('.again',host).onclick=()=>{i=0;score=0;show()};return}
+    const q=Q[i];body.innerHTML=`<p><span class="eyebrow">Cazul ${i+1} / ${Q.length}</span><br>${q[0]}</p><div class="choice">${q[1].map((c,k)=>`<button data-k="${k}">${c}</button>`).join('')}</div><div class="msg"></div>`;
+    let first=true;$$('.choice button',body).forEach(b=>b.onclick=()=>{const k=+b.dataset.k;if(k===q[2]){b.classList.add('ok');if(first)score++;$('.msg',body).className='msg ok';$('.msg',body).innerHTML=q[3]+' <button class="btn small nx">Următorul →</button>';$('.nx',body).onclick=()=>{i++;show()}}else{b.classList.add('no');first=false;$('.msg',body).className='msg bad';$('.msg',body).textContent='Nu. Mai încearcă.'}})}
+  show();
+}
+
+/* ---------- SIM: addressing exercise ---------- */
+function simAddr(host){
+  const o=JSON.parse(host.dataset.opts||'{}');const bars=o.bars;// [["4",..],...]
+  host.innerHTML=`<div class="t">Exercițiu de adresare<span>${o.hint}</span></div><div class="tw"><table><tr><th>Aparat</th><th>Mod</th><th>Adresă de start</th><th>Canale ocupate</th></tr>${bars.map((m,i)=>`<tr><td>Bara ${i+1}</td><td class="mono">${m}CH</td><td><input type="number" min="1" max="512" ${i===0?'value="1"':''}></td><td class="mono res"></td></tr>`).join('')}</table></div><div class="btns"><button class="btn acc chk">Verifică</button></div><div class="msg"></div>`;
+  $('.chk',host).onclick=()=>{let a=1,ok=true;$$('tr',host).slice(1).forEach((tr,i)=>{const v=+$('input',tr).value;const m=+bars[i];$('.res',tr).textContent=v?`${v}–${v+m-1}`:'';if(v!==a)ok=false;a+=m});
+    const msg=$('.msg',host);msg.className='msg '+(ok?'ok':'bad');msg.textContent=ok?'Corect: aparatele stau unul după altul, fără goluri și fără suprapuneri.':'Cel puțin o adresă nu e cea așteptată. Regula: adresa următoare = adresa curentă + numărul de canale.'};
+}
+
+/* ---------- SIM: spectrum ---------- */
+function simSpectrum(host){
+  host.innerHTML=`<div class="t">Spectrul luminii<span>Ce vede spectroscopul (CD-ul) în lumina fiecărei surse.</span></div>
+  <div class="ctrl"><label>Sursa</label><select><option value="sun">lumină de zi</option><option value="w">LED alb al barei</option><option value="r">LED roșu</option><option value="g">LED verde</option><option value="b">LED albastru</option><option value="y">galben din R+G</option><option value="na">bec cu sodiu (stradal, galben)</option></select></div><div class="sp"></div>`;
+  const sel=$('select',host),sp=$('.sp',host);
+  function band(l){const h=Math.round(300-(l-380)/(700-380)*300);return `hsl(${clamp(h,0,300)} 100% 50%)`}
+  function upd(){const v=sel.value;const W=620,H=120;let rects='';
+    for(let l=380;l<=700;l+=4){let a=0;
+      if(v==='sun')a=1;else if(v==='w')a=Math.exp(-((l-450)**2)/(2*15**2))*1+Math.exp(-((l-560)**2)/(2*60**2))*.7;
+      else if(v==='r')a=Math.exp(-((l-630)**2)/(2*12**2));else if(v==='g')a=Math.exp(-((l-525)**2)/(2*15**2));else if(v==='b')a=Math.exp(-((l-465)**2)/(2*12**2));
+      else if(v==='y')a=Math.exp(-((l-630)**2)/(2*12**2))+Math.exp(-((l-525)**2)/(2*15**2));else if(v==='na')a=Math.exp(-((l-589)**2)/(2*3**2));
+      a=clamp(a,0,1);rects+=`<rect x="${40+(l-380)/320*(W-60)}" y="10" width="${(W-60)/80+0.5}" height="${H-40}" fill="${band(l)}" opacity="${(0.05+0.95*a).toFixed(2)}"/>`}
+    sp.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="spectru">${rects}${[400,450,500,550,600,650,700].map(l=>`<text x="${40+(l-380)/320*(W-60)}" y="${H-12}" fill="#9A9AA6" font-size="11" text-anchor="middle" font-family="JetBrains Mono">${l} nm</text>`).join('')}</svg>${v==='y'?'<p style="font-size:.9rem;color:var(--muted);margin:.4rem 0 0">Nu există lumină galbenă (≈ 580 nm) în acest amestec, dar ochiul vede galben.</p>':''}`}
+  sel.addEventListener('change',upd);upd();
+}
+
+/* ---------- navigation ---------- */
+const sections=$$('section.atelier');const nav=$('nav.side .list'),msel=$('.mobile-nav select');
+sections.forEach((s,i)=>{const b=document.createElement('button');const n=i===0?'▸':String(i).padStart(2,'0');b.innerHTML=`<span class="n">${n}</span><span>${s.dataset.title}</span>`;b.onclick=()=>go(i);nav.appendChild(b);msel.add(new Option(i===0?s.dataset.title:`${i}. ${s.dataset.title}`,i))});
+function go(i,tab){i=clamp(i,0,sections.length-1);sections.forEach((s,k)=>s.hidden=k!==i);$$('nav.side button').forEach((b,k)=>b.classList.toggle('on',k===i));msel.value=i;
+  if(tab)setTab(sections[i],tab);window.scrollTo({top:0});try{localStorage.setItem('dmx.pos',JSON.stringify([i,$('.tabs button.on',sections[i]).dataset.tab]))}catch(e){}
+  $$('.sim:not(.init)',sections[i]).forEach(init);}
+function setTab(sec,t){$$('.tabs button',sec).forEach(b=>b.classList.toggle('on',b.dataset.tab===t));$$('.pane',sec).forEach(p=>p.classList.toggle('on',p.dataset.tab===t));try{localStorage.setItem('dmx.pos',JSON.stringify([sections.indexOf(sec),t]))}catch(e){}}
+msel.addEventListener('change',()=>go(+msel.value));
+sections.forEach((s,i)=>{$$('.tabs button',s).forEach(b=>b.onclick=()=>setTab(s,b.dataset.tab));
+  const pg=document.createElement('div');pg.className='pager';pg.innerHTML=`<button ${i===0?'disabled':''}>← ${i===1?'Prezentarea':'Atelierul '+(i-1)}</button><button ${i===sections.length-1?'disabled':''}>Atelierul ${i+1} →</button>`;
+  $$('button',pg)[0].onclick=()=>go(i-1);$$('button',pg)[1].onclick=()=>go(i+1);s.appendChild(pg);
+  const wsb=$('.ws-pane',s);if(wsb){const bar=document.createElement('div');bar.className='wsbar';bar.innerHTML=`<button class="btn">🖨 Tipărește fișa</button><button class="btn">Golește răspunsurile</button>`;$$('button',bar)[0].onclick=()=>window.print();$$('button',bar)[1].onclick=()=>{$$('input,textarea',wsb).forEach(e=>{if(e.type==='checkbox')e.checked=false;else e.value=''});save(wsb)};wsb.prepend(bar)}});
+function init(el){el.classList.add('init');const k=el.dataset.sim;({mixer:simMixer,packet:simPacket,wheel:simWheel,gamma:simGamma,pwm:simPwm,ch8:simCh8,scenes:simScenes,fault:simFault,addr:simAddr,spectrum:simSpectrum}[k]||(()=>{}))(el)}
+/* worksheet persistence (per viewer, best effort) */
+function save(ws){try{const d={};$$('input,textarea',ws).forEach((e,i)=>d[i]=e.type==='checkbox'?e.checked:e.value);localStorage.setItem('dmx.ws.'+ws.dataset.id,JSON.stringify(d))}catch(e){}}
+$$('.ws-pane').forEach(ws=>{try{const d=JSON.parse(localStorage.getItem('dmx.ws.'+ws.dataset.id)||'{}');$$('input,textarea',ws).forEach((e,i)=>{if(d[i]!==undefined){if(e.type==='checkbox')e.checked=d[i];else e.value=d[i]}})}catch(e){}ws.addEventListener('input',()=>save(ws))});
+let start=[0,'lectie'];try{start=JSON.parse(localStorage.getItem('dmx.pos'))||start}catch(e){}
+go(start[0],start[1]);
+})();
+</script>

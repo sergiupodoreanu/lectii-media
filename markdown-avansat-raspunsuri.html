@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Markdown avansat – răspunsuri și rezolvare (numai pentru profesor)</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:#3b3f4a;color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.6rem}
+header p{margin:0;opacity:.9}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:4px;margin-top:38px}
+h3{color:var(--accent2);margin-top:24px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.88rem;line-height:1.45}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+ol.rasp li{margin-bottom:10px}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+<h1>Markdown avansat – răspunsuri și rezolvare</h1>
+<p>Numai pentru profesor · Clasa a XII-a · Producție media</p>
+</header>
+<main>
+
+<div class="warn"><b>Pagină pentru profesor.</b> Nu se leagă din <code>index.html</code>, din lecție sau din fișă. Pagini pentru elevi: <a href="markdown-avansat.html">lecția</a>, <a href="markdown-avansat-fisa.html">fișa de laborator</a>.</div>
+
+<h2>1. Pregătirea laboratorului</h2>
+<ul>
+<li><b>Pandoc</b> instalat pe fiecare calculator (fișierul <code>.msi</code> de pe pandoc.org). Fără drepturi de administrator: arhiva <code>.zip</code> pentru Windows, de pe aceeași pagină, se dezarhivează, iar <code>pandoc.exe</code> se copiază în folderul proiectului; comanda devine <code>.\pandoc README.md …</code>.</li>
+<li><b>VS Code</b>: pentru note de subsol, casete de bifat și diagrame în previzualizare – pachetul de extensii <b>GitHub Markdown Preview</b> (Matt Bierner).</li>
+<li>Acces la <b>mermaid.live</b> și la un asistent AI (Gemini sau Claude).</li>
+<li>Comenzile din lecție și din rezolvare au fost verificate cu Pandoc 3.1 și 3.9.</li>
+</ul>
+<p><b>Desfășurare propusă:</b> lecția – 1 oră (capitolele 1–9 cu demonstrație în VS Code, capitolele 10–14 pe scurt); fișa de laborator – 2 ore; testul – 15 minute, în ora următoare.</p>
+
+<h2>2. Răspunsurile testului din lecție</h2>
+<p>Barem propus: 12 întrebări × 0,75 p = 9 p, plus 1 p din oficiu.</p>
+<ol class="rasp">
+<li>Un dialect este o variantă a limbajului Markdown, cu elemente proprii unui program sau unei platforme. GitHub folosește <b>GFM (GitHub Flavored Markdown)</b>, construit pe CommonMark.</li>
+<li><code>|:---|:---:|---:|</code> (numărul de liniuțe nu contează; contează poziția semnului <code>:</code>).</li>
+<li>Terminată: <code>- [x] text</code>. Neterminată: <code>- [ ] text</code> (cu un spațiu între paranteze).</li>
+<li><b>Trimiterea</b> din text, <code>[^nume]</code>, și <b>definiția</b>, <code>[^nume]: textul notei</code>. Exemplu: <code>preflight[^pf]</code> și <code>[^pf]: Verificarea tehnică a fișierului înainte de tipar.</code></li>
+<li>Blocul cu date despre document (titlu, autor, dată, limbă), scris în format YAML. Se așază în <b>primul rând</b> al fișierului, între două rânduri formate din trei liniuțe <code>---</code>.</li>
+<li><i>N</i> = <i>L</i> · <i>R</i> / 25,4 = 210 · 300 / 25,4 ≈ <b>2480 px</b>.</li>
+<li><code>A[Text]</code> – casetă dreptunghiulară (o etapă) cu numele intern A; <code>D{Text}</code> – romb (o decizie); <code>A --&gt; B</code> – săgeată de la A la B.</li>
+<li>O cale absolută funcționează numai pe calculatorul pe care a fost scrisă; calea relativă rămâne valabilă când folderul este mutat, arhivat sau publicat. Exemplu: <code>imagini/schita.png</code>.</li>
+<li><code>pandoc README.md --toc -o proiect.docx</code></li>
+<li>Pandoc nu o desenează: în Word apare textul diagramei, ca bloc de cod. Diagrama se salvează ca imagine PNG (din mermaid.live) și se inserează în document ca imagine.</li>
+<li>Este fișierul de prezentare al proiectului; GitHub îl afișează automat, formatat, pe pagina depozitului.</li>
+<li>Oricare trei dintre: fonturi, culori, coloane de text, poziția exactă a imaginilor, dimensiunea paginii. Se stabilesc în programul de machetare <b>Scribus</b> (DTP).</li>
+</ol>
+
+<h2>3. Rezolvarea fișei de laborator</h2>
+<h3>Calculul de la sarcina 3</h3>
+<p>Format A2, 420 × 594 mm, la 300 dpi:</p>
+<ul>
+<li>lățime: <i>N</i> = 420 · 300 / 25,4 = 4960,6 ≈ <b>4961 px</b>;</li>
+<li>înălțime: <i>N</i> = 594 · 300 / 25,4 = 7015,7 ≈ <b>7016 px</b>.</li>
+</ul>
+<p>Se acceptă și rotunjirea în jos (4960 × 7015 px).</p>
+
+<h3>Comenzile de la sarcina 5</h3>
+<pre><code>pandoc --version
+pandoc README.md --toc -o export/proiect.docx
+pandoc README.md -s --mathml -o export/proiect.html</code></pre>
+<p>Se acceptă și varianta fără <code>--mathml</code>; în acest caz formula apare în HTML ca text LaTeX, iar elevul notează „nu” în tabelul de verificare.</p>
+
+<h3>Tabelul de verificare – rezultatul așteptat</h3>
+<div class="scroll">
+<table>
+<tr><th>Element verificat</th><th>Previzualizare (VS Code)</th><th>Word</th><th>HTML</th></tr>
+<tr><td>Titlul, autorul și data din antet apar</td><td>nu (antetul este ascuns)</td><td>da</td><td>da</td></tr>
+<tr><td>Tabelul are alinierea cerută</td><td>da</td><td>da</td><td>da</td></tr>
+<tr><td>Formula se afișează ca formulă</td><td>da</td><td>da</td><td>da (cu <code>--mathml</code>)</td></tr>
+<tr><td>Nota de subsol apare și are număr</td><td>da (cu extensie)</td><td>da</td><td>da</td></tr>
+<tr><td>Lista de sarcini are casete</td><td>da (cu extensie, după versiune)</td><td>da (☐ / ☒)</td><td>da</td></tr>
+<tr><td>Diagrama Mermaid (blocul de cod) se desenează</td><td>da (cu extensie, după versiune)</td><td><b>nu</b></td><td><b>nu</b></td></tr>
+<tr><td>Imaginea <code>diagrama.png</code> se afișează</td><td>da</td><td>da</td><td>da</td></tr>
+<tr><td>Diacriticele apar corect</td><td>da</td><td>da</td><td>da</td></tr>
+</table>
+</div>
+<p>Elementul care nu se convertește este <b>diagrama Mermaid</b>; rezolvarea este imaginea PNG inserată la sarcina 4. Răspunsurile din coloana „Previzualizare” depind de extensiile instalate – se punctează concordanța cu ce s-a văzut pe ecran, nu o valoare anume.</p>
+
+<h3>Model de fișier README.md</h3>
+<pre><code>---
+title: "Afiș Balul Bobocilor 2026 – document de proiect"
+author: "Nume Prenume, clasa a XII-a Media"
+date: "2026-10-05"
+lang: ro
+---
+
+# Afiș „Balul Bobocilor 2026”
+
+Document de proiect: cerințele clientului, datele tehnice, etapele de lucru și verificarea documentului.
+
+## 1. Cerințele clientului
+
+- **Client:** Consiliul elevilor al liceului.
+- **Eveniment:** Balul Bobocilor, **vineri, 20 noiembrie 2026, ora 18:00**, sala de festivități.
+- **Titlu:** ~~Bal 2026~~ **Balul Bobocilor – Anii '80**
+- **Tema:** „Anii '80”; culori: mov, roz aprins, galben.
+- **Pe afiș apar:** titlul, data și ora, locul, sigla liceului, o fotografie de fundal.
+- **Tiraj:** 20 de exemplare; afișul se publică și pe Instagram.
+- **Termen de predare:** **6 noiembrie 2026**.
+
+## 2. Date tehnice
+
+| Element           | Tipar         | Ecran          |
+|:------------------|:-------------:|---------------:|
+| Dimensiune        | 420 × 594 mm  | 1080 × 1350 px |
+| Rezoluție         | 300 dpi       | 96 dpi         |
+| Model de culoare  | CMYK          | RGB            |
+| Format de predare | PDF/X-4       | PNG            |
+
+Numărul de pixeli necesar pe o latură:
+
+$$N = \frac{L \cdot R}{25,4}$$
+
+unde:
+
+- $N$ – numărul de pixeli pe latura respectivă (px);
+- $L$ – lungimea laturii tipărite, în milimetri (mm);
+- $R$ – rezoluția de tipar, în puncte pe inch (dpi);
+- $25,4$ – numărul de milimetri dintr-un inch.
+
+Pentru formatul A2 la 300 dpi:
+
+- lățime: $N = 420 \cdot 300 / 25,4 \approx 4961$ px;
+- înălțime: $N = 594 \cdot 300 / 25,4 \approx 7016$ px.
+
+Fotografia de fundal trebuie să aibă cel puțin **4961 × 7016 px**.
+
+## 3. Etape de lucru
+
+- [x] Notarea cerințelor clientului
+- [ ] Scrierea textului afișului
+- [ ] Alegerea fonturilor și a culorilor
+- [ ] Machetarea în Scribus
+- [ ] Verificarea (preflight[^pf])
+- [ ] Exportul PDF și PNG
+
+```mermaid
+flowchart LR
+    A[Cerințele clientului] --&gt; B[Textul afișului]
+    B --&gt; C[Fonturi și culori]
+    C --&gt; D[Machetare în Scribus]
+    D --&gt; E{Verificare}
+    E -- erori --&gt; D
+    E -- corect --&gt; F[Export PDF și PNG]
+```
+
+## 4. Diagrama etapelor
+
+![Schemă logică a etapelor: cerințe, text, fonturi și culori, machetare, verificare; la erori se revine la machetare, apoi export](imagini/diagrama.png)
+
+## 5. Verificare
+
+| Element verificat                 | Previzualizare | Word | HTML |
+|:----------------------------------|:--------------:|:----:|:----:|
+| Titlul, autorul și data din antet | nu             | da   | da   |
+| Tabelul are alinierea cerută      | da             | da   | da   |
+| Formula se afișează ca formulă    | da             | da   | da   |
+| Nota de subsol apare și are număr | da             | da   | da   |
+| Lista de sarcini are casete       | da             | da   | da   |
+| Diagrama Mermaid se desenează     | da             | nu   | nu   |
+| Imaginea diagrama.png se afișează | da             | da   | da   |
+| Diacriticele apar corect          | da             | da   | da   |
+
+Diagrama Mermaid nu se desenează în Word și în HTML: apare textul din blocul de cod. Problema a fost rezolvată prin salvarea diagramei ca imagine PNG și inserarea ei în secțiunea 4.
+
+## 6. Verificare cu AI
+
+1. Observație: … – **acceptată / respinsă**, deoarece …
+2. Observație: … – **acceptată / respinsă**, deoarece …
+
+[^pf]: Preflight – verificarea tehnică a fișierului înainte de tipar: fonturi, rezoluția imaginilor, culori, margini de tăiere.
+</code></pre>
+
+<h2>4. Greșeli frecvente</h2>
+<div class="scroll">
+<table>
+<tr><th>Ce se vede</th><th>Cauza</th><th>Corectarea</th></tr>
+<tr><td>Antetul apare ca text obișnuit, cu o linie orizontală</td><td>antetul nu începe din primul rând al fișierului sau lipsește al doilea rând <code>---</code></td><td>se șterg rândurile goale de deasupra; se închide antetul</td></tr>
+<tr><td>Eroare Pandoc „YAML parse exception”</td><td>lipsește spațiul după <code>:</code> sau valoarea conține <code>:</code> și nu este între ghilimele</td><td><code>title: "Afiș: Balul Bobocilor"</code></td></tr>
+<tr><td>Tabelul apare ca text cu bare</td><td>lipsește rândul gol dinaintea tabelului sau rândul de separare</td><td>se adaugă rândul gol și rândul <code>|:---|:---:|---:|</code></td></tr>
+<tr><td>O celulă lipsește sau tabelul este decalat</td><td>număr diferit de bare pe rânduri</td><td>se numără barele de pe fiecare rând</td></tr>
+<tr><td>Caseta de bifat apare ca <code>[ ]</code></td><td>scris <code>-[ ]</code> sau <code>- []</code></td><td><code>- [ ] text</code>, cu spații</td></tr>
+<tr><td>În text apare <code>[^pf]</code> în loc de număr</td><td>lipsește definiția notei sau numele diferă</td><td>se adaugă <code>[^pf]: text</code>, cu același nume</td></tr>
+<tr><td>Diagrama nu se desenează</td><td>săgeată scrisă <code>-&gt;</code> în loc de <code>--&gt;</code>, paranteză neînchisă, cuvântul <code>flowchart</code> lipsă</td><td>se verifică în mermaid.live, care indică rândul greșit</td></tr>
+<tr><td>Imaginea nu apare</td><td>cale absolută, <code>\</code> în loc de <code>/</code>, majuscule sau diacritice în numele fișierului</td><td><code>imagini/diagrama.png</code>, nume cu litere mici</td></tr>
+<tr><td>Pandoc: „Could not fetch resource”</td><td>comanda a fost dată din alt folder decât cel al proiectului</td><td>terminalul se deschide în folderul <code>proiect-afis</code></td></tr>
+<tr><td>Pandoc: „pandoc is not recognized”</td><td>Pandoc nu este instalat sau terminalul era deschis înaintea instalării</td><td>se instalează; se închide și se redeschide VS Code</td></tr>
+<tr><td>Diacritice greșite în Word/HTML</td><td>fișier salvat în altă codare decât UTF-8</td><td>în VS Code, jos-dreapta: <b>Save with Encoding → UTF-8</b></td></tr>
+</table>
+</div>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a · pagină pentru profesor</footer>
+</body>
+</html>

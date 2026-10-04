@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fișă de laborator – Documentul de proiect al unui afiș</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--accent2);color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.6rem}
+header p{margin:0;opacity:.92}
+nav{background:#9c3f14;padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px 18px}
+nav a{color:#fff;text-decoration:none;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent2);border-bottom:2px solid var(--accent2);padding-bottom:4px;margin-top:38px}
+h2 span{float:right;font-size:.85rem;color:var(--muted);font-weight:normal;padding-top:6px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.9rem;line-height:1.45}
+pre code{background:none;color:inherit;padding:0}
+pre.raw{background:#fff;color:var(--ink);border:1px dashed var(--muted);white-space:pre-wrap}
+.info{background:var(--box);border-left:5px solid var(--accent);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.warn{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.ident{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0}
+@media(max-width:640px){.ident{grid-template-columns:1fr}}
+.ident div{border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fff;color:var(--muted);min-height:54px}
+ol.pasi li{margin-bottom:7px}
+td.pt{text-align:right;white-space:nowrap}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+@media print{nav{display:none}body{background:#fff}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<header>
+<h1>Fișă de laborator – Documentul de proiect al unui afiș</h1>
+<p>Markdown avansat · Clasa a XII-a · Producție media · 2 ore</p>
+</header>
+<nav>
+<a href="index.html">Cuprins</a>
+<a href="markdown-avansat.html">Lecția: Markdown avansat</a>
+<a href="exemplu-avansat.md" download="exemplu-avansat.md" data-md="md-exemplu">Fișierul-exemplu (.md)</a>
+</nav>
+<main>
+
+<div class="info"><b>Lucrarea:</b> se realizează <b>documentul de proiect</b> al afișului „Balul Bobocilor 2026”, ca fișier <code>README.md</code>, cu toate elementele din lecție. Documentul se convertește apoi în Word și HTML și se verifică.<br>
+<b>Programe:</b> VS Code (sau Obsidian), browser, Pandoc, un asistent AI (Gemini sau Claude).<br>
+<b>Rezultat predat:</b> folderul <code>proiect-afis</code>, cu structura de la sarcina 1.</div>
+
+<h2>Datele lucrării</h2>
+<p>Textul de mai jos conține cerințele clientului, <b>nestructurate</b>, așa cum au fost primite. În sarcinile următoare, aceste date se organizează în document.</p>
+<pre class="raw"><code>Afiș pentru Balul Bobocilor 2026. Clientul este Consiliul elevilor al liceului.
+Balul are loc vineri, 20 noiembrie 2026, ora 18:00, în sala de festivități.
+Afișul se tipărește în format A2 (420 × 594 mm), portret, 20 de exemplare,
+și se publică și pe pagina de Instagram a liceului.
+Pentru tipar: rezoluție 300 dpi, model de culoare CMYK, fișier predat PDF/X-4.
+Pentru ecran: 1080 × 1350 px, rezoluție 96 dpi, model de culoare RGB, fișier predat PNG.
+Pe afiș apar: titlul, data și ora, locul, sigla liceului, o fotografie de fundal.
+Tema balului este „Anii '80”. Culorile dorite: mov, roz aprins, galben.
+Titlul a fost schimbat: varianta veche „Bal 2026”, varianta nouă „Balul Bobocilor – Anii '80”.
+Termen de predare a afișului: 6 noiembrie 2026.
+Etapele lucrării: notarea cerințelor clientului, scrierea textului afișului,
+alegerea fonturilor și a culorilor, machetarea în Scribus,
+verificarea (preflight), exportul PDF și PNG.</code></pre>
+
+<h2>Sarcina 1 – Spațiul de lucru și antetul <span>10 min</span></h2>
+<ol class="pasi">
+<li>Se creează folderul <code>proiect-afis</code>, iar în el folderele <code>imagini</code> și <code>export</code>.</li>
+<li>Folderul <code>proiect-afis</code> se deschide în VS Code (<b>File → Open Folder</b>) și se creează fișierul <code>README.md</code>.</li>
+<li>În primele rânduri se scrie <b>antetul de metadate</b>, cu patru câmpuri: titlul documentului, autorul (numele propriu și clasa), data de azi, limba.</li>
+<li>Sub antet se scrie titlul de nivel 1 al documentului și un paragraf de 1–2 rânduri care spune ce conține documentul.</li>
+<li>Se deschide previzualizarea alături de text: <kbd>Ctrl</kbd>+<kbd>K</kbd>, apoi <kbd>V</kbd>.</li>
+</ol>
+
+<h2>Sarcina 2 – Cerințele clientului și tabelul de date tehnice <span>20 min</span></h2>
+<ol class="pasi">
+<li>Se adaugă secțiunea <code>## 1. Cerințele clientului</code>: o listă cu buline care cuprinde clientul, evenimentul (data, ora, locul), tema, culorile, termenul de predare. Cuvintele importante se scriu <b>îngroșat</b>.</li>
+<li>Schimbarea titlului se arată cu <b>text tăiat</b>: varianta veche tăiată, urmată de varianta nouă.</li>
+<li>Se adaugă secțiunea <code>## 2. Date tehnice</code>: un <b>tabel</b> cu trei coloane (Element, Tipar, Ecran) și patru rânduri (dimensiune, rezoluție, model de culoare, format de predare). Prima coloană se aliniază la stânga, a doua centrat, a treia la dreapta.</li>
+<li>Se verifică în previzualizare: tabelul are toate celulele completate și alinierea cerută.</li>
+</ol>
+
+<h2>Sarcina 3 – Formula, nota de subsol și lista de sarcini <span>20 min</span></h2>
+<ol class="pasi">
+<li>Sub tabel se scrie <b>formula</b> numărului de pixeli necesar pe o latură, pe rând separat, urmată de <b>legenda notațiilor</b> (ce înseamnă fiecare literă și în ce unitate se măsoară).</li>
+<li>Cu această formulă se calculează dimensiunea minimă, în pixeli, a fotografiei de fundal pentru afișul A2 tipărit la 300 dpi (lățime și înălțime). Calculul și rezultatul se scriu în document.</li>
+<li>La cuvântul „preflight” se adaugă o <b>notă de subsol</b> care explică termenul.</li>
+<li>Se adaugă secțiunea <code>## 3. Etape de lucru</code>: o <b>listă de sarcini</b> cu cele șase etape. Etapele deja făcute până în acest moment se bifează.</li>
+</ol>
+
+<h2>Sarcina 4 – Diagrama și imaginea <span>20 min</span></h2>
+<ol class="pasi">
+<li>Sub lista de sarcini se scrie o <b>schemă logică Mermaid</b> a etapelor de lucru, de la stânga la dreapta. Schema conține o <b>decizie</b> („Verificare”): în caz de erori se revine la machetare, altfel urmează exportul.</li>
+<li>Textul diagramei se copiază în <a href="https://mermaid.live">mermaid.live</a>. Dacă diagrama nu se desenează, se caută greșeala (săgeată scrisă greșit, paranteză neînchisă) și se corectează în ambele locuri.</li>
+<li>Diagrama se salvează ca imagine PNG, cu numele <code>diagrama.png</code>, în folderul <code>imagini</code>.</li>
+<li>Se adaugă secțiunea <code>## 4. Diagrama etapelor</code>, în care imaginea <code>diagrama.png</code> se inserează cu <b>cale relativă</b> și <b>text alternativ</b> care descrie diagrama.</li>
+</ol>
+
+<h2>Sarcina 5 – Conversia și verificarea <span>25 min</span></h2>
+<ol class="pasi">
+<li>Se deschide terminalul din VS Code (<b>Terminal → New Terminal</b>) și se verifică instalarea programului Pandoc.</li>
+<li>Fișierul <code>README.md</code> se convertește în document <b>Word</b>, cu cuprins, salvat în folderul <code>export</code> cu numele <code>proiect.docx</code>.</li>
+<li>Fișierul <code>README.md</code> se convertește în <b>pagină HTML</b> completă, salvată în folderul <code>export</code> cu numele <code>proiect.html</code>.</li>
+<li>Cele două fișiere se deschid (Word, respectiv browser) și se compară cu previzualizarea din VS Code.</li>
+<li>În <code>README.md</code> se adaugă secțiunea <code>## 5. Verificare</code>, cu tabelul de mai jos, scris în Markdown și completat cu <b>da</b>, <b>nu</b> sau o observație scurtă.</li>
+</ol>
+<div class="scroll">
+<table>
+<tr><th>Element verificat</th><th>Previzualizare</th><th>Word</th><th>HTML</th></tr>
+<tr><td>Titlul, autorul și data din antet apar</td><td></td><td></td><td></td></tr>
+<tr><td>Tabelul are alinierea cerută</td><td></td><td></td><td></td></tr>
+<tr><td>Formula se afișează ca formulă</td><td></td><td></td><td></td></tr>
+<tr><td>Nota de subsol apare și are număr</td><td></td><td></td><td></td></tr>
+<tr><td>Lista de sarcini are casete</td><td></td><td></td><td></td></tr>
+<tr><td>Diagrama Mermaid (blocul de cod) se desenează</td><td></td><td></td><td></td></tr>
+<tr><td>Imaginea <code>diagrama.png</code> se afișează</td><td></td><td></td><td></td></tr>
+<tr><td>Diacriticele apar corect</td><td></td><td></td><td></td></tr>
+</table>
+</div>
+<p>Sub tabel se scrie, în 2–3 rânduri: ce element <b>nu</b> s-a convertit corect și cum a fost rezolvată problema în document.</p>
+
+<h2>Sarcina 6 – Verificarea cu un asistent AI <span>10 min</span></h2>
+<ol class="pasi">
+<li>Conținutul fișierului <code>README.md</code> se copiază într-un asistent AI (Gemini sau Claude), cu cererea de a verifica: ierarhia titlurilor, tabelele, notele de subsol, căile imaginilor, greșelile de ortografie.</li>
+<li>În <code>README.md</code> se adaugă secțiunea <code>## 6. Verificare cu AI</code>: se notează <b>două observații</b> primite și, pentru fiecare, dacă a fost acceptată sau respinsă și <b>de ce</b>.</li>
+<li>Se fac corecturile acceptate și se repetă conversia de la sarcina 5.</li>
+</ol>
+<div class="warn"><b>Atenție:</b> asistentul poate propune și modificări greșite sau poate schimba date (o dată calendaristică, o dimensiune). Fiecare observație se compară cu <b>datele lucrării</b> înainte de a fi acceptată.</div>
+
+<h2>Predarea lucrării</h2>
+<p>Se predă folderul <code>proiect-afis</code>, încărcat în OneDrive / Teams, cu structura:</p>
+<pre><code>proiect-afis/
+├── README.md
+├── imagini/
+│   └── diagrama.png
+└── export/
+    ├── proiect.docx
+    └── proiect.html</code></pre>
+
+<h2>Evaluare</h2>
+<div class="scroll">
+<table>
+<tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Structura folderului și numele fișierelor respectă cerința</td><td class="pt">1 p</td></tr>
+<tr><td>Antet de metadate complet și corect</td><td class="pt">1 p</td></tr>
+<tr><td>Cerințele clientului: listă, text îngroșat, text tăiat</td><td class="pt">1 p</td></tr>
+<tr><td>Tabelul de date tehnice, cu alinierea cerută</td><td class="pt">1 p</td></tr>
+<tr><td>Formula cu legendă și calculul corect</td><td class="pt">1 p</td></tr>
+<tr><td>Nota de subsol și lista de sarcini</td><td class="pt">1 p</td></tr>
+<tr><td>Diagrama Mermaid corectă și imaginea inserată cu cale relativă și text alternativ</td><td class="pt">1,5 p</td></tr>
+<tr><td>Conversia în Word și HTML; tabelul de verificare completat</td><td class="pt">1 p</td></tr>
+<tr><td>Verificarea cu AI: observații notate și justificate</td><td class="pt">0,5 p</td></tr>
+<tr><td>Din oficiu</td><td class="pt">1 p</td></tr>
+<tr><th>Total</th><th class="pt">10 p</th></tr>
+</table>
+</div>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a</footer>
+<script type="text/plain" id="md-exemplu">
+---
+title: "Afiș Ziua Porților Deschise"
+author: "Popescu Ana, clasa a XII-a Media"
+date: "2026-10-05"
+lang: ro
+---
+
+# Afiș „Ziua Porților Deschise”
+
+Document de proiect pentru afișul A3 al liceului. Fișierul descrie **cerințele clientului**, datele tehnice, etapele de lucru și verificarea finală.
+
+## 1. Cerințele clientului
+
+- Format **A3**, orientare verticală (portret).
+- Afișul se tipărește și se publică și pe pagina liceului.
+- Termen de predare: **16 octombrie 2026**.
+
+> **Atenție:** sigla liceului se folosește numai în varianta vectorială (SVG), niciodată copiată dintr-o captură de ecran.
+
+## 2. Date tehnice
+
+| Element           | Tipar          | Ecran       |
+|:------------------|:--------------:|------------:|
+| Dimensiune        | 297 × 420 mm   | 1080 × 1527 px |
+| Rezoluție         | 300 dpi        | 96 dpi      |
+| Model de culoare  | CMYK           | RGB         |
+| Format de predare | PDF/X-4        | PNG         |
+
+Imaginea de fundal trebuie să aibă cel puțin 3508 × 4961 px[^pixeli].
+
+Numărul de pixeli necesar pe o latură:
+
+$$N = \frac{L \cdot R}{25,4}$$
+
+unde:
+
+- $N$ – numărul de pixeli pe latura respectivă;
+- $L$ – lungimea laturii, în milimetri (mm);
+- $R$ – rezoluția, în puncte pe inch (dpi);
+- $25,4$ – numărul de milimetri dintr-un inch.
+
+## 3. Etape de lucru
+
+- [x] Notarea cerințelor clientului
+- [x] Scrierea textului afișului
+- [ ] Alegerea fonturilor și a culorilor
+- [ ] Machetarea în Scribus
+- [ ] Verificarea (preflight) și exportul PDF
+
+```mermaid
+flowchart LR
+    A[Cerințele clientului] --> B[Text în Markdown]
+    B --> C[Machetare în Scribus]
+    C --> D{Verificare}
+    D -- erori --> C
+    D -- corect --> E[Export PDF]
+```
+
+## 4. Schița afișului
+
+![Schița afișului: titlu sus, fotografie la mijloc, date de contact jos](imagini/schita.png)
+
+## 5. Textul afișului
+
+1. Titlu: ~~Ziua Ușilor Deschise~~ **Ziua Porților Deschise**
+2. Data și ora: 24 octombrie 2026, ora 10:00
+3. Adresa paginii: <https://www.exemplu.ro>
+
+## 6. Comenzi de conversie
+
+```bash
+pandoc exemplu-avansat.md -o exemplu-avansat.docx
+pandoc exemplu-avansat.md -s --mathml -o exemplu-avansat.html
+```
+
+[^pixeli]: Valoarea rezultă din formula de mai jos: 297 mm · 300 dpi / 25,4 ≈ 3508 px și 420 mm · 300 dpi / 25,4 ≈ 4961 px.
+</script>
+<script>
+document.querySelectorAll('a[data-md]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var src=document.getElementById(a.getAttribute('data-md'));
+    if(!src||!window.Blob||!window.URL) return;
+    e.preventDefault();
+    var text=src.textContent.replace(/^\n/,'');
+    var url=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));
+    var t=document.createElement('a');
+    t.href=url; t.download=a.getAttribute('download'); document.body.appendChild(t); t.click();
+    setTimeout(function(){document.body.removeChild(t);URL.revokeObjectURL(url);},1000);
+  });
+});
+</script>
+</body>
+</html>

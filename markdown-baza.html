@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markdown de bază – scrierea textului structurat</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--accent);color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.7rem}
+header p{margin:0;opacity:.9}
+nav{background:#0b5146;padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px 18px}
+nav a{color:#fff;text-decoration:none;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:4px;margin-top:40px}
+h3{color:var(--accent2);margin-top:26px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.9rem;line-height:1.45;margin:8px 0}
+pre code{background:none;color:inherit;padding:0}
+.def{background:var(--box);border-left:5px solid var(--accent);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.def b{color:var(--accent)}
+.ex{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.ex h4{margin:0 0 6px;color:var(--accent2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+@media(max-width:640px){.two{grid-template-columns:1fr}}
+.two>div{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff;min-width:0}
+.two h5{margin:0 0 6px;color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
+.prev table{font-size:.9rem;margin:4px 0}
+.prev ul,.prev ol{margin:4px 0;padding-left:22px}
+.prev ul.tasks{list-style:none;padding-left:4px}
+.prev blockquote{border-left:3px solid var(--line);margin:6px 0;padding-left:10px;color:var(--muted)}
+.prev .fn{border-top:1px solid var(--line);margin-top:10px;padding-top:6px;font-size:.88rem}
+.prev .meta{font-size:.9rem}
+.formula{font-family:"Cambria Math",Cambria,"Times New Roman",serif;font-size:1.25rem;text-align:center;margin:10px 0}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center}
+.frac span{padding:0 6px}
+.frac span:first-child{border-bottom:1.5px solid var(--ink)}
+.diagram{min-width:620px;width:100%;height:auto;display:block}
+.tree{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.small{color:var(--muted);font-size:.9rem}
+.yes{color:var(--accent);font-weight:bold}
+.no{color:var(--accent2);font-weight:bold}
+.glos dt{font-weight:bold;color:var(--accent);margin-top:8px}
+.glos dd{margin-left:0}
+ol.test li{margin-bottom:8px}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+kbd{background:#fff;border:1px solid #b9c0c7;border-bottom-width:2px;border-radius:4px;padding:0 5px;font-family:Consolas,"Courier New",monospace;font-size:.88em}
+.ph1{font-size:1.45rem;font-weight:700;margin:4px 0}
+.ph2{font-size:1.2rem;font-weight:700;margin:4px 0}
+.ph3{font-size:1.05rem;font-weight:700;margin:4px 0}
+.ph4{font-size:.95rem;font-weight:700;margin:4px 0}
+.prev p{margin:6px 0}
+.prev hr{border:0;border-top:2px solid var(--line);margin:10px 0}
+.prev img{max-width:100%;height:auto}
+.prev blockquote blockquote{margin-left:4px}
+.gresit{color:var(--accent2)}
+.corect{color:var(--accent)}
+</style>
+</head>
+<body>
+<header>
+<h1>Markdown de bază – scrierea textului structurat</h1>
+<p>Clasa a XII-a · Producție media · Modulul „Montajul și verificarea documentelor digitale”</p>
+</header>
+<nav>
+<a href="index.html">Cuprins</a>
+<a href="markdown-baza-fisa.html">Fișa de laborator</a>
+<a href="exemplu-baza.md" download="exemplu-baza.md" data-md="md-exemplu">Fișierul-exemplu (.md)</a>
+<a href="markdown-avansat.html">Lecția următoare: Markdown avansat</a>
+</nav>
+<main>
+
+<h2>1. Tema lecției</h2>
+<p>Lecția prezintă <b>sintaxa de bază</b> a limbajului Markdown, element cu element: cum se scrie, cum se vede și ce greșeli apar. Cu aceste elemente se poate scrie orice text structurat: un articol, un ghid, o pagină de prezentare.</p>
+<p>La sfârșitul lecției se cunosc:</p>
+<ul>
+<li>diferența dintre <b>text simplu</b> și <b>text formatat</b> și rolul unui limbaj de marcare;</li>
+<li>crearea unui fișier <code>.md</code> și previzualizarea lui;</li>
+<li>elementele de bază: <b>paragrafe, titluri, evidențieri, liste, legături, imagini, citate, cod, linie orizontală</b>;</li>
+<li>scrierea <b>caracterelor speciale</b> și corectarea greșelilor frecvente.</li>
+</ul>
+<p class="small">Tabelele, listele de sarcini, notele de subsol, formulele, diagramele și conversia în Word sunt tratate în lecția <a href="markdown-avansat.html">Markdown avansat</a>.</p>
+
+<h2>2. Ce este Markdown</h2>
+<div class="def"><b>Text simplu</b> – text format numai din caractere (litere, cifre, semne), fără fonturi, culori sau mărimi. Exemplu: un fișier <code>.txt</code>.<br>
+<b>Text formatat</b> – text care are și aspect: titluri, îngroșări, liste, imagini. Exemplu: un document Word.<br>
+<b>Limbaj de marcare</b> – un sistem de semne introduse în text pentru a-i descrie structura (ce este titlu, ce este listă, ce este important). HTML și Markdown sunt limbaje de marcare.</div>
+<p><b>Markdown</b> este un limbaj de <b>marcare ușoară</b>: structura se scrie cu semne simple (<code>#</code>, <code>*</code>, <code>-</code>, <code>&gt;</code>), direct în text. Fișierul rămâne text simplu, cu extensia <code>.md</code>, iar un program îl afișează formatat. Limbajul a fost creat în 2004 de John Gruber, cu scopul ca textul să poată fi citit ușor și în forma nemarcată.</p>
+<div class="def"><b>Randare</b> – transformarea textului marcat în text formatat, afișat pe ecran.<br>
+<b>Previzualizare</b> – fereastra în care se vede randarea, în timp ce se scrie.</div>
+<div class="scroll">
+<table>
+<tr><th>Caracteristică</th><th>Fișier Markdown (<code>.md</code>)</th><th>Document Word (<code>.docx</code>)</th></tr>
+<tr><td>Ce conține</td><td>text simplu și semne de marcare</td><td>text, formatare și imagini, împachetate într-o arhivă</td></tr>
+<tr><td>Cu ce se deschide</td><td>cu orice editor de text, pe orice sistem</td><td>cu Word sau un program compatibil</td></tr>
+<tr><td>Mărimea fișierului</td><td>câțiva kilobytes</td><td>de zeci de ori mai mare</td></tr>
+<tr><td>Aspectul (fonturi, culori)</td><td>se stabilește la afișare sau la conversie</td><td>se stabilește în document</td></tr>
+<tr><td>Se scrie cu</td><td>tastatura, fără meniuri</td><td>tastatura și butoanele de formatare</td></tr>
+</table>
+</div>
+<p><b>Ideea de bază: conținutul este separat de aspect.</b> Autorul scrie textul și structura lui; aspectul se adaugă ulterior. Același fișier <code>.md</code> poate deveni pagină web, document Word, carte electronică sau text importat în Scribus.</p>
+<p><b>Unde se folosește:</b> pagini de prezentare pe GitHub, notițe (Obsidian), documentație, mesaje în Teams și Discord, articole pentru pagini web. Asistenții AI (Gemini, Claude, ChatGPT) scriu răspunsurile în Markdown – de aici apar semnele <code>**</code> și <code>#</code> atunci când un răspuns este copiat ca text simplu.</p>
+
+<h2>3. Programele de lucru și primul fișier</h2>
+<div class="scroll">
+<table>
+<tr><th>Program</th><th>Tip</th><th>Observații</th></tr>
+<tr><td><b>VS Code</b></td><td>editor de text, gratuit</td><td>previzualizare inclusă; folosit la laborator</td></tr>
+<tr><td><b>Obsidian</b></td><td>program de notițe, gratuit</td><td>textul se formatează chiar în timpul scrierii</td></tr>
+<tr><td><b>StackEdit</b> (stackedit.io)</td><td>editor online</td><td>fără instalare; text în stânga, randare în dreapta</td></tr>
+<tr><td><b>Notepad</b></td><td>editor de text din Windows</td><td>se poate scrie, dar nu are previzualizare</td></tr>
+</table>
+</div>
+<h3>Primul fișier în VS Code</h3>
+<ol>
+<li>Se creează un folder de lucru și se deschide în VS Code: <b>File → Open Folder</b>.</li>
+<li>Se creează fișierul: <b>File → New File</b>, cu numele <code>primul-fisier.md</code>. Extensia <code>.md</code> se scrie obligatoriu.</li>
+<li>Se deschide previzualizarea alături de text: <kbd>Ctrl</kbd>+<kbd>K</kbd>, apoi <kbd>V</kbd>. (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> deschide previzualizarea într-o filă separată.)</li>
+<li>Se scrie textul în stânga; randarea apare în dreapta. Fișierul se salvează cu <kbd>Ctrl</kbd>+<kbd>S</kbd>.</li>
+</ol>
+<div class="ex"><h4>Extensia fișierului</h4>
+Windows ascunde implicit extensiile, iar un fișier poate ajunge să se numească <code>articol.md.txt</code>. Extensiile se afișează din File Explorer: <b>View → Show → File name extensions</b>.</div>
+<h3>Semnele de marcare pe tastatură</h3>
+<p>Pozițiile sunt date pentru tastatura în limba engleză (ENG). Pe tastatura <b>Română (Programatori)</b> semnele se află în aceleași locuri, iar diacriticele se scriu cu tasta <kbd>AltGr</kbd>. Limba tastaturii se schimbă cu <kbd>Win</kbd>+<kbd>Spațiu</kbd>.</p>
+<div class="scroll">
+<table>
+<tr><th>Semn</th><th>Denumire</th><th>Taste</th><th>Folosit la</th></tr>
+<tr><td><code>#</code></td><td>diez</td><td><kbd>Shift</kbd>+<kbd>3</kbd></td><td>titluri</td></tr>
+<tr><td><code>*</code></td><td>asterisc</td><td><kbd>Shift</kbd>+<kbd>8</kbd></td><td>text îngroșat și cursiv</td></tr>
+<tr><td><code>-</code></td><td>liniuță</td><td>tasta de lângă <kbd>0</kbd></td><td>liste, linie orizontală</td></tr>
+<tr><td><code>&gt;</code></td><td>semnul „mai mare”</td><td><kbd>Shift</kbd>+<kbd>.</kbd></td><td>citate</td></tr>
+<tr><td><code>[ ]</code></td><td>paranteze drepte</td><td>tastele din dreapta literei <kbd>P</kbd></td><td>legături, imagini</td></tr>
+<tr><td><code>!</code></td><td>semnul exclamării</td><td><kbd>Shift</kbd>+<kbd>1</kbd></td><td>imagini</td></tr>
+<tr><td><code>`</code></td><td>accent grav</td><td>tasta de sub <kbd>Esc</kbd></td><td>cod</td></tr>
+<tr><td><code>\</code></td><td>bară oblică inversă</td><td>tasta de deasupra tastei <kbd>Enter</kbd></td><td>caractere speciale, rând nou</td></tr>
+</table>
+</div>
+
+<h2>4. Paragrafe și rânduri</h2>
+<div class="def">Un <b>paragraf</b> este un grup de rânduri de text, fără rânduri goale între ele. Două paragrafe se despart printr-<b>un rând gol</b>.</div>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>Primul paragraf este scris
+pe două rânduri în fișier.
+
+Al doilea paragraf începe
+după un rând gol.</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<p>Primul paragraf este scris pe două rânduri în fișier.</p>
+<p>Al doilea paragraf începe după un rând gol.</p></div>
+</div>
+<p><b>Atenție:</b> o singură apăsare a tastei <kbd>Enter</kbd> <b>nu</b> produce rând nou la afișare – rândurile alăturate sunt unite în același paragraf. Mai multe rânduri goale la rând sunt afișate ca unul singur.</p>
+<h3>Rând nou în același paragraf</h3>
+<p>Uneori este nevoie de rând nou fără paragraf nou: o adresă, o semnătură, versuri. Rândul nou se obține cu o <b>bară oblică inversă</b> <code>\</code> la sfârșitul rândului sau cu <b>două spații</b> la sfârșitul rândului.</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>Redacția revistei\
+Clasa a XII-a Media\
+Buzău</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<p>Redacția revistei<br>Clasa a XII-a Media<br>Buzău</p></div>
+</div>
+<p class="small">Cele două spații de la sfârșitul rândului nu se văd în fișier și se pierd ușor; bara <code>\</code> este varianta vizibilă.</p>
+
+<h2>5. Titluri</h2>
+<p>Un titlu se scrie cu semnul <code>#</code> la începutul rândului, urmat de <b>un spațiu</b>. Numărul de semne <code>#</code> dă <b>nivelul</b> titlului, de la 1 (cel mai important) la 6.</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code># Titlul documentului
+## Capitol
+### Subcapitol
+#### Secțiune</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<div class="ph1">Titlul documentului</div>
+<div class="ph2">Capitol</div>
+<div class="ph3">Subcapitol</div>
+<div class="ph4">Secțiune</div></div>
+</div>
+<div class="def"><b>Ierarhia titlurilor</b> – ordinea nivelurilor într-un document: titlul de nivel 1 este titlul documentului, titlurile de nivel 2 sunt capitolele, cele de nivel 3 sunt subcapitolele capitolului în care se află.</div>
+<p><b>Reguli:</b></p>
+<ul>
+<li>un document are <b>un singur titlu de nivel 1</b>;</li>
+<li><b>nivelurile nu se sar</b>: după <code>##</code> urmează <code>###</code>, nu <code>####</code>;</li>
+<li>nivelul se alege după <b>structură</b>, nu după mărimea dorită a literelor;</li>
+<li>înainte și după titlu se lasă un rând gol;</li>
+<li>titlul nu se termină cu punct și nu se scrie îngroșat.</li>
+</ul>
+<p>Din titluri, programele construiesc automat <b>cuprinsul</b>. În VS Code, structura titlurilor se vede în panoul <b>Outline</b> (în stânga, sub lista de fișiere) – cel mai rapid mod de a verifica ierarhia.</p>
+
+<h2>6. Evidențierea textului</h2>
+<div class="scroll">
+<table>
+<tr><th>Evidențiere</th><th>Se scrie</th><th>Se vede</th><th>Se folosește pentru</th></tr>
+<tr><td>Text îngroșat (aldin)</td><td><code>**rezoluție**</code></td><td><b>rezoluție</b></td><td>termeni și idei importante</td></tr>
+<tr><td>Text cursiv (italic)</td><td><code>*sans-serif*</code></td><td><i>sans-serif</i></td><td>cuvinte străine, titluri de lucrări, un termen la prima apariție</td></tr>
+<tr><td>Îngroșat și cursiv</td><td><code>***atenție***</code></td><td><b><i>atenție</i></b></td><td>rar, pentru avertismente</td></tr>
+<tr><td>Cod în rând</td><td><code>`afis.pdf`</code></td><td><code>afis.pdf</code></td><td>nume de fișiere, comenzi, taste, cod</td></tr>
+</table>
+</div>
+<p><b>Reguli:</b></p>
+<ul>
+<li>semnele se lipesc de text: <code>**corect**</code>, nu <code>** greșit **</code>;</li>
+<li>fiecare evidențiere se <b>închide</b> cu aceleași semne cu care a fost deschisă;</li>
+<li>în locul asteriscului se poate folosi liniuța de subliniere (<code>_cursiv_</code>, <code>__îngroșat__</code>); într-un document se folosește <b>un singur fel</b>;</li>
+<li>evidențierea se folosește cu măsură: dacă totul este îngroșat, nimic nu mai iese în evidență;</li>
+<li>Markdown de bază nu are subliniere – pe ecran, textul subliniat se confundă cu o legătură.</li>
+</ul>
+
+<h2>7. Liste</h2>
+<h3>Listă cu buline</h3>
+<p>Fiecare element începe cu o liniuță <code>-</code> urmată de un spațiu. Se folosește când <b>ordinea nu contează</b>.</p>
+<h3>Listă numerotată</h3>
+<p>Fiecare element începe cu un număr, punct și spațiu: <code>1. </code>. Se folosește când <b>ordinea contează</b>: pași de lucru, clasamente.</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>Reguli:
+
+- cel mult două fonturi;
+- contrast puternic;
+- text scurt.
+
+Pași:
+
+1. Se citesc cerințele.
+2. Se aleg fonturile.
+3. Se face proba de tipar.</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<p>Reguli:</p>
+<ul><li>cel mult două fonturi;</li><li>contrast puternic;</li><li>text scurt.</li></ul>
+<p>Pași:</p>
+<ol><li>Se citesc cerințele.</li><li>Se aleg fonturile.</li><li>Se face proba de tipar.</li></ol></div>
+</div>
+<h3>Listă în listă</h3>
+<p>O listă se poate afla în interiorul unui element al altei liste. Elementele listei interioare se scriu <b>retrase cu patru spații</b> (tasta <kbd>Tab</kbd> în VS Code).</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>1. Se citesc cerințele.
+2. Se aleg fonturile:
+    - un font pentru titlu;
+    - un font pentru text.
+3. Se verifică licența.</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<ol><li>Se citesc cerințele.</li><li>Se aleg fonturile:<ul><li>un font pentru titlu;</li><li>un font pentru text.</li></ul></li><li>Se verifică licența.</li></ol></div>
+</div>
+<p><b>Reguli:</b></p>
+<ul>
+<li>înaintea listei se lasă <b>un rând gol</b>; fără el, unele programe lipesc lista de paragraful de deasupra;</li>
+<li>după liniuță sau după număr urmează <b>un spațiu</b>;</li>
+<li>într-o listă se folosește același semn pentru toate bulinele (<code>-</code>; sunt acceptate și <code>*</code> și <code>+</code>);</li>
+<li>numerotarea se face automat: lista începe de la primul număr scris și continuă din unu în unu, chiar dacă numerele următoare sunt greșite; la adăugarea unui pas la mijloc, numerele nu trebuie rescrise.</li>
+</ul>
+
+<h2>8. Legături</h2>
+<div class="def">O <b>legătură</b> (link) este un text pe care se face clic pentru a deschide o pagină web, un fișier sau alt loc din document. Are două părți: <b>textul afișat</b>, între paranteze drepte, și <b>adresa</b>, între paranteze rotunde.</div>
+<pre><code>[textul afișat](adresa)</code></pre>
+<div class="scroll">
+<table>
+<tr><th>Tip de legătură</th><th>Se scrie</th><th>Se vede</th></tr>
+<tr><td>Către o pagină web</td><td><code>[Google Fonts](https://fonts.google.com)</code></td><td><u>Google Fonts</u></td></tr>
+<tr><td>Cu text explicativ la trecerea cursorului</td><td><code>[Google Fonts](https://fonts.google.com "Biblioteca de fonturi")</code></td><td><u>Google Fonts</u> + explicația</td></tr>
+<tr><td>Adresa afișată ca atare</td><td><code>&lt;https://fonts.google.com&gt;</code></td><td><u>https://fonts.google.com</u></td></tr>
+<tr><td>Către alt fișier din folder</td><td><code>[Fișa de lucru](fise/fisa-1.md)</code></td><td><u>Fișa de lucru</u></td></tr>
+<tr><td>Către un titlu din același document</td><td><code>[regulile de bază](#reguli-de-bază)</code></td><td><u>regulile de bază</u></td></tr>
+</table>
+</div>
+<p><b>Reguli:</b></p>
+<ul>
+<li>între <code>]</code> și <code>(</code> <b>nu</b> se lasă spațiu;</li>
+<li>adresa unei pagini web se scrie completă, cu <code>https://</code>;</li>
+<li>textul afișat <b>descrie destinația</b>: „<u>Google Fonts</u>”, nu „clic <u>aici</u>”;</li>
+<li>legătura către un titlu: semnul <code>#</code>, apoi titlul scris cu <b>litere mici</b>, cu <b>liniuțe în locul spațiilor</b> și fără semne de punctuație (titlul „Reguli de bază” → <code>#reguli-de-bază</code>);</li>
+<li>fiecare legătură se verifică printr-un clic în previzualizare.</li>
+</ul>
+
+<h2>9. Imagini</h2>
+<p>O imagine se scrie ca o legătură, cu <b>semnul exclamării</b> în față. Fișierul Markdown nu conține imaginea, ci numai trimiterea către fișierul-imagine.</p>
+<pre><code>![textul alternativ](calea către imagine)</code></pre>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>![Schița afișului: titlu sus,
+fotografie la mijloc,
+contact jos](imagini/schita.png)</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<svg viewBox="0 0 120 170" width="110" role="img" aria-label="Schița afișului: titlu sus, fotografie la mijloc, contact jos" xmlns="http://www.w3.org/2000/svg">
+<rect x="2" y="2" width="116" height="166" fill="#fff" stroke="#1e2430" stroke-width="2"/>
+<rect x="12" y="12" width="96" height="24" fill="none" stroke="#0f6b5c" stroke-width="2"/>
+<rect x="12" y="44" width="96" height="76" fill="none" stroke="#c9531c" stroke-width="2"/>
+<line x1="12" y1="44" x2="108" y2="120" stroke="#c9531c" stroke-width="1"/>
+<line x1="108" y1="44" x2="12" y2="120" stroke="#c9531c" stroke-width="1"/>
+<line x1="12" y1="132" x2="108" y2="132" stroke="#5b6472" stroke-width="3"/>
+<line x1="12" y1="142" x2="108" y2="142" stroke="#5b6472" stroke-width="3"/>
+<line x1="12" y1="152" x2="108" y2="152" stroke="#5b6472" stroke-width="3"/>
+</svg></div>
+</div>
+<div class="def"><b>Text alternativ</b> – descrierea imaginii, scrisă între parantezele drepte. Este citit de cititoarele de ecran (programe folosite de persoanele cu deficiențe de vedere) și este afișat atunci când imaginea nu se poate încărca.<br>
+<b>Cale relativă</b> – drumul către fișier, pornind de la folderul în care se află documentul: <code>imagini/schita.png</code>.</div>
+<p><b>Reguli:</b></p>
+<ul>
+<li>imaginile se păstrează într-un folder <code>imagini</code>, aflat <b>lângă</b> fișierul <code>.md</code>;</li>
+<li>calea se scrie cu <b>bară oblică</b> <code>/</code> și este relativă, nu de forma <code>C:\Users\…</code>;</li>
+<li>numele fișierelor: <b>litere mici, fără spații, fără diacritice</b> (<code>schita-afis.png</code>);</li>
+<li>textul alternativ descrie <b>ce se vede</b> în imagine, nu „imagine” sau „poză”;</li>
+<li>formate: <b>PNG</b> pentru capturi de ecran și grafică, <b>JPG</b> pentru fotografii, <b>SVG</b> pentru desene vectoriale;</li>
+<li>la predarea lucrării se predă <b>tot folderul</b>, nu numai fișierul <code>.md</code>.</li>
+</ul>
+<p class="small">Mărimea imaginii nu se poate stabili în Markdown de bază; imaginea apare la mărimea ei. Se redimensionează fișierul sau se folosește un element HTML: <code>&lt;img src="imagini/schita.png" alt="Schița afișului" width="300"&gt;</code>.</p>
+
+<h2>10. Citate</h2>
+<p>Un <b>citat</b> este un text preluat dintr-o sursă sau un text scos în evidență, afișat retras, cu o bară verticală în stânga. Fiecare rând începe cu semnul <code>&gt;</code> urmat de un spațiu.</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>&gt; Un afiș bun se înțelege fără
+&gt; a fi citit până la capăt.
+&gt;
+&gt; — din regulile atelierului</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<blockquote><p>Un afiș bun se înțelege fără a fi citit până la capăt.</p><p>— din regulile atelierului</p></blockquote></div>
+</div>
+<p>Un rând care conține numai <code>&gt;</code> desparte paragrafele din interiorul citatului. În citat se pot folosi evidențieri și liste. Citatul se folosește și pentru <b>observații</b>: <code>&gt; **Atenție:** termenul de predare este vineri.</code></p>
+
+<h2>11. Cod și linie orizontală</h2>
+<h3>Cod</h3>
+<p>Textul marcat drept <b>cod</b> este afișat exact așa cum a fost scris, cu font de lățime fixă; semnele din interior nu mai sunt interpretate ca Markdown.</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>Fișierul se numește `afis_v2.pdf`.
+
+```
+Titlu:  Ziua Porților Deschise
+Data:   24 octombrie
+Format: A3
+```</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<p>Fișierul se numește <code>afis_v2.pdf</code>.</p>
+<pre><code>Titlu:  Ziua Porților Deschise
+Data:   24 octombrie
+Format: A3</code></pre></div>
+</div>
+<ul>
+<li><b>Cod în rând</b>: între două accente grave <code>`…`</code> – pentru nume de fișiere, comenzi, taste.</li>
+<li><b>Bloc de cod</b>: între două rânduri formate din trei accente grave <code>```</code> – pentru mai multe rânduri; spațiile și rândurile se păstrează întocmai.</li>
+</ul>
+<h3>Linie orizontală</h3>
+<p>Un rând format din <b>trei liniuțe</b> <code>---</code>, cu câte un rând gol înainte și după, produce o linie orizontală care desparte părțile documentului.</p>
+<p class="small">Fără rândul gol de deasupra, liniuțele transformă rândul precedent în titlu.</p>
+
+<h2>12. Caractere speciale</h2>
+<p>Semnele de marcare (<code>*</code>, <code>#</code>, <code>_</code>, <code>`</code>, <code>[</code>, <code>]</code>, <code>&gt;</code>) au un rol în Markdown. Când un astfel de semn trebuie să apară <b>ca atare</b> în text, în fața lui se scrie o <b>bară oblică inversă</b> <code>\</code>, care îi anulează rolul.</p>
+<div class="scroll">
+<table>
+<tr><th>Se scrie</th><th>Se vede</th><th>Fără bară s-ar vedea</th></tr>
+<tr><td><code>Fonturile marcate cu \*stea\* au diacritice.</code></td><td>Fonturile marcate cu *stea* au diacritice.</td><td>Fonturile marcate cu <i>stea</i> au diacritice.</td></tr>
+<tr><td><code>\# este semnul diez.</code></td><td># este semnul diez.</td><td>un titlu: „este semnul diez.”</td></tr>
+<tr><td><code>2026\. Anul în care apare revista.</code></td><td>2026. Anul în care apare revista.</td><td>o listă numerotată care începe cu 2026</td></tr>
+<tr><td><code>Bara inversă: \\</code></td><td>Bara inversă: \</td><td>bara lipsește</td></tr>
+</table>
+</div>
+<p>În interiorul codului (<code>`…`</code>) bara nu este necesară: acolo semnele apar întotdeauna ca atare.</p>
+<h3>Elemente HTML în Markdown</h3>
+<p>Pentru ce lipsește din sintaxa de bază, în fișierul Markdown se pot scrie direct elemente HTML:</p>
+<div class="scroll">
+<table>
+<tr><th>Se scrie</th><th>Se vede</th><th>Rol</th></tr>
+<tr><td><code>&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;S&lt;/kbd&gt;</code></td><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>taste</td></tr>
+<tr><td><code>m&lt;sup&gt;2&lt;/sup&gt;</code></td><td>m<sup>2</sup></td><td>exponent</td></tr>
+<tr><td><code>H&lt;sub&gt;2&lt;/sub&gt;O</code></td><td>H<sub>2</sub>O</td><td>indice</td></tr>
+<tr><td><code>rândul unu&lt;br&gt;rândul doi</code></td><td>rândul unu<br>rândul doi</td><td>rând nou</td></tr>
+</table>
+</div>
+
+<h2>13. Exemplu complet</h2>
+<p>Fragment din fișierul <a href="exemplu-baza.md" download="exemplu-baza.md" data-md="md-exemplu"><code>exemplu-baza.md</code></a>, care cuprinde toate elementele din lecție. Fișierul folosește imaginea <a href="imagini/schita.png" download="schita.png"><code>schita.png</code></a>, care se salvează într-un folder <code>imagini</code>, lângă fișierul <code>.md</code>.</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code># Ghid scurt: alegerea fonturilor
+
+Un afiș se citește **de la distanță**
+și **în câteva secunde**.
+
+## Pașii de lucru
+
+1. Se citesc cerințele clientului.
+2. Se aleg fonturile:
+    - un font pentru titlu;
+    - un font pentru textul mărunt.
+3. Se verifică licența fiecărui font.
+
+&gt; Un afiș bun se înțelege fără
+&gt; a fi citit până la capăt.
+
+Fonturi cu licență liberă:
+[Google Fonts](https://fonts.google.com).
+Fișierul unui font are extensia `.ttf`.
+
+---
+
+Atelierul de producție media\
+Clasa a XII-a</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<div class="ph1">Ghid scurt: alegerea fonturilor</div>
+<p>Un afiș se citește <b>de la distanță</b> și <b>în câteva secunde</b>.</p>
+<div class="ph2">Pașii de lucru</div>
+<ol><li>Se citesc cerințele clientului.</li><li>Se aleg fonturile:<ul><li>un font pentru titlu;</li><li>un font pentru textul mărunt.</li></ul></li><li>Se verifică licența fiecărui font.</li></ol>
+<blockquote><p>Un afiș bun se înțelege fără a fi citit până la capăt.</p></blockquote>
+<p>Fonturi cu licență liberă: <u>Google Fonts</u>. Fișierul unui font are extensia <code>.ttf</code>.</p>
+<hr>
+<p>Atelierul de producție media<br>Clasa a XII-a</p></div>
+</div>
+
+<h2>14. Greșeli frecvente și reguli de scriere</h2>
+<div class="scroll">
+<table>
+<tr><th>Se scrie greșit</th><th>Ce se vede</th><th>Se scrie corect</th></tr>
+<tr><td><code class="gresit">#Titlu</code></td><td>textul „#Titlu”, nu un titlu</td><td><code class="corect"># Titlu</code></td></tr>
+<tr><td><code class="gresit">-element</code></td><td>textul „-element”, nu o listă</td><td><code class="corect">- element</code></td></tr>
+<tr><td><code class="gresit">** important **</code></td><td>asteriscurile rămân vizibile</td><td><code class="corect">**important**</code></td></tr>
+<tr><td><code class="gresit">**important*</code></td><td>un asterisc rămâne vizibil, iar textul apare cursiv în loc de îngroșat</td><td><code class="corect">**important**</code></td></tr>
+<tr><td><code class="gresit">[GIMP] (https://www.gimp.org)</code></td><td>textul cu paranteze, fără legătură</td><td><code class="corect">[GIMP](https://www.gimp.org)</code></td></tr>
+<tr><td><code class="gresit">[GIMP](www.gimp.org)</code></td><td>legătura caută un fișier cu acest nume</td><td><code class="corect">[GIMP](https://www.gimp.org)</code></td></tr>
+<tr><td><code class="gresit">[Schiță](imagini/schita.png)</code></td><td>o legătură către imagine, nu imaginea</td><td><code class="corect">![Schiță](imagini/schita.png)</code></td></tr>
+<tr><td><code class="gresit">![Schiță](C:\Users\Ana\schita.png)</code></td><td>imaginea apare numai pe calculatorul autorului</td><td><code class="corect">![Schiță](imagini/schita.png)</code></td></tr>
+<tr><td>două rânduri despărțite cu un singur <kbd>Enter</kbd></td><td>rândurile sunt unite</td><td>rând gol între paragrafe sau <code class="corect">\</code> la sfârșitul rândului</td></tr>
+<tr><td>listă lipită de paragraful de deasupra</td><td>lista nu este recunoscută în toate programele</td><td>rând gol înaintea listei</td></tr>
+</table>
+</div>
+<h3>Reguli de scriere îngrijită</h3>
+<ol>
+<li>Un singur titlu de nivel 1; niveluri de titlu în ordine, fără salturi.</li>
+<li>Rând gol înainte și după titluri, liste, citate, blocuri de cod.</li>
+<li>Un singur fel de semne în tot documentul: <code>-</code> pentru buline, <code>*</code> pentru evidențieri.</li>
+<li>Diacritice corecte (ă, â, î, ș, ț) și ghilimele românești „…”.</li>
+<li>Numele fișierului: litere mici, fără spații și fără diacritice, cu extensia <code>.md</code> – de exemplu <code>ghid-fonturi.md</code>.</li>
+<li>Fișierul se salvează în codarea <b>UTF-8</b> (codarea universală a caracterelor; în VS Code este afișată în bara de jos, în dreapta).</li>
+<li>Înainte de predare, documentul se citește în <b>previzualizare</b>, de la început până la sfârșit, și se încearcă fiecare legătură.</li>
+</ol>
+
+<h2>15. Glosar</h2>
+<dl class="glos">
+<dt>Text simplu</dt><dd>text format numai din caractere, fără aspect.</dd>
+<dt>Text formatat</dt><dd>text care are și aspect: titluri, îngroșări, liste, imagini.</dd>
+<dt>Limbaj de marcare</dt><dd>sistem de semne introduse în text pentru a-i descrie structura.</dd>
+<dt>Markdown</dt><dd>limbaj de marcare ușoară; fișierele au extensia <code>.md</code>.</dd>
+<dt>Sintaxă</dt><dd>regulile de scriere ale unui limbaj.</dd>
+<dt>Randare</dt><dd>transformarea textului marcat în text formatat, afișat pe ecran.</dd>
+<dt>Previzualizare</dt><dd>fereastra în care se vede randarea în timpul scrierii.</dd>
+<dt>Paragraf</dt><dd>grup de rânduri fără rânduri goale între ele.</dd>
+<dt>Ierarhia titlurilor</dt><dd>ordinea nivelurilor de titlu într-un document.</dd>
+<dt>Text îngroșat (aldin)</dt><dd>text scris cu linii mai groase, pentru termeni importanți.</dd>
+<dt>Text cursiv (italic)</dt><dd>text scris înclinat, pentru cuvinte străine și titluri de lucrări.</dd>
+<dt>Legătură (link)</dt><dd>text pe care se face clic pentru a deschide o pagină, un fișier sau alt loc din document.</dd>
+<dt>Text alternativ</dt><dd>descrierea unei imagini, citită de cititoarele de ecran.</dd>
+<dt>Cale relativă</dt><dd>drumul către un fișier, pornind de la folderul documentului.</dd>
+<dt>Citat</dt><dd>text preluat dintr-o sursă sau scos în evidență, afișat retras.</dd>
+<dt>Bloc de cod</dt><dd>fragment de mai multe rânduri afișat exact cum a fost scris.</dd>
+<dt>Caracter special</dt><dd>semn care are un rol în Markdown; rolul se anulează cu <code>\</code> în față.</dd>
+<dt>UTF-8</dt><dd>codarea universală a caracterelor, în care diacriticele se păstrează corect.</dd>
+</dl>
+
+<h2>16. Test de verificare</h2>
+<ol class="test">
+<li>Care este diferența dintre textul simplu și textul formatat? Din ce categorie face parte un fișier <code>.md</code>?</li>
+<li>Ce înseamnă „conținutul este separat de aspect” și ce avantaj are în producția media?</li>
+<li>Cum se despart două paragrafe? Cum se obține un rând nou în același paragraf?</li>
+<li>Se scrie un titlu de nivel 1 și un titlu de nivel 3. Ce regulă privește ordinea nivelurilor?</li>
+<li>Cum se scrie un cuvânt îngroșat, unul cursiv și un nume de fișier marcat drept cod?</li>
+<li>Când se folosește lista cu buline și când lista numerotată?</li>
+<li>Se scrie o listă numerotată cu doi pași, în care pasul al doilea are o listă interioară cu două buline.</li>
+<li>Se scrie o legătură cu textul „Pagina liceului” către adresa <code>https://www.exemplu.ro</code>.</li>
+<li>Prin ce diferă scrierea unei imagini de scrierea unei legături? Ce este textul alternativ?</li>
+<li>De ce calea <code>C:\Users\Ana\Desktop\foto.png</code> nu este potrivită într-un document Markdown? Cum se scrie corect?</li>
+<li>Cum se scrie propoziția „Cuvântul *urgent* este scris între asteriscuri.”, astfel încât asteriscurile să apară ca atare în previzualizare?</li>
+<li>Fragmentul următor conține <b>cinci greșeli</b>. Se rescrie corect.
+<pre><code>#Pregătirea fotografiei
+Fotografia se salvează în format ** TIFF **.
+Pași:
+1.Se deschide fotografia.
+2.Se verifică rezoluția.
+Programul se descarcă de pe [GIMP] (https://www.gimp.org).</code></pre></li>
+</ol>
+<p>Urmează: <a href="markdown-baza-fisa.html"><b>Fișa de laborator – Articol pentru revista clasei</b></a>.</p>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a</footer>
+<script type="text/plain" id="md-exemplu">
+# Ghid scurt: alegerea fonturilor pentru un afiș
+
+Un afiș se citește **de la distanță** și **în câteva secunde**. Fonturile se aleg astfel încât mesajul să fie înțeles imediat.
+
+## Reguli de bază
+
+- Cel mult **două familii de fonturi** pe un afiș.
+- Titlul se scrie cu un font *sans-serif* (fără serife), ușor de citit de departe.
+- Contrast puternic între text și fundal.
+
+## Pașii de lucru
+
+1. Se citesc cerințele clientului.
+2. Se aleg fonturile:
+    - un font pentru titlu;
+    - un font pentru textul mărunt.
+3. Se verifică licența fiecărui font.
+4. Se face o probă de tipar la dimensiunea reală.
+
+## Dimensiuni recomandate
+
+Pentru un afiș A3 privit de la 2–3 metri:
+
+- titlu: 90–120 pt;
+- subtitlu: 36–48 pt;
+- text informativ: 18–24 pt.
+
+> Un afiș bun se înțelege fără a fi citit până la capăt.
+>
+> — din regulile atelierului
+
+## Surse de fonturi gratuite
+
+Fonturi cu licență liberă se găsesc pe [Google Fonts](https://fonts.google.com "Biblioteca Google Fonts"). Adresa completă: <https://fonts.google.com>.
+
+Fișierul unui font are extensia `.ttf` sau `.otf` și se instalează cu dublu clic.
+
+![Schița afișului: titlu sus, fotografie la mijloc, date de contact jos](imagini/schita.png)
+
+---
+
+Atelierul de producție media  
+Clasa a XII-a  
+Liceul Tehnologic „Grigore C. Moisil” Buzău
+
+Semnul \* din lista de fonturi marchează fonturile cu diacritice românești complete. Înapoi la [regulile de bază](#reguli-de-bază).
+</script>
+<script>
+document.querySelectorAll('a[data-md]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var src=document.getElementById(a.getAttribute('data-md'));
+    if(!src||!window.Blob||!window.URL) return;
+    e.preventDefault();
+    var text=src.textContent.replace(/^\n/,'');
+    var url=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));
+    var t=document.createElement('a');
+    t.href=url; t.download=a.getAttribute('download'); document.body.appendChild(t); t.click();
+    setTimeout(function(){document.body.removeChild(t);URL.revokeObjectURL(url);},1000);
+  });
+});
+</script>
+</body>
+</html>

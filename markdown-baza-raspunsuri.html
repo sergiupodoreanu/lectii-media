@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Markdown de bază – răspunsuri și rezolvare (numai pentru profesor)</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:#3b3f4a;color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.6rem}
+header p{margin:0;opacity:.9}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:4px;margin-top:38px}
+h3{color:var(--accent2);margin-top:24px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.88rem;line-height:1.45}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+ol.rasp li{margin-bottom:10px}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+<h1>Markdown de bază – răspunsuri și rezolvare</h1>
+<p>Numai pentru profesor · Clasa a XII-a · Producție media</p>
+</header>
+<main>
+
+<div class="warn"><b>Pagină pentru profesor.</b> Nu se leagă din <code>index.html</code>, din lecție sau din fișă. Pagini pentru elevi: <a href="markdown-baza.html">lecția</a>, <a href="markdown-baza-fisa.html">fișa de laborator</a>.</div>
+
+<h2>1. Pregătirea laboratorului</h2>
+<ul>
+<li><b>VS Code</b> pe fiecare calculator; previzualizarea Markdown este inclusă, nu este necesară nicio extensie pentru această lecție.</li>
+<li><b>GIMP</b> și o fotografie oarecare, pentru captura de ecran de la sarcina 5. Dacă GIMP lipsește: captură a ferestrei <b>Properties → Details</b> a unei fotografii (clic dreapta pe fișier), unde apar dimensiunile în pixeli.</li>
+<li>În File Explorer, afișarea extensiilor: <b>View → Show → File name extensions</b>.</li>
+<li>Fișierul <code>exemplu-baza.md</code> folosește imaginea <code>imagini/schita.png</code>; se descarcă împreună.</li>
+</ul>
+<p><b>Desfășurare propusă:</b> lecția – 1 oră (capitolele 2–12 cu demonstrație în VS Code, fiecare element scris pe loc de elevi în <code>primul-fisier.md</code>); fișa de laborator – 2 ore; testul – 15 minute, în ora următoare.</p>
+
+<h2>2. Răspunsurile testului din lecție</h2>
+<p>Barem propus: 12 întrebări × 0,75 p = 9 p, plus 1 p din oficiu.</p>
+<ol class="rasp">
+<li>Textul simplu este format numai din caractere, fără aspect; textul formatat are și aspect (titluri, îngroșări, liste, imagini). Un fișier <code>.md</code> este <b>text simplu</b>, care conține și semne de marcare.</li>
+<li>Autorul scrie textul și structura lui, iar aspectul se adaugă la afișare sau la conversie. Avantaj: același fișier devine pagină web, document Word, carte electronică sau text importat în Scribus; textul se corectează fără a umbla la machetă.</li>
+<li>Două paragrafe se despart printr-un <b>rând gol</b>. Rând nou în același paragraf: <code>\</code> la sfârșitul rândului sau două spații la sfârșitul rândului (se acceptă și <code>&lt;br&gt;</code>).</li>
+<li><code># Titlu</code> și <code>### Subcapitol</code>. Un singur titlu de nivel 1; nivelurile nu se sar.</li>
+<li><code>**cuvânt**</code>, <code>*cuvânt*</code>, <code>`afis.pdf`</code>.</li>
+<li>Lista cu buline – când ordinea nu contează; lista numerotată – când ordinea contează (pași de lucru).</li>
+<li><pre><code>1. Primul pas.
+2. Al doilea pas:
+    - prima bulină;
+    - a doua bulină.</code></pre></li>
+<li><code>[Pagina liceului](https://www.exemplu.ro)</code></li>
+<li>Imaginea are <b>semnul exclamării</b> în față: <code>![text alternativ](cale)</code>. Textul alternativ este descrierea imaginii, citită de cititoarele de ecran și afișată când imaginea nu se încarcă.</li>
+<li>Este o cale absolută: există numai pe calculatorul autorului. Imaginea se copiază în folderul <code>imagini</code>, lângă document, și se scrie <code>![Fotografie](imagini/foto.png)</code>.</li>
+<li><code>Cuvântul \*urgent\* este scris între asteriscuri.</code></li>
+<li>Greșelile: (1) lipsește spațiul după <code>#</code>; (2) spații între <code>**</code> și cuvânt; (3) lipsește rândul gol înaintea listei; (4) lipsește spațiul după numărul cu punct; (5) spațiu între <code>]</code> și <code>(</code>. Forma corectă:
+<pre><code># Pregătirea fotografiei
+
+Fotografia se salvează în format **TIFF**.
+
+Pași:
+
+1. Se deschide fotografia.
+2. Se verifică rezoluția.
+
+Programul se descarcă de pe [GIMP](https://www.gimp.org).</code></pre></li>
+</ol>
+
+<h2>3. Rezolvarea fișei de laborator</h2>
+<h3>Sarcina 1 – observații așteptate la textul nemarcat</h3>
+<ul>
+<li>rândurile despărțite printr-un singur <b>Enter</b> sunt unite în paragrafe lungi;</li>
+<li>rândul care începe cu <code>#</code> a devenit <b>titlu</b>, iar semnul <code>#</code> a dispărut;</li>
+<li><code>*foto_coperta.jpg*</code> apare <b>cursiv</b>, iar asteriscurile au dispărut;</li>
+<li>titlurile capitolelor nu se deosebesc de restul textului.</li>
+</ul>
+<h3>Model de fișier articol.md</h3>
+<pre><code># Pregătirea unei fotografii pentru tipar
+
+*Articol pentru revista clasei, rubrica „Atelier”.*
+
+O fotografie care arată bine pe telefon poate ieși **neclară** sau cu **alte culori** pe hârtie. Înainte de a fi pusă în pagină, fotografia se verifică și se pregătește. Articolul prezintă ce se verifică și care sunt [pașii de lucru](#pașii-de-lucru).
+
+## Ce se verifică
+
+- **Rezoluția:** pentru tipar sunt necesare 300 dpi la dimensiunea finală.
+- **Modelul de culoare:** tiparul folosește CMYK, ecranul folosește RGB.
+- **Formatul fișierului:** TIFF sau JPEG la calitate maximă.
+
+&gt; O fotografie mărită peste dimensiunea ei reală nu câștigă detalii, ci doar pixeli.
+&gt;
+&gt; — din regulile redacției
+
+## Pașii de lucru
+
+1. Se deschide fotografia în programul [GIMP](https://www.gimp.org "Pagina programului GIMP").
+2. Se verifică dimensiunea în pixeli, din meniul *Image → Scale Image*.
+3. Se decupează fotografia la proporția din machetă.
+4. Se corectează luminozitatea și contrastul.
+5. Se exportă fotografia cu un nume corect:
+    - numai litere mici;
+    - fără spații;
+    - fără diacritice.
+
+Exemplu de nume corect: `foto_bal_2026_v2.jpg`.
+
+![Fereastra Scale Image din GIMP, cu lățimea și înălțimea fotografiei în pixeli](imagini/dimensiune-imagine.png)
+
+### Greșeli frecvente
+
+- Fotografie copiată dintr-o captură de ecran.
+- Fotografie descărcată de pe o rețea de socializare, micșorată automat.
+- Fotografie mărită „ca să umple pagina”.
+
+## Semne folosite în tabelul redacției
+
+Fotografiile alese pentru copertă sunt scrise între asteriscuri, de exemplu \*foto_coperta.jpg\*.
+
+\# este semnul pus în fața fotografiilor care mai trebuie corectate.
+
+Programul GIMP se descarcă gratuit de la adresa &lt;https://www.gimp.org&gt;.
+
+---
+
+Redacția revistei\
+Clasa a XII-a Media\
+Liceul Tehnologic „Grigore C. Moisil” Buzău
+</code></pre>
+<p>Se acceptă: două spații în loc de <code>\</code> la semnătură; <code>*</code> sau <code>+</code> pentru buline, dacă sunt folosite unitar; numele de fișier <code>*foto_coperta.jpg*</code> marcat drept cod în loc de bare (asteriscurile apar ca atare și în acest caz); alt nume corect pentru captura de ecran.</p>
+
+<h2>4. Greșeli frecvente</h2>
+<div class="scroll">
+<table>
+<tr><th>Ce se vede</th><th>Cauza</th><th>Corectarea</th></tr>
+<tr><td>Titlul apare ca text cu <code>#</code> în față</td><td>lipsește spațiul după <code>#</code></td><td><code># Titlu</code></td></tr>
+<tr><td>„Greșeli frecvente” apare la același nivel cu capitolele</td><td>marcat cu <code>##</code> în loc de <code>###</code></td><td>se verifică în panoul Outline</td></tr>
+<tr><td>Lista interioară apare la același nivel cu pașii sau întrerupe numerotarea</td><td>elementele nu sunt retrase sau sunt retrase cu un singur spațiu</td><td>patru spații în fața liniuței</td></tr>
+<tr><td>Numerotarea reîncepe de la 1 după imagine</td><td>imaginea a fost pusă între pași, fără retragere</td><td>imaginea se pune după listă</td></tr>
+<tr><td>Citatul cuprinde și paragraful următor</td><td>lipsește rândul gol după citat</td><td>rând gol după ultimul rând cu <code>&gt;</code></td></tr>
+<tr><td>Legătura către capitol nu duce nicăieri</td><td>adresa nu respectă regula: litere mici, liniuțe în loc de spații</td><td><code>(#pașii-de-lucru)</code></td></tr>
+<tr><td>Imaginea nu apare</td><td>nume cu spații sau majuscule, <code>\</code> în cale, fișier salvat în alt folder</td><td><code>imagini/dimensiune-imagine.png</code></td></tr>
+<tr><td>Rândul dinaintea liniei orizontale a devenit titlu</td><td>lipsește rândul gol deasupra liniuțelor <code>---</code></td><td>rând gol înainte și după <code>---</code></td></tr>
+<tr><td>Semnătura apare pe un singur rând</td><td>lipsește <code>\</code> (sau cele două spații) la sfârșitul rândurilor</td><td><code>Redacția revistei\</code></td></tr>
+<tr><td>Fișierul se numește <code>articol.md.txt</code></td><td>extensiile sunt ascunse în Windows</td><td>se afișează extensiile și se redenumește fișierul</td></tr>
+</table>
+</div>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a · pagină pentru profesor</footer>
+</body>
+</html>

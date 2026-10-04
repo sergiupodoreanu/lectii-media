@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markdown avansat – de la notițe la document publicat</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--accent);color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.7rem}
+header p{margin:0;opacity:.9}
+nav{background:#0b5146;padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px 18px}
+nav a{color:#fff;text-decoration:none;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:4px;margin-top:40px}
+h3{color:var(--accent2);margin-top:26px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.9rem;line-height:1.45;margin:8px 0}
+pre code{background:none;color:inherit;padding:0}
+.def{background:var(--box);border-left:5px solid var(--accent);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.def b{color:var(--accent)}
+.ex{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.ex h4{margin:0 0 6px;color:var(--accent2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+@media(max-width:640px){.two{grid-template-columns:1fr}}
+.two>div{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff;min-width:0}
+.two h5{margin:0 0 6px;color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
+.prev table{font-size:.9rem;margin:4px 0}
+.prev ul,.prev ol{margin:4px 0;padding-left:22px}
+.prev ul.tasks{list-style:none;padding-left:4px}
+.prev blockquote{border-left:3px solid var(--line);margin:6px 0;padding-left:10px;color:var(--muted)}
+.prev .fn{border-top:1px solid var(--line);margin-top:10px;padding-top:6px;font-size:.88rem}
+.prev .meta{font-size:.9rem}
+.formula{font-family:"Cambria Math",Cambria,"Times New Roman",serif;font-size:1.25rem;text-align:center;margin:10px 0}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center}
+.frac span{padding:0 6px}
+.frac span:first-child{border-bottom:1.5px solid var(--ink)}
+.diagram{min-width:620px;width:100%;height:auto;display:block}
+.tree{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.small{color:var(--muted);font-size:.9rem}
+.yes{color:var(--accent);font-weight:bold}
+.no{color:var(--accent2);font-weight:bold}
+.glos dt{font-weight:bold;color:var(--accent);margin-top:8px}
+.glos dd{margin-left:0}
+ol.test li{margin-bottom:8px}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+<h1>Markdown avansat – de la notițe la document publicat</h1>
+<p>Clasa a XII-a · Producție media · Modulul „Montajul și verificarea documentelor digitale”</p>
+</header>
+<nav>
+<a href="index.html">Cuprins</a>
+<a href="markdown-baza.html">Lecția anterioară: Markdown de bază</a>
+<a href="markdown-avansat-fisa.html">Fișa de laborator</a>
+<a href="exemplu-avansat.md" download="exemplu-avansat.md" data-md="md-exemplu">Fișierul-exemplu (.md)</a>
+</nav>
+<main>
+
+<h2>1. Tema lecției</h2>
+<p>În lecția anterioară, Markdown a fost folosit pentru <b>texte cu structură simplă</b>. În această lecție, același limbaj este folosit pentru un <b>document de lucru complet</b>: documentul de proiect al unui afiș, cu tabele, etape de lucru, note de subsol, formule și diagrame, convertit apoi în Word și HTML și publicat.</p>
+<p>La sfârșitul lecției se cunosc:</p>
+<ul>
+<li>elementele <b>avansate</b> de sintaxă: tabele cu aliniere, liste de sarcini, note de subsol, blocuri de cod, antet de metadate, formule, diagrame;</li>
+<li>programele în care aceste elemente se afișează corect;</li>
+<li><b>conversia</b> unui fișier <code>.md</code> în Word și HTML cu programul Pandoc;</li>
+<li>rolul fișierului <b>README.md</b> și <b>verificarea</b> unui document Markdown înainte de predare.</li>
+</ul>
+
+<h3>Recapitulare – sintaxa de bază</h3>
+<div class="def"><b>Markdown</b> este un limbaj de marcare ușoară: formatarea se scrie cu semne simple, direct în text. Fișierul are extensia <code>.md</code>, este text simplu și se deschide cu orice editor de text.</div>
+<div class="scroll">
+<table>
+<tr><th>Element</th><th>Se scrie</th><th>Se vede</th></tr>
+<tr><td>Titlu de nivel 1, 2, 3</td><td><code># Titlu</code> &nbsp; <code>## Subtitlu</code> &nbsp; <code>### Secțiune</code></td><td>titluri de mărimi descrescătoare</td></tr>
+<tr><td>Text îngroșat</td><td><code>**important**</code></td><td><b>important</b></td></tr>
+<tr><td>Text cursiv</td><td><code>*termen*</code></td><td><i>termen</i></td></tr>
+<tr><td>Listă cu buline</td><td><code>- element</code></td><td>• element</td></tr>
+<tr><td>Listă numerotată</td><td><code>1. pas</code></td><td>1. pas</td></tr>
+<tr><td>Legătură</td><td><code>[text](https://adresa.ro)</code></td><td><u>text</u></td></tr>
+<tr><td>Imagine</td><td><code>![descriere](imagini/foto.png)</code></td><td>imaginea din fișierul indicat</td></tr>
+<tr><td>Citat</td><td><code>&gt; text citat</code></td><td>text cu bară verticală în stânga</td></tr>
+<tr><td>Cod în rând</td><td><code>`pandoc`</code></td><td><code>pandoc</code></td></tr>
+</table>
+</div>
+<p class="small">Regulă generală: după semnele <code>#</code>, <code>-</code>, <code>1.</code> și <code>&gt;</code> urmează <b>un spațiu</b>; între paragrafe, liste, tabele și titluri se lasă <b>un rând gol</b>.</p>
+
+<h2>2. Dialectele Markdown</h2>
+<p>Markdown a apărut în 2004 cu un set mic de reguli. Ulterior, fiecare program a adăugat elemente proprii. Aceste variante se numesc <b>dialecte</b>.</p>
+<div class="def"><b>CommonMark</b> este specificația (descrierea oficială, precisă) a sintaxei de bază, respectată de aproape toate programele.<br>
+<b>GFM (GitHub Flavored Markdown)</b> este dialectul folosit de platforma GitHub: CommonMark plus tabele, liste de sarcini, text tăiat și legături automate. Este dialectul cel mai răspândit; elementele din această lecție aparțin în mare parte dialectului GFM.</div>
+<p><b>Consecință practică:</b> un element avansat poate fi afișat corect într-un program și ca text brut în altul. De aceea documentul se verifică în programul în care va fi citit (vezi tabelul din capitolul 9).</p>
+
+<h2>3. Tabele cu aliniere</h2>
+<p>Un tabel se scrie cu bare verticale <code>|</code> între coloane. Al doilea rând, format din liniuțe, separă capul de tabel de date. Poziția semnului <code>:</code> în acest rând stabilește <b>alinierea</b> coloanei.</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>| Element    | Tipar        | Ecran    |
+|:-----------|:------------:|---------:|
+| Rezoluție  | 300 dpi      | 96 dpi   |
+| Culoare    | CMYK         | RGB      |
+| Format     | PDF/X-4      | PNG      |</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<table>
+<tr><th style="text-align:left">Element</th><th style="text-align:center">Tipar</th><th style="text-align:right">Ecran</th></tr>
+<tr><td style="text-align:left">Rezoluție</td><td style="text-align:center">300 dpi</td><td style="text-align:right">96 dpi</td></tr>
+<tr><td style="text-align:left">Culoare</td><td style="text-align:center">CMYK</td><td style="text-align:right">RGB</td></tr>
+<tr><td style="text-align:left">Format</td><td style="text-align:center">PDF/X-4</td><td style="text-align:right">PNG</td></tr>
+</table></div>
+</div>
+<div class="scroll">
+<table>
+<tr><th>În rândul de separare</th><th>Alinierea coloanei</th><th>Se folosește pentru</th></tr>
+<tr><td><code>:---</code></td><td>la stânga</td><td>text</td></tr>
+<tr><td><code>:---:</code></td><td>centrat</td><td>valori scurte, simboluri</td></tr>
+<tr><td><code>---:</code></td><td>la dreapta</td><td>numere, prețuri</td></tr>
+</table>
+</div>
+<p><b>Reguli:</b></p>
+<ul>
+<li>toate rândurile au <b>același număr de bare</b> <code>|</code>;</li>
+<li>înaintea tabelului se lasă <b>un rând gol</b>;</li>
+<li>barele nu trebuie să fie aliniate una sub alta – alinierea în fișierul sursă ajută doar la citire;</li>
+<li>o celulă conține un singur rând de text; pentru tabele complicate (celule unite, mai multe paragrafe în celulă) Markdown nu este potrivit.</li>
+</ul>
+
+<h2>4. Liste de sarcini, text tăiat, note de subsol</h2>
+<h3>Liste de sarcini</h3>
+<div class="def">O <b>listă de sarcini</b> este o listă în care fiecare element are o casetă de bifat. Arată ce etape ale unei lucrări sunt terminate și ce a rămas de făcut.</div>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>- [x] Notarea cerințelor clientului
+- [x] Scrierea textului
+- [ ] Machetarea în Scribus
+- [ ] Exportul PDF</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<ul class="tasks">
+<li>☑ Notarea cerințelor clientului</li>
+<li>☑ Scrierea textului</li>
+<li>☐ Machetarea în Scribus</li>
+<li>☐ Exportul PDF</li>
+</ul></div>
+</div>
+<p class="small">Între paranteze se află <b>un spațiu</b> (sarcină nefăcută) sau litera <b>x</b> (sarcină terminată). <code>-[]</code> și <code>- []</code> sunt greșite.</p>
+
+<h3>Text tăiat</h3>
+<p>Textul încadrat de câte două tilde, <code>~~Ziua Ușilor Deschise~~</code>, apare tăiat cu o linie: <s>Ziua Ușilor Deschise</s>. Se folosește pentru a arăta o variantă la care s-a renunțat, fără a o șterge.</p>
+
+<h3>Note de subsol</h3>
+<div class="def">O <b>notă de subsol</b> este o explicație scurtă, așezată la sfârșitul paginii sau al documentului și legată de text printr-un număr.</div>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>Fișierul trece prin preflight[^pf]
+înainte de tipar.
+
+[^pf]: Preflight – verificarea tehnică
+a fișierului înainte de tipar.</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<p>Fișierul trece prin preflight<sup>1</sup> înainte de tipar.</p>
+<p class="fn"><sup>1</sup> Preflight – verificarea tehnică a fișierului înainte de tipar.</p></div>
+</div>
+<p>În text se pune <b>trimiterea</b> <code>[^nume]</code>, iar oriunde în fișier (de obicei la sfârșit) se scrie <b>definiția</b> <code>[^nume]: textul notei</code>. Numele este la alegere (<code>pf</code>, <code>1</code>, <code>sursa</code>); numerotarea se face automat, în ordinea apariției în text.</p>
+
+<h2>5. Blocuri de cod</h2>
+<p>Un <b>bloc de cod</b> este un fragment afișat exact așa cum a fost scris, cu font de lățime fixă, fără a fi interpretat ca Markdown. Se încadrează între două rânduri formate din <b>trei accente grave</b> <code>```</code>. După primele trei accente se poate scrie numele limbajului; programul colorează atunci cuvintele-cheie (<b>evidențierea sintaxei</b>).</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>```html
+&lt;h1&gt;Ziua Porților Deschise&lt;/h1&gt;
+&lt;p class="data"&gt;24 octombrie&lt;/p&gt;
+```</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<pre><code><span style="color:#93c5fd">&lt;h1&gt;</span>Ziua Porților Deschise<span style="color:#93c5fd">&lt;/h1&gt;</span>
+<span style="color:#93c5fd">&lt;p</span> <span style="color:#fcd34d">class</span>=<span style="color:#86efac">"data"</span><span style="color:#93c5fd">&gt;</span>24 octombrie<span style="color:#93c5fd">&lt;/p&gt;</span></code></pre></div>
+</div>
+<p>Blocurile de cod se folosesc pentru: cod HTML/CSS, comenzi, scripturi Scribus (Python), conținutul unui alt fișier. Accentul grav se află pe tasta de sub <kbd>Esc</kbd>.</p>
+
+<h2>6. Antetul de metadate</h2>
+<div class="def"><b>Metadatele</b> sunt date despre document: titlu, autor, dată, limbă. <b>Antetul de metadate</b> (în engleză <i>front matter</i>) este un bloc așezat chiar la începutul fișierului, între două rânduri formate din trei liniuțe <code>---</code>. Este scris în formatul <b>YAML</b>: câte o pereche <code>nume: valoare</code> pe fiecare rând.</div>
+<div class="two">
+<div><h5>Se scrie (primele rânduri din fișier)</h5>
+<pre><code>---
+title: "Afiș Ziua Porților Deschise"
+author: "Popescu Ana, clasa a XII-a Media"
+date: "2026-10-05"
+lang: ro
+---</code></pre></div>
+<div class="prev"><h5>Se folosește la</h5>
+<ul class="meta">
+<li><b>conversie</b>: Pandoc pune titlul, autorul și data la începutul documentului Word/HTML și în proprietățile fișierului;</li>
+<li><b>limbă</b>: <code>lang: ro</code> stabilește limba documentului (despărțire în silabe, ghilimele, cititoare de ecran);</li>
+<li><b>organizare</b>: Obsidian afișează antetul ca „Proprietăți” și permite căutarea după ele.</li>
+</ul></div>
+</div>
+<p><b>Reguli:</b> antetul începe din <b>primul rând</b> al fișierului; după două puncte urmează un spațiu; valorile care conțin semne speciale (<code>:</code>, <code>#</code>, ghilimele) se scriu între ghilimele drepte <code>"…"</code>; numele câmpurilor recunoscute de Pandoc sunt în engleză (<code>title</code>, <code>author</code>, <code>date</code>, <code>lang</code>).</p>
+
+<h2>7. Formule</h2>
+<p>Formulele se scriu în notația <b>LaTeX</b> (un limbaj de scriere a textelor științifice), între semne dolar: <code>$…$</code> pentru o formulă în rând și <code>$$…$$</code> pentru o formulă pe rând separat, centrată.</p>
+<div class="two">
+<div><h5>Se scrie</h5>
+<pre><code>$$N = \frac{L \cdot R}{25,4}$$</code></pre></div>
+<div class="prev"><h5>Se vede</h5>
+<div class="formula"><i>N</i> = <span class="frac"><span><i>L</i> · <i>R</i></span><span>25,4</span></span></div></div>
+</div>
+<p><b>Legenda notațiilor:</b></p>
+<ul>
+<li><i>N</i> – numărul de pixeli necesar pe o latură a imaginii (px);</li>
+<li><i>L</i> – lungimea laturii tipărite, în milimetri (mm);</li>
+<li><i>R</i> – rezoluția de tipar, în puncte pe inch (dpi);</li>
+<li>25,4 – numărul de milimetri dintr-un inch.</li>
+</ul>
+<div class="ex"><h4>Exemplu numeric</h4>
+Afiș A3 (297 × 420 mm) tipărit la 300 dpi:<br>
+lățime: <i>N</i> = 297 · 300 / 25,4 ≈ <b>3508 px</b>; înălțime: <i>N</i> = 420 · 300 / 25,4 ≈ <b>4961 px</b>.<br>
+Imaginea de fundal trebuie să aibă cel puțin 3508 × 4961 px.</div>
+<div class="scroll">
+<table>
+<tr><th>Se scrie</th><th>Semnificație</th><th>Se vede</th></tr>
+<tr><td><code>\frac{a}{b}</code></td><td>fracție: numărător <i>a</i>, numitor <i>b</i></td><td><span class="frac"><span><i>a</i></span><span><i>b</i></span></span></td></tr>
+<tr><td><code>\cdot</code></td><td>punct de înmulțire</td><td>·</td></tr>
+<tr><td><code>x^2</code></td><td>exponent (putere)</td><td><i>x</i><sup>2</sup></td></tr>
+<tr><td><code>x_1</code></td><td>indice</td><td><i>x</i><sub>1</sub></td></tr>
+<tr><td><code>\sqrt{x}</code></td><td>radical</td><td>√<span style="text-decoration:overline"><i>x</i></span></td></tr>
+<tr><td><code>\approx</code></td><td>aproximativ egal</td><td>≈</td></tr>
+</table>
+</div>
+
+<h2>8. Diagrame</h2>
+<div class="def"><b>Mermaid</b> este un limbaj în care o diagramă se <b>descrie în text</b>, iar programul o desenează. Diagrama se scrie într-un bloc de cod cu numele <code>mermaid</code>. Avantaj: diagrama se modifică la fel de ușor ca textul și rămâne în același fișier cu documentul.</div>
+<p>Tipul cel mai folosit este <b>schema logică</b> (în engleză <i>flowchart</i>): casete legate prin săgeți, care arată etapele unui proces.</p>
+<pre><code>```mermaid
+flowchart LR
+    A[Cerințele clientului] --&gt; B[Text în Markdown]
+    B --&gt; C[Machetare în Scribus]
+    C --&gt; D{Verificare}
+    D -- erori --&gt; C
+    D -- corect --&gt; E[Export PDF]
+```</code></pre>
+<div class="two" style="grid-template-columns:1fr">
+<div class="prev"><h5>Se vede</h5>
+<div class="scroll">
+<svg class="diagram" viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schemă logică: Cerințele clientului, Text în Markdown, Machetare în Scribus, Verificare; la erori se revine la machetare, la corect urmează Export PDF">
+<defs><marker id="sg" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1e2430"/></marker></defs>
+<g fill="#eef5f2" stroke="#0f6b5c" stroke-width="2">
+<rect x="10" y="80" width="150" height="50" rx="5"/>
+<rect x="195" y="80" width="150" height="50" rx="5"/>
+<rect x="380" y="80" width="160" height="50" rx="5"/>
+<polygon points="575,105 640,60 705,105 640,150"/>
+<rect x="770" y="80" width="120" height="50" rx="5"/>
+</g>
+<g fill="none" stroke="#1e2430" stroke-width="2" marker-end="url(#sg)">
+<line x1="160" y1="105" x2="194" y2="105"/>
+<line x1="345" y1="105" x2="379" y2="105"/>
+<line x1="540" y1="105" x2="574" y2="105"/>
+<line x1="705" y1="105" x2="769" y2="105"/>
+<polyline points="640,60 640,25 460,25 460,79"/>
+</g>
+<g font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#1e2430" text-anchor="middle">
+<text x="85" y="110">Cerințele clientului</text>
+<text x="270" y="110">Text în Markdown</text>
+<text x="460" y="110">Machetare în Scribus</text>
+<text x="640" y="110">Verificare</text>
+<text x="830" y="110">Export PDF</text>
+<text x="550" y="18" font-size="13">erori</text>
+<text x="737" y="97" font-size="13">corect</text>
+</g>
+</svg>
+</div></div>
+</div>
+<div class="scroll">
+<table>
+<tr><th>Se scrie</th><th>Semnificație</th></tr>
+<tr><td><code>flowchart LR</code></td><td>schemă logică desenată de la stânga la dreapta (<i>Left–Right</i>); <code>TD</code> = de sus în jos (<i>Top–Down</i>)</td></tr>
+<tr><td><code>A[Text]</code></td><td>casetă dreptunghiulară cu numele intern <code>A</code> și textul afișat „Text” – o <b>etapă</b></td></tr>
+<tr><td><code>D{Text}</code></td><td>romb – o <b>decizie</b> (întrebare cu mai multe răspunsuri)</td></tr>
+<tr><td><code>A --&gt; B</code></td><td>săgeată de la A la B</td></tr>
+<tr><td><code>D -- erori --&gt; C</code></td><td>săgeată cu text pe ea</td></tr>
+</table>
+</div>
+<p>Diagrama se poate încerca, fără instalare, în editorul online <a href="https://mermaid.live">mermaid.live</a>: în stânga se scrie textul, în dreapta apare desenul, care se poate salva ca imagine <b>PNG</b> sau <b>SVG</b>.</p>
+
+<h2>9. Imagini, legături și structura folderului</h2>
+<p>Un document Markdown nu conține imaginile, ci doar <b>trimiteri</b> către fișierele-imagine. De aceea documentul și imaginile se păstrează împreună, într-un <b>folder de proiect</b>.</p>
+<div class="two">
+<div><h5>Structura folderului</h5>
+<pre class="tree"><code>proiect-afis/
+├── README.md
+├── imagini/
+│   ├── schita.png
+│   └── diagrama.png
+└── export/
+    ├── proiect.docx
+    └── proiect.html</code></pre></div>
+<div><h5>Trimiterea din README.md</h5>
+<pre><code>![Schița afișului: titlu sus,
+fotografie la mijloc](imagini/schita.png)
+
+[Varianta Word](export/proiect.docx)</code></pre>
+<p class="small">Textul dintre paranteze drepte este <b>textul alternativ</b>: descrierea imaginii, citită de cititoarele de ecran și afișată când imaginea lipsește.</p></div>
+</div>
+<div class="def"><b>Cale relativă</b> – drumul către un fișier, pornind de la folderul în care se află documentul: <code>imagini/schita.png</code>.<br>
+<b>Cale absolută</b> – drumul complet, de la rădăcina discului: <code>C:\Users\Ana\Desktop\schita.png</code>.</div>
+<p><b>Reguli:</b></p>
+<ul>
+<li>se folosesc numai <b>căi relative</b> – o cale absolută funcționează doar pe calculatorul pe care a fost scrisă;</li>
+<li>în cale se scrie <b>bara oblică</b> <code>/</code>, nu <code>\</code>;</li>
+<li>numele de fișiere și foldere: <b>litere mici, fără spații și fără diacritice</b>, cuvintele legate cu liniuță (<code>schita-afis.png</code>, nu <code>Schiță Afiș.png</code>);</li>
+<li>majusculele contează la publicarea pe internet: <code>Schita.png</code> și <code>schita.png</code> sunt fișiere diferite.</li>
+</ul>
+
+<h3>Unde se afișează fiecare element</h3>
+<div class="scroll">
+<table>
+<tr><th>Element</th><th>VS Code (previzualizare)</th><th>Obsidian</th><th>GitHub</th><th>Pandoc → Word</th></tr>
+<tr><td>Tabele cu aliniere</td><td class="yes">da</td><td class="yes">da</td><td class="yes">da</td><td class="yes">da</td></tr>
+<tr><td>Liste de sarcini</td><td>da / cu extensie</td><td class="yes">da</td><td class="yes">da</td><td class="yes">da (☐ / ☒)</td></tr>
+<tr><td>Note de subsol</td><td>cu extensie</td><td class="yes">da</td><td class="yes">da</td><td class="yes">da (note Word)</td></tr>
+<tr><td>Blocuri de cod colorate</td><td class="yes">da</td><td class="yes">da</td><td class="yes">da</td><td class="yes">da</td></tr>
+<tr><td>Antet de metadate</td><td>ascuns</td><td class="yes">da („Proprietăți”)</td><td class="yes">da (tabel)</td><td class="yes">da (titlu, autor, dată)</td></tr>
+<tr><td>Formule</td><td class="yes">da</td><td class="yes">da</td><td class="yes">da</td><td class="yes">da (ecuații Word)</td></tr>
+<tr><td>Diagrame Mermaid</td><td>da / cu extensie</td><td class="yes">da</td><td class="yes">da</td><td class="no">nu (rămâne text)</td></tr>
+</table>
+</div>
+<p class="small">„Cu extensie”: în VS Code, din panoul <b>Extensions</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd>) se instalează pachetul <b>GitHub Markdown Preview</b> (autor Matt Bierner), care adaugă în previzualizare notele de subsol, casetele de bifat și diagramele Mermaid. Versiunile noi de VS Code au deja incluse o parte dintre ele – se verifică în previzualizare (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd>).</p>
+
+<h2>10. Conversia cu Pandoc</h2>
+<div class="def"><b>Pandoc</b> este un program gratuit care convertește documente dintr-un format în altul: din Markdown în Word (<code>.docx</code>), HTML, EPUB (carte electronică) și altele. Nu are fereastră proprie: se folosește din <b>linia de comandă</b> – fereastra în care comenzile se scriu ca text.</div>
+<h3>Pregătire</h3>
+<ol>
+<li>Pandoc se instalează de pe <a href="https://pandoc.org/installing.html">pandoc.org</a> (fișierul <code>.msi</code> pentru Windows).</li>
+<li>Folderul proiectului se deschide în VS Code (<b>File → Open Folder</b>), apoi se deschide terminalul: <b>Terminal → New Terminal</b>. Terminalul pornește direct în folderul proiectului; comenzile se dau din acest folder, altfel Pandoc nu găsește imaginile.</li>
+<li>Instalarea se verifică cu comanda <code>pandoc --version</code>; se afișează numărul versiunii.</li>
+</ol>
+<h3>Comenzi</h3>
+<div class="scroll">
+<table>
+<tr><th>Rezultat</th><th>Comandă</th></tr>
+<tr><td>Document Word</td><td><code>pandoc README.md -o proiect.docx</code></td></tr>
+<tr><td>Pagină HTML completă</td><td><code>pandoc README.md -s --mathml -o proiect.html</code></td></tr>
+<tr><td>Word cu cuprins</td><td><code>pandoc README.md --toc -o proiect.docx</code></td></tr>
+<tr><td>Word cu stilurile dintr-un șablon</td><td><code>pandoc README.md --reference-doc=sablon.docx -o proiect.docx</code></td></tr>
+<tr><td>Carte electronică</td><td><code>pandoc README.md --mathml -o proiect.epub</code></td></tr>
+</table>
+</div>
+<p><b>Legenda comenzii:</b></p>
+<ul>
+<li><code>pandoc</code> – numele programului;</li>
+<li><code>README.md</code> – fișierul de intrare (sursa);</li>
+<li><code>-o</code> – de la <i>output</i> (ieșire): urmează numele fișierului rezultat; formatul se deduce din extensie;</li>
+<li><code>-s</code> – de la <i>standalone</i> (de sine stătător): pagina HTML rezultată este completă, cu titlu și codare a caracterelor;</li>
+<li><code>--mathml</code> – formulele sunt scrise în HTML în formatul MathML, afișat direct de browser;</li>
+<li><code>--toc</code> – de la <i>table of contents</i>: se adaugă cuprinsul, construit din titluri;</li>
+<li><code>--reference-doc=sablon.docx</code> – documentul rezultat preia fonturile și stilurile (Heading 1, Body Text…) din fișierul Word indicat.</li>
+</ul>
+<div class="ex"><h4>Fișierul PDF</h4>
+Pentru conversia directă în PDF, Pandoc are nevoie de un program suplimentar. Calea simplă: fișierul <code>.docx</code> se deschide în Word și se salvează cu <b>File → Save As → PDF</b>, sau fișierul <code>.html</code> se deschide în browser și se tipărește cu <b>Ctrl+P → Save as PDF</b>.</div>
+<div class="ex"><h4>Diagrama la conversie</h4>
+Pandoc nu desenează diagramele Mermaid: în Word apare textul diagramei. Soluție: diagrama se salvează ca imagine PNG din <a href="https://mermaid.live">mermaid.live</a>, se pune în folderul <code>imagini/</code> și se inserează în document ca imagine.</div>
+
+<h2>11. Fișierul README.md și publicarea</h2>
+<div class="def"><b>README.md</b> („citește-mă”) este fișierul de prezentare al unui proiect: se află în folderul principal și explică ce conține proiectul. <b>GitHub</b> este o platformă online pe care se păstrează și se publică proiecte formate din fișiere; folderul unui proiect pe GitHub se numește <b>depozit</b> (în engleză <i>repository</i>).</div>
+<p>GitHub afișează automat conținutul fișierului <code>README.md</code>, formatat, pe pagina depozitului. Pentru un portofoliu, README.md este <b>pagina de prezentare</b>.</p>
+<p>Structura obișnuită a unui README:</p>
+<ol>
+<li><b>Titlul</b> proiectului și o descriere de 1–2 rânduri;</li>
+<li><b>Conținutul</b> – ce fișiere și foldere există și ce cuprind (tabel sau listă);</li>
+<li><b>Starea lucrării</b> – listă de sarcini;</li>
+<li><b>Imagini</b> – schițe, capturi, rezultatul final;</li>
+<li><b>Autor</b>, dată, programe folosite.</li>
+</ol>
+<p>Pe GitHub se afișează direct tabelele, listele de sarcini, notele de subsol, formulele și diagramele Mermaid. Fișierele se încarcă din browser, cu <b>Add file → Upload files</b>, păstrând structura de foldere.</p>
+
+<h2>12. Inteligența artificială și Markdown</h2>
+<p>Asistenții AI (Gemini, Claude, ChatGPT) scriu răspunsurile în Markdown; de aceea pot fi folosiți direct în lucrul cu fișiere <code>.md</code>:</p>
+<ul>
+<li><b>tabel din date brute</b>: „Transformă lista următoare într-un tabel Markdown cu coloanele Element, Tipar, Ecran”;</li>
+<li><b>diagramă din descriere</b>: „Scrie o schemă logică Mermaid pentru etapele: cerințe, text, machetare, verificare, export; la verificare, în caz de erori, se revine la machetare”;</li>
+<li><b>verificare</b>: „Verifică fișierul Markdown de mai jos: ierarhia titlurilor, tabele, note de subsol fără definiție, legături greșite”.</li>
+</ul>
+<p><b>Rezultatul se verifică întotdeauna</b> în previzualizare: tabelul are toate coloanele, diagrama se desenează, datele nu au fost schimbate. Răspunderea pentru document aparține autorului, nu asistentului.</p>
+
+<h2>13. Limitele limbajului Markdown</h2>
+<p>Markdown descrie <b>structura</b> documentului (titluri, liste, tabele), nu aspectul lui. Nu se pot stabili: fonturi, culori, coloane de text, poziția exactă a unei imagini, dimensiunea paginii.</p>
+<div class="scroll">
+<table>
+<tr><th>Lucrare</th><th>Instrument potrivit</th></tr>
+<tr><td>Notițe, document de proiect, README, text pentru pagină web</td><td><b>Markdown</b></td></tr>
+<tr><td>Referat, raport cu aspect standard</td><td>Markdown + Pandoc → Word</td></tr>
+<tr><td>Afiș, pliant, revistă – aspect controlat la milimetru</td><td><b>Scribus</b> (program DTP)</td></tr>
+<tr><td>Siglă, ilustrație vectorială</td><td>Inkscape</td></tr>
+</table>
+</div>
+<p>Fluxul obișnuit în producția media: <b>textul</b> se scrie și se verifică în Markdown, apoi se importă în programul de machetare, unde primește aspectul final.</p>
+
+<h2>14. Verificarea documentului înainte de predare</h2>
+<ol>
+<li><b>Titluri</b>: un singur titlu de nivel 1; nivelurile nu se sar (după <code>##</code> urmează <code>###</code>, nu <code>####</code>).</li>
+<li><b>Tabele</b>: același număr de coloane pe toate rândurile; alinierea numerelor la dreapta.</li>
+<li><b>Liste de sarcini</b>: starea bifelor corespunde realității.</li>
+<li><b>Note de subsol</b>: fiecare trimitere <code>[^nume]</code> are o definiție și invers.</li>
+<li><b>Imagini</b>: toate se afișează; căi relative; text alternativ completat.</li>
+<li><b>Legături</b>: fiecare legătură se deschide.</li>
+<li><b>Antet de metadate</b>: titlu, autor, dată, limbă – completate corect.</li>
+<li><b>Diacritice</b>: fișier salvat în codarea UTF-8; literele ă, â, î, ș, ț apar corect și după conversie.</li>
+<li><b>Conversie</b>: fișierele <code>.docx</code> și <code>.html</code> se deschid și se compară cu previzualizarea.</li>
+</ol>
+
+<h2>15. Glosar</h2>
+<dl class="glos">
+<dt>Dialect</dt><dd>variantă a limbajului Markdown, cu elemente proprii unui program sau unei platforme.</dd>
+<dt>CommonMark</dt><dd>specificația sintaxei de bază Markdown.</dd>
+<dt>GFM (GitHub Flavored Markdown)</dt><dd>dialectul platformei GitHub: tabele, liste de sarcini, text tăiat.</dd>
+<dt>Listă de sarcini</dt><dd>listă cu casete de bifat: <code>- [ ]</code> și <code>- [x]</code>.</dd>
+<dt>Notă de subsol</dt><dd>explicație legată de text printr-un număr, așezată la sfârșit.</dd>
+<dt>Bloc de cod</dt><dd>fragment afișat exact cum a fost scris, încadrat de trei accente grave.</dd>
+<dt>Evidențierea sintaxei</dt><dd>colorarea cuvintelor-cheie dintr-un bloc de cod, după limbaj.</dd>
+<dt>Metadate</dt><dd>date despre document: titlu, autor, dată, limbă.</dd>
+<dt>Antet de metadate (front matter)</dt><dd>blocul dintre două rânduri <code>---</code>, de la începutul fișierului.</dd>
+<dt>YAML</dt><dd>format de scriere a datelor ca perechi <code>nume: valoare</code>.</dd>
+<dt>LaTeX</dt><dd>limbaj de scriere a textelor științifice; în Markdown se folosește notația lui pentru formule.</dd>
+<dt>Mermaid</dt><dd>limbaj de descriere a diagramelor în text.</dd>
+<dt>Schemă logică (flowchart)</dt><dd>diagramă cu casete și săgeți, care arată etapele unui proces.</dd>
+<dt>Cale relativă</dt><dd>drumul către un fișier, pornind de la folderul documentului.</dd>
+<dt>Text alternativ</dt><dd>descrierea unei imagini, citită de cititoarele de ecran.</dd>
+<dt>Linie de comandă (terminal)</dt><dd>fereastra în care comenzile se scriu ca text.</dd>
+<dt>Pandoc</dt><dd>program de conversie a documentelor între formate.</dd>
+<dt>README.md</dt><dd>fișierul de prezentare al unui proiect.</dd>
+<dt>Depozit (repository)</dt><dd>folderul unui proiect păstrat pe platforma GitHub.</dd>
+</dl>
+
+<h2>16. Test de verificare</h2>
+<ol class="test">
+<li>Ce este un dialect Markdown și ce dialect folosește platforma GitHub?</li>
+<li>Se scrie rândul de separare al unui tabel cu trei coloane: prima aliniată la stânga, a doua centrată, a treia aliniată la dreapta.</li>
+<li>Cum se scrie o sarcină terminată și cum se scrie una neterminată?</li>
+<li>Din ce două părți este formată o notă de subsol în Markdown? Se dă un exemplu.</li>
+<li>Ce este antetul de metadate, unde se așază în fișier și ce semne îl delimitează?</li>
+<li>Se calculează numărul de pixeli necesar pe lățime pentru un pliant A4 (lățime 210 mm) tipărit la 300 dpi.</li>
+<li>Ce reprezintă în Mermaid notațiile <code>A[Text]</code>, <code>D{Text}</code> și <code>A --&gt; B</code>?</li>
+<li>De ce se folosesc căi relative pentru imagini? Se dă un exemplu de cale relativă corectă.</li>
+<li>Se scrie comanda Pandoc care convertește fișierul <code>README.md</code> într-un document Word cu cuprins, numit <code>proiect.docx</code>.</li>
+<li>Ce se întâmplă cu o diagramă Mermaid la conversia în Word și cum se rezolvă?</li>
+<li>Ce rol are fișierul README.md într-un depozit GitHub?</li>
+<li>Se numesc trei lucruri care <b>nu</b> se pot stabili în Markdown și programul folosit pentru ele.</li>
+</ol>
+<p>Urmează: <a href="markdown-avansat-fisa.html"><b>Fișa de laborator – Documentul de proiect al unui afiș</b></a>.</p>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a</footer>
+<script type="text/plain" id="md-exemplu">
+---
+title: "Afiș Ziua Porților Deschise"
+author: "Popescu Ana, clasa a XII-a Media"
+date: "2026-10-05"
+lang: ro
+---
+
+# Afiș „Ziua Porților Deschise”
+
+Document de proiect pentru afișul A3 al liceului. Fișierul descrie **cerințele clientului**, datele tehnice, etapele de lucru și verificarea finală.
+
+## 1. Cerințele clientului
+
+- Format **A3**, orientare verticală (portret).
+- Afișul se tipărește și se publică și pe pagina liceului.
+- Termen de predare: **16 octombrie 2026**.
+
+> **Atenție:** sigla liceului se folosește numai în varianta vectorială (SVG), niciodată copiată dintr-o captură de ecran.
+
+## 2. Date tehnice
+
+| Element           | Tipar          | Ecran       |
+|:------------------|:--------------:|------------:|
+| Dimensiune        | 297 × 420 mm   | 1080 × 1527 px |
+| Rezoluție         | 300 dpi        | 96 dpi      |
+| Model de culoare  | CMYK           | RGB         |
+| Format de predare | PDF/X-4        | PNG         |
+
+Imaginea de fundal trebuie să aibă cel puțin 3508 × 4961 px[^pixeli].
+
+Numărul de pixeli necesar pe o latură:
+
+$$N = \frac{L \cdot R}{25,4}$$
+
+unde:
+
+- $N$ – numărul de pixeli pe latura respectivă;
+- $L$ – lungimea laturii, în milimetri (mm);
+- $R$ – rezoluția, în puncte pe inch (dpi);
+- $25,4$ – numărul de milimetri dintr-un inch.
+
+## 3. Etape de lucru
+
+- [x] Notarea cerințelor clientului
+- [x] Scrierea textului afișului
+- [ ] Alegerea fonturilor și a culorilor
+- [ ] Machetarea în Scribus
+- [ ] Verificarea (preflight) și exportul PDF
+
+```mermaid
+flowchart LR
+    A[Cerințele clientului] --> B[Text în Markdown]
+    B --> C[Machetare în Scribus]
+    C --> D{Verificare}
+    D -- erori --> C
+    D -- corect --> E[Export PDF]
+```
+
+## 4. Schița afișului
+
+![Schița afișului: titlu sus, fotografie la mijloc, date de contact jos](imagini/schita.png)
+
+## 5. Textul afișului
+
+1. Titlu: ~~Ziua Ușilor Deschise~~ **Ziua Porților Deschise**
+2. Data și ora: 24 octombrie 2026, ora 10:00
+3. Adresa paginii: <https://www.exemplu.ro>
+
+## 6. Comenzi de conversie
+
+```bash
+pandoc exemplu-avansat.md -o exemplu-avansat.docx
+pandoc exemplu-avansat.md -s --mathml -o exemplu-avansat.html
+```
+
+[^pixeli]: Valoarea rezultă din formula de mai jos: 297 mm · 300 dpi / 25,4 ≈ 3508 px și 420 mm · 300 dpi / 25,4 ≈ 4961 px.
+</script>
+<script>
+document.querySelectorAll('a[data-md]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var src=document.getElementById(a.getAttribute('data-md'));
+    if(!src||!window.Blob||!window.URL) return;
+    e.preventDefault();
+    var text=src.textContent.replace(/^\n/,'');
+    var url=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));
+    var t=document.createElement('a');
+    t.href=url; t.download=a.getAttribute('download'); document.body.appendChild(t); t.click();
+    setTimeout(function(){document.body.removeChild(t);URL.revokeObjectURL(url);},1000);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fișă de laborator – Articol pentru revista clasei</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--accent2);color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.6rem}
+header p{margin:0;opacity:.92}
+nav{background:#9c3f14;padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px 18px}
+nav a{color:#fff;text-decoration:none;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent2);border-bottom:2px solid var(--accent2);padding-bottom:4px;margin-top:38px}
+h2 span{float:right;font-size:.85rem;color:var(--muted);font-weight:normal;padding-top:6px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.9rem;line-height:1.45}
+pre code{background:none;color:inherit;padding:0}
+pre.raw{background:#fff;color:var(--ink);border:1px dashed var(--muted);white-space:pre-wrap}
+.info{background:var(--box);border-left:5px solid var(--accent);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.warn{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+@media(max-width:640px){ol.pasi li{margin-bottom:7px}
+td.pt{text-align:right;white-space:nowrap}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+@media print{nav{display:none}body{background:#fff}pre{white-space:pre-wrap}}
+kbd{background:#fff;border:1px solid #b9c0c7;border-bottom-width:2px;border-radius:4px;padding:0 5px;font-family:Consolas,"Courier New",monospace;font-size:.88em}
+</style>
+</head>
+<body>
+<header>
+<h1>Fișă de laborator – Articol pentru revista clasei</h1>
+<p>Markdown de bază · Clasa a XII-a · Producție media · 2 ore</p>
+</header>
+<nav>
+<a href="index.html">Cuprins</a>
+<a href="markdown-baza.html">Lecția: Markdown de bază</a>
+<a href="exemplu-baza.md" download="exemplu-baza.md" data-md="md-exemplu">Fișierul-exemplu (.md)</a>
+</nav>
+<main>
+
+<div class="info"><b>Lucrarea:</b> un text primit <b>nestructurat</b> se transformă într-un <b>articol</b> pentru revista clasei, scris în Markdown, cu toate elementele din lecție: titluri, paragrafe, evidențieri, liste, legături, imagine, citat, cod, linie orizontală, caractere speciale.<br>
+<b>Programe:</b> VS Code (sau Obsidian), browser, GIMP.<br>
+<b>Rezultat predat:</b> folderul <code>articol-revista</code>, cu fișierul <code>articol.md</code> și folderul <code>imagini</code>.</div>
+
+<h2>Textul primit</h2>
+<p>Textul de mai jos este articolul, așa cum a sosit la redacție: fără titluri marcate, fără liste, fără evidențieri. Conținutul <b>nu se modifică</b>; se adaugă numai marcarea.</p>
+<pre class="raw"><code>Pregătirea unei fotografii pentru tipar
+Articol pentru revista clasei, rubrica „Atelier”.
+O fotografie care arată bine pe telefon poate ieși neclară sau cu alte culori pe hârtie. Înainte de a fi pusă în pagină, fotografia se verifică și se pregătește. Articolul prezintă ce se verifică și care sunt pașii de lucru.
+Ce se verifică
+Rezoluția: pentru tipar sunt necesare 300 dpi la dimensiunea finală. Modelul de culoare: tiparul folosește CMYK, ecranul folosește RGB. Formatul fișierului: TIFF sau JPEG la calitate maximă.
+Din regulile redacției: O fotografie mărită peste dimensiunea ei reală nu câștigă detalii, ci doar pixeli.
+Pașii de lucru
+Se deschide fotografia în programul GIMP. Se verifică dimensiunea în pixeli, din meniul Image → Scale Image. Se decupează fotografia la proporția din machetă. Se corectează luminozitatea și contrastul. Se exportă fotografia cu un nume corect: numai litere mici, fără spații, fără diacritice.
+Exemplu de nume corect: foto_bal_2026_v2.jpg.
+Greșeli frecvente
+Fotografie copiată dintr-o captură de ecran. Fotografie descărcată de pe o rețea de socializare, micșorată automat. Fotografie mărită „ca să umple pagina”.
+Semne folosite în tabelul redacției
+Fotografiile alese pentru copertă sunt scrise între asteriscuri, de exemplu *foto_coperta.jpg*.
+# este semnul pus în fața fotografiilor care mai trebuie corectate.
+Programul GIMP se descarcă gratuit de la adresa https://www.gimp.org.
+Redacția revistei
+Clasa a XII-a Media
+Liceul Tehnologic „Grigore C. Moisil” Buzău</code></pre>
+
+<h2>Sarcina 1 – Spațiul de lucru <span>10 min</span></h2>
+<ol class="pasi">
+<li>Se creează folderul <code>articol-revista</code>, iar în el folderul <code>imagini</code>.</li>
+<li>Folderul <code>articol-revista</code> se deschide în VS Code și se creează fișierul <code>articol.md</code>.</li>
+<li>Textul primit se copiază în fișier și se salvează.</li>
+<li>Se deschide previzualizarea alături de text: <kbd>Ctrl</kbd>+<kbd>K</kbd>, apoi <kbd>V</kbd>.</li>
+<li>Se privește previzualizarea textului nemarcat și se notează, într-un fișier separat <code>observatii.md</code>, <b>trei lucruri</b> care arată altfel decât în fișier (de exemplu: ce s-a întâmplat cu rândurile, cu rândul care începe cu <code>#</code>, cu textul dintre asteriscuri).</li>
+</ol>
+
+<h2>Sarcina 2 – Titluri și paragrafe <span>15 min</span></h2>
+<ol class="pasi">
+<li>Se marchează <b>titlul articolului</b> (nivel 1).</li>
+<li>Se marchează <b>capitolele</b> (nivel 2): „Ce se verifică”, „Pașii de lucru”, „Semne folosite în tabelul redacției”.</li>
+<li>„Greșeli frecvente” se marchează ca <b>subcapitol</b> al capitolului „Pașii de lucru”.</li>
+<li>Paragrafele se despart prin rânduri goale. Înainte și după fiecare titlu se lasă un rând gol.</li>
+<li>Ierarhia titlurilor se verifică în panoul <b>Outline</b> din VS Code.</li>
+</ol>
+
+<h2>Sarcina 3 – Evidențierea textului <span>10 min</span></h2>
+<ol class="pasi">
+<li>Rândul „Articol pentru revista clasei, rubrica „Atelier”.” se scrie <b>cursiv</b>.</li>
+<li>În primul paragraf se <b>îngroașă</b> cele două probleme care pot apărea la tipar.</li>
+<li>Numele meniului din GIMP se scrie <b>cursiv</b>.</li>
+<li>Numele de fișier dat ca exemplu se marchează drept <b>cod</b>.</li>
+</ol>
+
+<h2>Sarcina 4 – Liste și citat <span>20 min</span></h2>
+<ol class="pasi">
+<li>În capitolul „Ce se verifică”, cele trei verificări se transformă în <b>listă cu buline</b>; denumirea fiecărei verificări (cuvintele dinaintea semnului „:”) se îngroașă.</li>
+<li>În capitolul „Pașii de lucru”, pașii se transformă în <b>listă numerotată</b>.</li>
+<li>La ultimul pas, cele trei condiții pentru numele fișierului se scriu ca <b>listă interioară</b> cu buline.</li>
+<li>Greșelile frecvente se transformă în <b>listă cu buline</b>.</li>
+<li>Regula redacției se marchează drept <b>citat</b>, cu sursa („din regulile redacției”) pe un paragraf separat, în interiorul citatului.</li>
+</ol>
+
+<h2>Sarcina 5 – Legături și imagine <span>25 min</span></h2>
+<ol class="pasi">
+<li>La pasul 1, cuvântul „GIMP” devine <b>legătură</b> către pagina programului, cu un text explicativ afișat la trecerea cursorului.</li>
+<li>În ultimul capitol, adresa paginii GIMP se scrie ca <b>adresă afișată ca atare</b>, pe care se poate face clic.</li>
+<li>În primul paragraf, cuvintele „pașii de lucru” devin <b>legătură către capitolul</b> cu același nume.</li>
+<li>Se deschide o fotografie în GIMP și se deschide fereastra <b>Image → Scale Image</b>. Se face o <b>captură de ecran</b> a ferestrei (<kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd>) și se salvează în folderul <code>imagini</code>, cu un nume scris după regulile din lecție.</li>
+<li>Captura se inserează în articol, după lista pașilor, cu <b>cale relativă</b> și cu <b>text alternativ</b> care descrie ce se vede în imagine.</li>
+<li>Fiecare legătură se încearcă printr-un clic în previzualizare.</li>
+</ol>
+
+<h2>Sarcina 6 – Caractere speciale, linie, semnătură <span>15 min</span></h2>
+<ol class="pasi">
+<li>În capitolul „Semne folosite în tabelul redacției” se corectează cele două propoziții, astfel încât <b>asteriscurile</b> și semnul <b>#</b> să apară ca atare în previzualizare.</li>
+<li>Înaintea semnăturii redacției se pune o <b>linie orizontală</b>.</li>
+<li>Semnătura (cele trei rânduri de la sfârșit) se scrie ca <b>un singur paragraf, pe trei rânduri</b>.</li>
+</ol>
+
+<h2>Sarcina 7 – Verificarea <span>15 min</span></h2>
+<ol class="pasi">
+<li>Articolul se citește în previzualizare, de la început până la sfârșit, și se compară cu lista de mai jos.</li>
+<li>Fișierul se schimbă cu un coleg. Fiecare deschide articolul colegului și scrie, în fișierul <code>observatii.md</code> al acestuia, <b>două observații</b> (ce este greșit sau ce se poate îmbunătăți).</li>
+<li>Se fac corecturile, iar în <code>observatii.md</code> se notează, pentru fiecare observație primită, dacă a fost acceptată și de ce.</li>
+</ol>
+<div class="scroll">
+<table>
+<tr><th>Se verifică</th><th>Unde</th></tr>
+<tr><td>Un singur titlu de nivel 1; niveluri în ordine</td><td>panoul Outline</td></tr>
+<tr><td>Niciun semn de marcare vizibil din greșeală (<code>**</code>, <code>#</code>, <code>[ ]</code>)</td><td>previzualizare</td></tr>
+<tr><td>Listele sunt recunoscute; lista interioară este retrasă</td><td>previzualizare</td></tr>
+<tr><td>Cele trei legături funcționează</td><td>clic pe fiecare</td></tr>
+<tr><td>Imaginea se afișează; are text alternativ; calea este relativă</td><td>previzualizare și fișier</td></tr>
+<tr><td>Asteriscurile și semnul # din ultimul capitol apar ca atare</td><td>previzualizare</td></tr>
+<tr><td>Semnătura este pe trei rânduri, sub linia orizontală</td><td>previzualizare</td></tr>
+<tr><td>Diacriticele și ghilimelele românești sunt păstrate</td><td>previzualizare</td></tr>
+</table>
+</div>
+
+<h2>Predarea lucrării</h2>
+<p>Se predă folderul <code>articol-revista</code>, încărcat în OneDrive / Teams, cu structura:</p>
+<pre><code>articol-revista/
+├── articol.md
+├── observatii.md
+└── imagini/
+    └── (captura de ecran)</code></pre>
+
+<h2>Evaluare</h2>
+<div class="scroll">
+<table>
+<tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Structura folderului și numele fișierelor respectă cerința</td><td class="pt">1 p</td></tr>
+<tr><td>Titluri: niveluri corecte, ierarhie fără salturi</td><td class="pt">1,5 p</td></tr>
+<tr><td>Paragrafe despărțite corect; semnătura pe trei rânduri</td><td class="pt">1 p</td></tr>
+<tr><td>Evidențieri: îngroșat, cursiv, cod</td><td class="pt">1 p</td></tr>
+<tr><td>Liste: cu buline, numerotată, listă interioară</td><td class="pt">1,5 p</td></tr>
+<tr><td>Citat și linie orizontală</td><td class="pt">0,5 p</td></tr>
+<tr><td>Cele trei legături funcționează</td><td class="pt">1 p</td></tr>
+<tr><td>Imagine cu cale relativă și text alternativ</td><td class="pt">1 p</td></tr>
+<tr><td>Caractere speciale afișate corect; observațiile din <code>observatii.md</code></td><td class="pt">0,5 p</td></tr>
+<tr><td>Din oficiu</td><td class="pt">1 p</td></tr>
+<tr><th>Total</th><th class="pt">10 p</th></tr>
+</table>
+</div>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a</footer>
+<script type="text/plain" id="md-exemplu">
+# Ghid scurt: alegerea fonturilor pentru un afiș
+
+Un afiș se citește **de la distanță** și **în câteva secunde**. Fonturile se aleg astfel încât mesajul să fie înțeles imediat.
+
+## Reguli de bază
+
+- Cel mult **două familii de fonturi** pe un afiș.
+- Titlul se scrie cu un font *sans-serif* (fără serife), ușor de citit de departe.
+- Contrast puternic între text și fundal.
+
+## Pașii de lucru
+
+1. Se citesc cerințele clientului.
+2. Se aleg fonturile:
+    - un font pentru titlu;
+    - un font pentru textul mărunt.
+3. Se verifică licența fiecărui font.
+4. Se face o probă de tipar la dimensiunea reală.
+
+## Dimensiuni recomandate
+
+Pentru un afiș A3 privit de la 2–3 metri:
+
+- titlu: 90–120 pt;
+- subtitlu: 36–48 pt;
+- text informativ: 18–24 pt.
+
+> Un afiș bun se înțelege fără a fi citit până la capăt.
+>
+> — din regulile atelierului
+
+## Surse de fonturi gratuite
+
+Fonturi cu licență liberă se găsesc pe [Google Fonts](https://fonts.google.com "Biblioteca Google Fonts"). Adresa completă: <https://fonts.google.com>.
+
+Fișierul unui font are extensia `.ttf` sau `.otf` și se instalează cu dublu clic.
+
+![Schița afișului: titlu sus, fotografie la mijloc, date de contact jos](imagini/schita.png)
+
+---
+
+Atelierul de producție media  
+Clasa a XII-a  
+Liceul Tehnologic „Grigore C. Moisil” Buzău
+
+Semnul \* din lista de fonturi marchează fonturile cu diacritice românești complete. Înapoi la [regulile de bază](#reguli-de-bază).
+</script>
+<script>
+document.querySelectorAll('a[data-md]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var src=document.getElementById(a.getAttribute('data-md'));
+    if(!src||!window.Blob||!window.URL) return;
+    e.preventDefault();
+    var text=src.textContent.replace(/^\n/,'');
+    var url=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));
+    var t=document.createElement('a');
+    t.href=url; t.download=a.getAttribute('download'); document.body.appendChild(t); t.click();
+    setTimeout(function(){document.body.removeChild(t);URL.revokeObjectURL(url);},1000);
+  });
+});
+</script>
+</body>
+</html>

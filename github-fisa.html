@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fișă de laborator – Portofoliul online</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--accent2);color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.6rem}
+header p{margin:0;opacity:.92}
+nav{background:#9c3f14;padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px 18px}
+nav a{color:#fff;text-decoration:none;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent2);border-bottom:2px solid var(--accent2);padding-bottom:4px;margin-top:38px}
+h2 span{float:right;font-size:.85rem;color:var(--muted);font-weight:normal;padding-top:6px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.9rem;line-height:1.45}
+pre code{background:none;color:inherit;padding:0}
+pre.tree{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.info{background:var(--box);border-left:5px solid var(--accent);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.warn{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+ol.pasi li{margin-bottom:7px}
+td.pt{text-align:right;white-space:nowrap}
+td.gol{height:2.4em}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+kbd{background:#fff;border:1px solid #b9c0c7;border-bottom-width:2px;border-radius:4px;padding:0 5px;font-family:Consolas,"Courier New",monospace;font-size:.88em}
+@media print{nav{display:none}body{background:#fff}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<header>
+<h1>Fișă de laborator – Portofoliul online</h1>
+<p>GitHub și GitHub Pages · Clasa a XII-a · Producție media · 2 ore</p>
+</header>
+<nav>
+<a href="index.html">Cuprins</a>
+<a href="github.html">Lecția: GitHub</a>
+</nav>
+<main>
+
+<div class="info"><b>Lucrarea:</b> se creează <b>contul GitHub</b>, depozitul <code>portofoliu-media</code> și <b>site-ul de portofoliu</b>, în care se publică prima lucrare.<br>
+<b>Necesar:</b> browser, acces la adresa de email personală, o lucrare proprie de la lecțiile anterioare, în două fișiere: <b>documentul final (PDF)</b> și o <b>imagine de prezentare (PNG sau JPG)</b>.<br>
+<b>Rezultat predat:</b> două adrese – a depozitului și a site-ului.</div>
+
+<div class="warn"><b>Înainte de a începe:</b> pe calculatorul din laborator <b>parola nu se salvează în browser</b>. La sfârșitul orei se iese din cont: imaginea de profil (dreapta sus) → <b>Sign out</b>.</div>
+
+<h2>Sarcina 1 – Contul <span>15 min</span></h2>
+<ol class="pasi">
+<li>Se deschide adresa <code>github.com/signup</code> și se creează contul, după pașii din lecție. Cine are deja cont intră în el cu <b>Sign in</b>.</li>
+<li>Numele de utilizator se alege după regulile din lecție: serios, ușor de dictat, cu litere mici.</li>
+<li>Se confirmă adresa de email cu codul primit.</li>
+<li>Se deschide <code>github.com/settings/emails</code> și se verifică dacă este bifată opțiunea <b>Keep my email addresses private</b>.</li>
+<li>Numele de utilizator se trece în tabelul de la sfârșitul fișei.</li>
+</ol>
+
+<h2>Sarcina 2 – Depozitul <span>10 min</span></h2>
+<ol class="pasi">
+<li>Se deschide <code>github.com/new</code> și se creează depozitul <code>portofoliu-media</code>: <b>Public</b>, cu <b>Add README</b> activat și cu o descriere de un rând.</li>
+<li>Se notează adresa depozitului.</li>
+<li>Se răspunde în scris, în caiet sau într-un fișier de notițe: <b>cine poate vedea</b> fișierele din acest depozit și <b>cine le poate modifica</b>?</li>
+</ol>
+
+<h2>Sarcina 3 – Fișierul README.md <span>10 min</span></h2>
+<ol class="pasi">
+<li>Se deschide <code>README.md</code> și se apasă butonul cu <b>creion</b>.</li>
+<li>Conținutul se înlocuiește cu o prezentare scrisă în Markdown, care cuprinde:
+  <ul>
+  <li>un <b>titlu de nivel 1</b> cu numele portofoliului;</li>
+  <li>un <b>paragraf</b> cu clasa, specializarea și liceul;</li>
+  <li>un <b>titlu de nivel 2</b> „Lucrări”, urmat de o <b>listă</b> sau de un <b>tabel</b> cu lucrarea care urmează să fie încărcată.</li>
+  </ul></li>
+<li>Se verifică în fila <b>Preview</b>.</li>
+<li>Se apasă <b>Commit changes…</b> și se scrie un mesaj de commit potrivit.</li>
+</ol>
+
+<h2>Sarcina 4 – Prima lucrare <span>15 min</span></h2>
+<ol class="pasi">
+<li>Pe calculator se creează folderul temei, cu nume scris după reguli (de exemplu <code>tema-01-afis</code>), iar în el se copiază <b>documentul PDF</b> și <b>imaginea de prezentare</b>.</li>
+<li>Fișierele se redenumesc după reguli: litere mici, fără spații, fără diacritice.</li>
+<li>Se verifică mărimea fiecărui fișier (clic dreapta → <b>Properties</b>). Se notează mărimile și se compară cu limita din lecție.</li>
+<li>Folderul se încarcă în depozit cu <b>Add file → Upload files</b>, cu un mesaj de commit potrivit.</li>
+<li>Se verifică în depozit că fișierele sunt <b>în folderul temei</b>, nu în rădăcină.</li>
+</ol>
+
+<h2>Sarcina 5 – Corectarea și istoricul <span>10 min</span></h2>
+<ol class="pasi">
+<li>Pe calculator, imaginea de prezentare se modifică vizibil (de exemplu se decupează sau i se schimbă mărimea) și se salvează <b>cu același nume</b>.</li>
+<li>Imaginea se încarcă din nou, <b>în folderul temei</b>, cu un mesaj de commit care spune ce s-a schimbat.</li>
+<li>Se deschide <b>istoricul</b> depozitului și se notează: câte commituri are depozitul și care este mesajul fiecăruia.</li>
+<li>Se răspunde în scris: unde a ajuns varianta veche a imaginii?</li>
+</ol>
+
+<h2>Sarcina 6 – Activarea GitHub Pages <span>10 min</span></h2>
+<ol class="pasi">
+<li>Se activează Pages: <b>Settings → Pages</b>, <b>Deploy from a branch</b>, ramura <b>main</b>, folderul <b>/ (root)</b>, <b>Save</b>.</li>
+<li>După câteva minute se reîncarcă pagina și se deschide site-ul cu <b>Visit site</b>.</li>
+<li>Se notează adresa site-ului.</li>
+<li>Se răspunde în scris: <b>ce fișier</b> din depozit este afișat acum ca primă pagină și de ce?</li>
+</ol>
+
+<h2>Sarcina 7 – Pagina index.html <span>20 min</span></h2>
+<ol class="pasi">
+<li>În rădăcina depozitului se creează fișierul <code>index.html</code> (<b>Add file → Create new file</b>), pornind de la codul din lecție (butonul <b>Copiază codul</b>).</li>
+<li>Se înlocuiesc datele din exemplu cu cele proprii: <b>numele</b> (în <code>&lt;title&gt;</code> și în <code>&lt;h1&gt;</code>), <b>titlul lucrării</b>, <b>descrierea</b> de un rând.</li>
+<li>Căile din <code>src</code> și <code>href</code> se scriu exact după numele folderului și ale fișierelor din depozit.</li>
+<li>Textul alternativ (<code>alt</code>) descrie <b>ce se vede</b> în imagine.</li>
+<li>Se face commit, se așteaptă publicarea și se reîncarcă site-ul (<kbd>Ctrl</kbd>+<kbd>F5</kbd>).</li>
+<li>Pe site se verifică: diacriticele, imaginea, legătura către PDF.</li>
+<li><b>Opțional:</b> în blocul <code>&lt;style&gt;</code> se schimbă fontul și se adaugă o culoare pentru titluri, cu regulile de alegere a fonturilor și de contrast de la lecțiile anterioare.</li>
+</ol>
+
+<h2>Sarcina 8 – Verificarea <span>10 min</span></h2>
+<ol class="pasi">
+<li>Portofoliul se verifică după lista de mai jos.</li>
+<li>Adresa site-ului se dă unui coleg, care o deschide <b>pe telefon</b> și spune <b>două observații</b> (ce nu funcționează sau ce se poate îmbunătăți).</li>
+<li>Se fac corecturile, cu mesaje de commit potrivite.</li>
+<li>Se iese din cont: <b>Sign out</b>.</li>
+</ol>
+<div class="scroll">
+<table>
+<tr><th>Se verifică</th><th>Unde</th></tr>
+<tr><td>Depozitul este Public și are descriere</td><td>prima pagină a depozitului</td></tr>
+<tr><td>În rădăcină sunt numai <code>README.md</code>, <code>index.html</code> și folderul temei</td><td>lista de fișiere</td></tr>
+<tr><td>Numele folderului și ale fișierelor respectă regulile</td><td>lista de fișiere</td></tr>
+<tr><td>README-ul se afișează formatat, fără semne de marcare vizibile</td><td>prima pagină a depozitului</td></tr>
+<tr><td>Niciun commit nu are mesajul pus automat</td><td>istoric</td></tr>
+<tr><td>Site-ul se deschide și arată pagina <code>index.html</code></td><td>adresa site-ului</td></tr>
+<tr><td>Diacriticele, imaginea și legătura către PDF funcționează</td><td>site, pe calculator și pe telefon</td></tr>
+<tr><td>Nu există date personale în afara numelui și a clasei</td><td>depozit și site</td></tr>
+</table>
+</div>
+
+<h2>Predarea lucrării</h2>
+<p>Se predau, pe platforma clasei, cele două adrese. Structura depozitului la predare:</p>
+<pre class="tree"><code>portofoliu-media/
+├── README.md
+├── index.html
+└── tema-01-afis/          (numele folderului propriu)
+    ├── (documentul PDF)
+    └── (imaginea de prezentare)</code></pre>
+<div class="scroll">
+<table>
+<tr><th>Date</th><th>Se completează</th></tr>
+<tr><td>Numele și prenumele</td><td class="gol"></td></tr>
+<tr><td>Numele de utilizator GitHub</td><td class="gol"></td></tr>
+<tr><td>Adresa depozitului</td><td class="gol"></td></tr>
+<tr><td>Adresa site-ului</td><td class="gol"></td></tr>
+</table>
+</div>
+
+<h2>Evaluare</h2>
+<div class="scroll">
+<table>
+<tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Cont creat; nume de utilizator ales după reguli</td><td class="pt">0,5 p</td></tr>
+<tr><td>Depozit Public, cu nume corect și descriere</td><td class="pt">1 p</td></tr>
+<tr><td>README scris în Markdown: titlu, paragraf, listă sau tabel de lucrări</td><td class="pt">1,5 p</td></tr>
+<tr><td>Lucrarea încărcată în folderul ei; nume de foldere și fișiere după reguli</td><td class="pt">1,5 p</td></tr>
+<tr><td>Fișier înlocuit cu același nume; mesaje de commit potrivite</td><td class="pt">1 p</td></tr>
+<tr><td>GitHub Pages activat; site-ul se deschide</td><td class="pt">1 p</td></tr>
+<tr><td><code>index.html</code>: date proprii, diacritice corecte, imagine cu text alternativ, legătură către PDF</td><td class="pt">2 p</td></tr>
+<tr><td>Răspunsurile scrise de la sarcinile 2, 5 și 6</td><td class="pt">0,5 p</td></tr>
+<tr><td>Din oficiu</td><td class="pt">1 p</td></tr>
+<tr><th>Total</th><th class="pt">10 p</th></tr>
+</table>
+</div>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a</footer>
+</body>
+</html>

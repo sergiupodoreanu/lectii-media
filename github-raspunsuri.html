@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>GitHub – răspunsuri și rezolvare (numai pentru profesor)</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:#3b3f4a;color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.6rem}
+header p{margin:0;opacity:.9}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:4px;margin-top:38px}
+h3{color:var(--accent2);margin-top:24px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.88rem;line-height:1.45}
+pre code{background:none;color:inherit;padding:0}
+.warn{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+ol.rasp li{margin-bottom:10px}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+<h1>GitHub – răspunsuri și rezolvare</h1>
+<p>Numai pentru profesor · Clasa a XII-a · Producție media</p>
+</header>
+<main>
+
+<div class="warn"><b>Pagină pentru profesor.</b> Nu se leagă din <code>index.html</code>, din lecție sau din fișă. Pagini pentru elevi: <a href="github.html">lecția</a>, <a href="github-fisa.html">fișa de laborator</a>.</div>
+
+<h2>1. Pregătirea laboratorului</h2>
+<ul>
+<li><b>Adresa de email:</b> fiecare elev are nevoie de acces la emailul personal în timpul orei (pe telefon), pentru codul de confirmare. Se anunță cu o oră înainte.</li>
+<li><b>Conturile făcute acasă:</b> când mai multe conturi sunt create în același timp din aceeași rețea, GitHub poate cere verificări suplimentare, care întârzie ora. Varianta sigură: contul se creează <b>acasă, ca temă pregătitoare</b> (capitolul 3 din lecție), iar la laborator se începe cu sarcina 2. Variantă de rezervă: înscriere de pe telefon, pe date mobile.</li>
+<li><b>Lucrarea de încărcat:</b> fiecare elev are un PDF și o imagine de prezentare de la lecțiile anterioare (afișul, pliantul sau articolul). Pentru cine nu are: se exportă pe loc un PDF și un PNG din orice lucrare proprie.</li>
+<li><b>Browserul:</b> se lucrează într-o fereastră privată (<b>Ctrl+Shift+N</b>), ca parola și sesiunea să nu rămână pe calculatorul din laborator.</li>
+<li><b>Vârsta:</b> condițiile GitHub cer minimum 13 ani; un cont gratuit de persoană.</li>
+</ul>
+<p><b>Desfășurare propusă:</b> lecția – 1 oră (capitolele 2–12, cu demonstrație pe un depozit de probă al profesorului); fișa de laborator – 2 ore; testul – 15 minute, în ora următoare.</p>
+<p><b>Urmărirea temelor:</b> adresa <code>github.com/UTILIZATOR/portofoliu-media/commits</code> arată data, ora și mesajul fiecărui commit; adresa <code>…/commits/main/tema-01-afis</code> arată numai commiturile unei teme.</p>
+
+<h2>2. Răspunsurile testului din lecție</h2>
+<p>Barem propus: întrebările 11 și 13 – câte 1,5 p; celelalte 12 întrebări – câte 0,5 p; 1 p din oficiu. Total: 2 × 1,5 p + 12 × 0,5 p + 1 p = 10 p.</p>
+<ol class="rasp">
+<li>Un depozit este un „dosar” pe GitHub, cu foldere și fișiere, la o adresă proprie. În plus față de un folder obișnuit păstrează <b>istoricul</b>: toate versiunile fișierelor, cu data, ora, autorul și mesajul fiecărei salvări.</li>
+<li>Un commit este o salvare cu mesaj. Se înregistrează: fișierele adăugate sau modificate, <b>mesajul</b>, <b>data și ora</b>, <b>autorul</b>.</li>
+<li>Parola: cel puțin 15 caractere <b>sau</b> cel puțin 8 caractere, dintre care o cifră și o literă mică. Numele de utilizator: numai litere, cifre și liniuțe simple; nu începe și nu se termină cu liniuță.</li>
+<li>Acceptat: <code>ana-ionescu</code>. Respinse: <code>-ana-</code> (începe și se termină cu liniuță), <code>ana ionescu</code> (spațiu), <code>ana_ionescu</code> (liniuța de subliniere nu este permisă).</li>
+<li>Se iese din cont (imaginea de profil → <b>Sign out</b>) și nu se salvează parola în browser; altfel, următorul elev de la calculator poate modifica sau șterge depozitul.</li>
+<li>Public: fișierele sunt vizibile oricui are adresa. Private: numai proprietarului și persoanelor invitate. Pentru portofoliu se alege <b>Public</b>, deoarece cu un cont gratuit GitHub Pages funcționează numai pentru depozite publice (și portofoliul trebuie să poată fi văzut).</li>
+<li><code>tema-02-pliant</code>, <code>pliant.pdf</code> (se acceptă <code>pliant-final.pdf</code>, cu observația că variantele se țin în istoric, nu în nume).</li>
+<li>Cel mult <b>25 MB</b> pentru un fișier și cel mult <b>100 de fișiere</b> o dată.</li>
+<li>Se încarcă din nou, în același folder, <b>cu exact același nume</b>; fișierul vechi este înlocuit, iar versiunea veche rămâne în istoric.</li>
+<li>Exemplu: „Tema 2 – pliant: înlocuită fotografia de pe față”. Se cere: tema, ce s-a schimbat; fără „modificări”, „gata”.</li>
+<li>Depozit: <code>github.com/maria-stan/portofoliu-media</code>. Site: <code>maria-stan.github.io/portofoliu-media/</code>. Fișier pe site: <code>maria-stan.github.io/portofoliu-media/tema-02-pliant/pliant.pdf</code>.</li>
+<li><b>Settings → Pages</b>; <b>Source</b>: Deploy from a branch; <b>Branch</b>: main, folderul / (root); <b>Save</b>. Prima pagină este <code>index.html</code> din rădăcina depozitului (în lipsa lui, <code>README.md</code>).</li>
+<li>Greșelile: (1) titlul <code>&lt;h2&gt;</code> nu este închis; (2) cale absolută de pe calculator în <code>src</code>; (3) un PDF pus în <code>&lt;img&gt;</code>; (4) litere mari în <code>href</code>, diferite de numele reale. Forma corectă:
+<pre><code>&lt;h2&gt;Tema 2 – Pliant&lt;/h2&gt;
+&lt;img src="tema-02-pliant/pliant-fata.png" alt="Fața pliantului"&gt;
+&lt;p&gt;&lt;a href="tema-02-pliant/pliant.pdf"&gt;Deschide pliantul (PDF)&lt;/a&gt;&lt;/p&gt;</code></pre></li>
+<li>Oricare trei: date personale (CNP, adresă, telefon, acte, note), parole și coduri de acces, fotografii ale altor persoane fără acord, lucrări sau materiale fără drept de publicare, lucrarea altcuiva.</li>
+</ol>
+
+<h2>3. Rezolvarea fișei de laborator</h2>
+<h3>Răspunsurile scrise</h3>
+<ul>
+<li><b>Sarcina 2:</b> fișierele le vede <b>oricine</b> are adresa (depozit Public); le poate modifica <b>numai proprietarul</b> (și persoanele invitate de el).</li>
+<li><b>Sarcina 4:</b> mărimile se compară cu limita de <b>25 MB</b> pe fișier.</li>
+<li><b>Sarcina 5:</b> după sarcinile 2–5 depozitul are, de regulă, <b>4 commituri</b>: crearea (<code>Initial commit</code>), README, încărcarea lucrării, înlocuirea imaginii. Varianta veche a imaginii se află în <b>istoric</b> (se vede din commitul anterior).</li>
+<li><b>Sarcina 6:</b> este afișat <code>README.md</code>, pentru că <code>index.html</code> nu există încă.</li>
+</ul>
+<h3>Model de README.md</h3>
+<pre><code># Portofoliu – Ion Popescu
+
+Clasa a XII-a, Producție media, Liceul Tehnologic „Grigore C. Moisil” Buzău.
+
+## Lucrări
+
+- [Afiș A3 – Ziua Porților Deschise](tema-01-afis)</code></pre>
+<h3>Model de index.html</h3>
+<p>Codul din lecție (capitolul 10), cu numele elevului, titlul și descrierea lucrării proprii și căile reale. Se verifică:</p>
+<ul>
+<li><code>&lt;meta charset="utf-8"&gt;</code> păstrat; diacriticele se văd corect pe site;</li>
+<li><code>src</code> și <code>href</code> sunt căi relative, identice cu numele din depozit;</li>
+<li><code>alt</code> descrie imaginea, nu „imagine” sau „poză”;</li>
+<li>toate etichetele deschise sunt închise (<code>&lt;h2&gt;…&lt;/h2&gt;</code>, <code>&lt;p&gt;…&lt;/p&gt;</code>, <code>&lt;a&gt;…&lt;/a&gt;</code>).</li>
+</ul>
+
+<h2>4. Greșeli frecvente la laborator</h2>
+<div class="scroll">
+<table>
+<tr><th>Ce se vede</th><th>Cauza</th><th>Corectarea</th></tr>
+<tr><td>Codul de confirmare nu sosește</td><td>adresă de email scrisă greșit sau mesaj ajuns în Spam</td><td>se verifică folderul Spam; se cere retrimiterea codului</td></tr>
+<tr><td>Depozitul se numește <code>Portofoliu-Media</code> sau <code>portofoliu media</code></td><td>nume scris fără reguli (spațiile sunt înlocuite automat cu liniuțe)</td><td><b>Settings → General → Repository name</b>, <b>Rename</b></td></tr>
+<tr><td>Fișierele temei sunt în rădăcină</td><td>au fost trase fișierele, nu folderul</td><td>se șterg din rădăcină și se încarcă din nou folderul întreg</td></tr>
+<tr><td>Două imagini în folder (<code>afis.png</code>, <code>afis2.png</code>) după sarcina 5</td><td>fișierul corectat a fost salvat cu alt nume</td><td>se șterge fișierul în plus; se reîncarcă cu numele inițial</td></tr>
+<tr><td>Toate commiturile au mesajul <code>Add files via upload</code></td><td>câmpul de mesaj a rămas necompletat</td><td>se explică din nou rolul mesajului; mesajele vechi nu se pot schimba din browser</td></tr>
+<tr><td>Pages nu apare ca activ</td><td>depozit Private sau nu s-a apăsat <b>Save</b></td><td>se schimbă vizibilitatea; se repetă pașii</td></tr>
+<tr><td>Site-ul dă 404 imediat după activare</td><td>prima publicare durează câteva minute</td><td>se continuă cu sarcina 7 și se revine</td></tr>
+<tr><td>Site-ul arată README și după crearea <code>index.html</code></td><td>fișierul are alt nume (<code>Index.html</code>, <code>index.htm</code>) sau a fost creat în folderul temei</td><td>se redenumește / se mută: creion, apoi se modifică numele (calea) și commit</td></tr>
+<tr><td>Imaginea nu apare, dar în depozit există</td><td>litere mari în extensie (<code>.PNG</code>) sau alt nume de folder în <code>src</code></td><td>se copiază calea exactă din depozit</td></tr>
+<tr><td>Elevul a rămas autentificat pe calculatorul din laborator</td><td>nu s-a făcut <b>Sign out</b></td><td>verificare la sfârșitul orei, pe fiecare calculator</td></tr>
+</table>
+</div>
+
+<h2>5. Evidența portofoliilor</h2>
+<p>După laborator, adresele se strâng într-un singur tabel (numele elevului, numele de utilizator, adresa depozitului, adresa site-ului). La temele următoare elevul trimite numai adresa folderului temei, iar data predării se citește din istoric.</p>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a · pagină pentru profesor</footer>
+</body>
+</html>

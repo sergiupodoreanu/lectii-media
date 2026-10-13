@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub – contul, depozitul de teme și site-ul cu GitHub Pages</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--accent);color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.7rem}
+header p{margin:0;opacity:.9}
+nav{background:#0b5146;padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px 18px}
+nav a{color:#fff;text-decoration:none;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:4px;margin-top:40px}
+h3{color:var(--accent2);margin-top:26px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.9rem;line-height:1.45;margin:8px 0}
+pre code{background:none;color:inherit;padding:0}
+pre.tree{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.def{background:var(--box);border-left:5px solid var(--accent);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.def b{color:var(--accent)}
+.ex{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.ex h4{margin:0 0 6px;color:var(--accent2)}
+.diagram{min-width:680px;width:100%;height:auto;display:block}
+.small{color:var(--muted);font-size:.9rem}
+.gresit{color:var(--accent2)}
+.corect{color:var(--accent)}
+.glos dt{font-weight:bold;color:var(--accent);margin-top:8px}
+.glos dd{margin-left:0}
+ol.test li{margin-bottom:8px}
+ol.pasi li{margin-bottom:5px}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+kbd{background:#fff;border:1px solid #b9c0c7;border-bottom-width:2px;border-radius:4px;padding:0 5px;font-family:Consolas,"Courier New",monospace;font-size:.88em}
+.adr{font-family:Consolas,"Courier New",monospace;font-size:.93em;background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 7px;white-space:nowrap}
+.copiaza{margin:4px 0 0;padding:6px 14px;font:inherit;font-size:.9rem;color:#fff;background:var(--accent);border:0;border-radius:6px;cursor:pointer}
+.copiaza:hover{background:#0b5146}
+.copiaza:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+@media print{nav,.copiaza{display:none}body{background:#fff}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<header>
+<h1>GitHub – contul, depozitul de teme și site-ul cu GitHub Pages</h1>
+<p>Clasa a XII-a · Producție media · Modulul „Montajul și verificarea documentelor digitale”</p>
+</header>
+<nav>
+<a href="index.html">Cuprins</a>
+<a href="github-fisa.html">Fișa de laborator</a>
+<a href="markdown-avansat.html">Lecția anterioară: Markdown avansat</a>
+</nav>
+<main>
+
+<h2>1. Tema lecției</h2>
+<p>Lecția prezintă <b>GitHub</b>, un serviciu online gratuit în care se păstrează fișiere și versiunile lor. Fiecare elev își face un cont, un <b>depozit</b> pentru teme și proiecte și un <b>site de portofoliu</b>, publicat cu GitHub Pages. Tema se predă printr-o <b>adresă (link)</b>, nu prin fișiere trimise pe email sau pe stick.</p>
+<p>La sfârșitul lecției se cunosc:</p>
+<ul>
+<li>ce este GitHub și ce înseamnă <b>depozit</b>, <b>commit</b> și <b>versiune</b>;</li>
+<li>crearea <b>contului</b> și păstrarea lui în siguranță;</li>
+<li>crearea <b>depozitului</b> și organizarea lui pe foldere, câte unul pentru fiecare temă;</li>
+<li><b>încărcarea</b>, <b>înlocuirea</b> și <b>ștergerea</b> fișierelor din browser;</li>
+<li>publicarea depozitului ca <b>site</b>, cu GitHub Pages, și scrierea paginii <code>index.html</code>;</li>
+<li><b>predarea temei</b> prin link și regulile de publicare.</li>
+</ul>
+<p class="small">Tot ce se face în lecție se face din browser, fără programe instalate. Interfața GitHub este în limba engleză; numele butoanelor sunt date exact cum apar pe ecran, cu traducerea alături.</p>
+
+<h2>2. Ce este GitHub</h2>
+<div class="def"><b>GitHub</b> – serviciu online (github.com) în care se păstrează fișiere, împreună cu <b>toate versiunile lor</b>. Este folosit în toată lumea de programatori, dar și pentru documentație, pagini web și portofolii.<br>
+<b>Depozit</b> (în engleză <i>repository</i>, prescurtat <i>repo</i>) – un „dosar” pe GitHub, cu foldere și fișiere, care are o adresă proprie. Un cont poate avea oricâte depozite.<br>
+<b>Commit</b> – o <b>salvare cu mesaj</b>: fișierele adăugate sau modificate se înregistrează în depozit împreună cu o scurtă descriere, data, ora și autorul.<br>
+<b>Versiune</b> – starea unui fișier la un anumit commit. Versiunile vechi nu se pierd: se pot vedea oricând în istoric.</div>
+<p>Drumul unei teme, de la calculatorul elevului până la cititor:</p>
+<div class="scroll">
+<svg class="diagram" viewBox="0 0 900 190" role="img" aria-label="Schemă: fișierele din folderul cu lucrări de pe calculatorul elevului ajung prin commit în depozitul de pe GitHub; GitHub Pages publică depozitul ca site, pe care îl vede oricine are adresa." xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="sag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#1e2430"/></marker>
+</defs>
+<rect x="10" y="40" width="240" height="120" rx="8" fill="#fff" stroke="#5b6472" stroke-width="2"/>
+<text x="130" y="68" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#1e2430">Calculatorul elevului</text>
+<text x="130" y="96" text-anchor="middle" font-family="Consolas,Courier New,monospace" font-size="13" fill="#1e2430">tema-01-afis/</text>
+<text x="130" y="114" text-anchor="middle" font-family="Consolas,Courier New,monospace" font-size="13" fill="#1e2430">afis.pdf, afis.png</text>
+<text x="130" y="143" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#5b6472">folderul cu lucrări</text>
+
+<line x1="250" y1="100" x2="328" y2="100" stroke="#1e2430" stroke-width="2" marker-end="url(#sag)"/>
+<text x="289" y="90" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9531c">commit</text>
+
+<rect x="330" y="40" width="240" height="120" rx="8" fill="#eef5f2" stroke="#0f6b5c" stroke-width="2"/>
+<text x="450" y="68" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#0f6b5c">Depozitul pe GitHub</text>
+<text x="450" y="96" text-anchor="middle" font-family="Consolas,Courier New,monospace" font-size="13" fill="#1e2430">github.com/ion-popescu/</text>
+<text x="450" y="114" text-anchor="middle" font-family="Consolas,Courier New,monospace" font-size="13" fill="#1e2430">portofoliu-media</text>
+<text x="450" y="143" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#5b6472">fișierele și istoricul lor</text>
+
+<line x1="570" y1="100" x2="648" y2="100" stroke="#1e2430" stroke-width="2" marker-end="url(#sag)"/>
+<text x="609" y="90" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#c9531c">Pages</text>
+
+<rect x="650" y="40" width="240" height="120" rx="8" fill="#fff4ec" stroke="#c9531c" stroke-width="2"/>
+<text x="770" y="68" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#c9531c">Site-ul de portofoliu</text>
+<text x="770" y="96" text-anchor="middle" font-family="Consolas,Courier New,monospace" font-size="13" fill="#1e2430">ion-popescu.github.io/</text>
+<text x="770" y="114" text-anchor="middle" font-family="Consolas,Courier New,monospace" font-size="13" fill="#1e2430">portofoliu-media</text>
+<text x="770" y="143" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#5b6472">paginile, pentru oricine are adresa</text>
+
+<text x="130" y="26" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#5b6472">1. se lucrează</text>
+<text x="450" y="26" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#5b6472">2. se păstrează</text>
+<text x="770" y="26" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#5b6472">3. se arată</text>
+</svg>
+</div>
+<div class="scroll">
+<table>
+<tr><th>Caracteristică</th><th>Fișiere trimise pe email sau pe stick</th><th>Depozit pe GitHub</th></tr>
+<tr><td>Unde se află tema</td><td>în mai multe locuri, în copii diferite</td><td>într-un singur loc, la o adresă fixă</td></tr>
+<tr><td>Care este ultima variantă</td><td>nu se știe sigur (<code>afis_final_v3_bun.pdf</code>)</td><td>cea din depozit; variantele vechi sunt în istoric</td></tr>
+<tr><td>Când a fost predată</td><td>după data mesajului</td><td>data și ora fiecărui commit sunt înregistrate automat</td></tr>
+<tr><td>Cum se arată unui angajator</td><td>se trimit din nou fișierele</td><td>se trimite un singur link către portofoliu</td></tr>
+</table>
+</div>
+<div class="scroll">
+<table>
+<tr><th>Pe ecran (engleză)</th><th>Înseamnă</th></tr>
+<tr><td><b>Sign up</b> / <b>Sign in</b> / <b>Sign out</b></td><td>creare cont / intrare în cont / ieșire din cont</td></tr>
+<tr><td><b>New repository</b></td><td>depozit nou</td></tr>
+<tr><td><b>Add file → Upload files</b></td><td>adaugă fișier → încarcă fișiere</td></tr>
+<tr><td><b>Add file → Create new file</b></td><td>adaugă fișier → creează un fișier nou</td></tr>
+<tr><td><b>Commit changes</b></td><td>salvează modificările în depozit</td></tr>
+<tr><td><b>Settings</b></td><td>setări</td></tr>
+<tr><td><b>Public</b> / <b>Private</b></td><td>vizibil oricui / vizibil numai proprietarului și celor invitați</td></tr>
+</table>
+</div>
+
+<h2>3. Contul</h2>
+<p>Contul se face <b>o singură dată</b> și este <b>personal</b>: GitHub permite un singur cont gratuit de persoană, de la vârsta de 13 ani. Este nevoie de o <b>adresă de email</b> la care există acces în momentul înscrierii (pe telefon sau pe calculator).</p>
+<ol class="pasi">
+<li>În browser se deschide adresa <span class="adr">github.com/signup</span> (sau <b>github.com</b>, apoi butonul <b>Sign up</b>).</li>
+<li>Se completează câmpurile din tabelul de mai jos.</li>
+<li>Se apasă <b>Create account</b>.</li>
+<li>GitHub cere <b>confirmarea adresei de email</b>: se deschide emailul primit și se introduce <b>codul</b> din mesaj. Dacă apare și o verificare de tip puzzle, se rezolvă.</li>
+<li>Numele de utilizator și parola se notează într-un loc sigur.</li>
+</ol>
+<div class="scroll">
+<table>
+<tr><th>Câmp</th><th>Ce se scrie</th><th>Regula GitHub</th></tr>
+<tr><td><b>Email</b></td><td>adresa de email personală</td><td>trebuie confirmată; fără confirmare nu se poate crea un depozit</td></tr>
+<tr><td><b>Password</b></td><td>parola contului</td><td><b>cel puțin 15 caractere</b> sau <b>cel puțin 8 caractere</b>, dintre care o cifră și o literă mică</td></tr>
+<tr><td><b>Username</b></td><td>numele de utilizator</td><td>numai litere, cifre și liniuțe simple; nu începe și nu se termină cu liniuță</td></tr>
+<tr><td><b>Your Country/Region</b></td><td>Romania</td><td>se alege din listă</td></tr>
+</table>
+</div>
+<div class="def"><b>Nume de utilizator</b> (<i>username</i>) – numele unic al contului. Apare în <b>toate adresele</b>: <code>github.com/ion-popescu</code> și <code>ion-popescu.github.io</code>.</div>
+<div class="ex"><h4>Alegerea numelui de utilizator</h4>
+Numele apare în adresa portofoliului, care ajunge la profesori și, mai târziu, la angajatori. Se alege un nume <b>serios și ușor de dictat</b>, scris cu litere mici: <code class="corect">ion-popescu</code>, <code class="corect">ionpopescu-media</code>. Nu se aleg porecle sau șiruri de cifre: <code class="gresit">xXshadow2008Xx</code>.</div>
+<h3>Siguranța contului</h3>
+<ul>
+<li><b>Parola nu se spune nimănui</b> și nu se folosește aceeași parolă ca la alte conturi.</li>
+<li>Pe calculatorul din laborator, parola <b>nu se salvează în browser</b>, iar la sfârșitul orei se iese din cont: clic pe <b>imaginea de profil</b> (dreapta sus), apoi <b>Sign out</b>.</li>
+<li>GitHub recomandă <b>autentificarea în doi pași</b> (în engleză <i>two-factor authentication</i>, 2FA): pe lângă parolă se cere un cod generat pe telefon. Se activează din setările contului.</li>
+<li>La <span class="adr">github.com/settings/emails</span> există opțiunea <b>Keep my email addresses private</b>; cu ea bifată, adresa de email nu apare în istoricul public al depozitului.</li>
+</ul>
+
+<h2>4. Depozitul</h2>
+<p>Pentru toate temele și proiectele unui an școlar ajunge <b>un singur depozit</b>, organizat pe foldere.</p>
+<ol class="pasi">
+<li>Se deschide adresa <span class="adr">github.com/new</span> (sau semnul <b>+</b> din dreapta sus, apoi <b>New repository</b>).</li>
+<li>La <b>Repository name</b> se scrie numele depozitului: <code>portofoliu-media</code>.</li>
+<li>La <b>Description</b> (opțional) se scrie o descriere scurtă: „Teme și proiecte – clasa a XII-a, Producție media”.</li>
+<li>La vizibilitate se alege <b>Public</b>.</li>
+<li>Se activează opțiunea <b>Add README</b> (poziția <b>On</b>).</li>
+<li>Se apasă <b>Create repository</b>.</li>
+</ol>
+<p>Depozitul are acum adresa <code>github.com/ion-popescu/portofoliu-media</code> și conține un singur fișier, <code>README.md</code>.</p>
+<div class="scroll">
+<table>
+<tr><th></th><th>Public</th><th>Private</th></tr>
+<tr><td>Cine vede fișierele</td><td><b>oricine</b> are adresa</td><td>numai proprietarul și persoanele invitate</td></tr>
+<tr><td>Cine poate modifica</td><td colspan="2">numai proprietarul și persoanele pe care le invită el cu acest drept</td></tr>
+<tr><td>GitHub Pages (cont gratuit)</td><td class="corect"><b>da</b></td><td class="gresit"><b>nu</b></td></tr>
+</table>
+</div>
+<p><b>Pentru portofoliu se alege Public</b>: numai așa se poate publica site-ul cu un cont gratuit. Consecința: <b>tot ce se încarcă este vizibil oricui</b> (vezi <a href="#reguli">regulile de publicare</a>).</p>
+<h3>Numele depozitului, al folderelor și al fișierelor</h3>
+<p>Numele ajung în adrese web, de aceea se scriu după aceleași reguli ca la lecțiile anterioare: <b>litere mici, fără spații, fără diacritice</b>, cu liniuță între cuvinte.</p>
+<div class="scroll">
+<table>
+<tr><th>Greșit</th><th>Corect</th><th>De ce</th></tr>
+<tr><td><code class="gresit">Temă Afiș.pdf</code></td><td><code class="corect">afis.pdf</code></td><td>spațiile și diacriticele devin în adresă șiruri de forma <code>%20</code>, <code>%C4%83</code></td></tr>
+<tr><td><code class="gresit">Tema 1</code></td><td><code class="corect">tema-01-afis</code></td><td>numărul cu două cifre păstrează ordinea în listă (01, 02 … 10)</td></tr>
+<tr><td><code class="gresit">Afis.PDF</code></td><td><code class="corect">afis.pdf</code></td><td>în adresele site-ului, literele mari și mici sunt diferite</td></tr>
+<tr><td><code class="gresit">_schite</code></td><td><code class="corect">schite</code></td><td>folderele și fișierele al căror nume începe cu <code>_</code> nu sunt publicate pe site</td></tr>
+</table>
+</div>
+
+<h2>5. Organizarea portofoliului</h2>
+<p>Fiecare temă are <b>folderul ei</b>. În rădăcina depozitului (nivelul de sus) rămân numai <code>README.md</code> și <code>index.html</code>.</p>
+<pre class="tree"><code>portofoliu-media/
+├── README.md              descrierea depozitului
+├── index.html             prima pagină a site-ului
+├── tema-01-afis/
+│   ├── afis.pdf
+│   └── afis.png
+├── tema-02-pliant/
+│   ├── pliant.pdf
+│   └── pliant-fata.png
+└── tema-03-articol/
+    ├── articol.md
+    └── imagini/
+        └── dimensiune-imagine.png</code></pre>
+<div class="def"><b>Rădăcina depozitului</b> – nivelul de sus al depozitului, cel care se vede la deschiderea adresei lui.</div>
+<p><b>Ce se încarcă:</b></p>
+<ul>
+<li><b>fișierul final</b>, în format de predare: <b>PDF</b> pentru documente, <b>PNG</b> sau <b>JPG</b> pentru imagini;</li>
+<li>o <b>imagine de prezentare</b> (PNG sau JPG, cu lățimea de cel mult 1600 px), care se afișează direct în pagină;</li>
+<li><b>fișierul-sursă</b> (<code>.sla</code> din Scribus, <code>.svg</code> din Inkscape, <code>.md</code>), dacă este cerut și are mărime rezonabilă.</li>
+</ul>
+<p><b>Limite:</b> din browser, un fișier poate avea <b>cel mult 25 MB</b> și se pot încărca <b>cel mult 100 de fișiere o dată</b>. Filmele și fișierele-sursă foarte mari nu se încarcă în depozit; se păstrează în OneDrive, iar în depozit se pune numai linkul către ele.</p>
+
+<h2>6. Încărcarea fișierelor</h2>
+<ol class="pasi">
+<li>Se deschide depozitul: <code>github.com/ion-popescu/portofoliu-media</code>.</li>
+<li>Deasupra listei de fișiere se apasă <b>Add file</b>, apoi <b>Upload files</b>.</li>
+<li>Din File Explorer se <b>trage folderul temei</b> (de exemplu <code>tema-01-afis</code>) în pagina de încărcare. Tras ca folder, ajunge în depozit tot ca folder, cu fișierele în el. (Fișiere separate se pot alege și cu <b>choose your files</b>.)</li>
+<li>Se așteaptă până când toate fișierele apar în lista de sub zona de încărcare.</li>
+<li>Jos, la <b>Commit changes</b>, se scrie <b>mesajul</b>: „Tema 1 – afiș”.</li>
+<li>Se apasă butonul verde <b>Commit changes</b>.</li>
+</ol>
+<div class="ex"><h4>Folderul gol nu există</h4>
+În depozit, un folder există numai dacă are <b>cel puțin un fișier</b> în el. Un folder nou se obține fie prin tragerea unui folder cu fișiere, fie cu <b>Add file → Create new file</b>, scriind în câmpul de nume calea completă, cu bară oblică: <code>tema-02-pliant/note.md</code>.</div>
+<h3>Mesajul de commit</h3>
+<p>Mesajul spune, pe scurt, <b>ce s-a schimbat</b>. Rămâne în istoric și îl citesc atât profesorul, cât și autorul, peste câteva luni.</p>
+<div class="scroll">
+<table>
+<tr><th>Mesaj nepotrivit</th><th>Mesaj potrivit</th></tr>
+<tr><td><code class="gresit">Add files via upload</code> (mesajul pus automat)</td><td><code class="corect">Tema 1 – afiș: PDF și imagine de prezentare</code></td></tr>
+<tr><td><code class="gresit">asdf</code>, <code class="gresit">modificări</code></td><td><code class="corect">Tema 1 – corectat titlul și data</code></td></tr>
+<tr><td><code class="gresit">gata!!!</code></td><td><code class="corect">Tema 2 – pliant, varianta pentru tipar</code></td></tr>
+</table>
+</div>
+
+<h2>7. Corectarea, ștergerea și istoricul</h2>
+<div class="scroll">
+<table>
+<tr><th>Operație</th><th>Cum se face</th></tr>
+<tr><td><b>Înlocuirea</b> unui fișier corectat</td><td>se intră în folderul temei și se încarcă din nou fișierul, <b>cu exact același nume</b> (<b>Add file → Upload files</b>). Fișierul vechi este înlocuit, iar versiunea veche rămâne în istoric.</td></tr>
+<tr><td><b>Modificarea</b> unui fișier-text (<code>.md</code>, <code>.html</code>)</td><td>se deschide fișierul, se apasă butonul cu <b>creion</b> (dreapta sus), se modifică textul, apoi <b>Commit changes…</b></td></tr>
+<tr><td><b>Ștergerea</b> unui fișier</td><td>se deschide fișierul, se apasă butonul cu <b>trei puncte</b> (dreapta sus), apoi <b>Delete file</b> și <b>Commit changes…</b></td></tr>
+<tr><td><b>Istoricul</b> depozitului</td><td>pe prima pagină a depozitului, linkul cu ceas și numărul de commituri (<b>Commits</b>). Adresa directă: <code>github.com/ion-popescu/portofoliu-media/commits</code></td></tr>
+<tr><td><b>Istoricul</b> unui fișier</td><td>se deschide fișierul și se apasă <b>History</b></td></tr>
+</table>
+</div>
+<p><b>Regulă:</b> nu se încarcă variante cu nume diferite (<code class="gresit">afis-v2.pdf</code>, <code class="gresit">afis-final.pdf</code>). Se păstrează <b>un singur nume</b>, iar variantele le ține istoricul.</p>
+<p><b>Atenție:</b> un fișier șters dispare din lista de fișiere, dar <b>rămâne în istoric</b>. Ce a fost încărcat o dată într-un depozit public trebuie considerat <b>public</b>.</p>
+
+<h2>8. Fișierul README.md</h2>
+<div class="def"><b>README.md</b> – fișierul de prezentare al depozitului. GitHub îl afișează formatat, sub lista de fișiere. Se scrie în <b>Markdown</b>, cu sintaxa din lecțiile <a href="markdown-baza.html">Markdown de bază</a> și <a href="markdown-avansat.html">Markdown avansat</a>.</div>
+<p>Se modifică direct în browser: clic pe <code>README.md</code>, butonul cu <b>creion</b>, apoi <b>Commit changes…</b>. Înainte de salvare, fila <b>Preview</b> arată cum va fi afișat.</p>
+<pre><code># Portofoliu – Ion Popescu
+
+Teme și proiecte, clasa a XII-a, Producție media,
+Liceul Tehnologic „Grigore C. Moisil” Buzău.
+
+Site: &lt;https://ion-popescu.github.io/portofoliu-media/&gt;
+
+## Lucrări
+
+| Nr. | Lucrarea | Folder |
+|:---:|----------|--------|
+| 1 | Afiș A3 – Ziua Porților Deschise | [tema-01-afis](tema-01-afis) |
+| 2 | Pliant A4 în trei | [tema-02-pliant](tema-02-pliant) |</code></pre>
+
+<h2>9. Publicarea site-ului cu GitHub Pages</h2>
+<div class="def"><b>GitHub Pages</b> – funcția GitHub care transformă fișierele unui depozit într-un <b>site</b>, la o adresă de forma <code>utilizator.github.io/depozit</code>.<br>
+<b>Site static</b> – site format numai din fișiere gata făcute (HTML, imagini, PDF), afișate așa cum sunt. Un portofoliu este un site static.</div>
+<p>Pages se activează <b>o singură dată</b> pentru un depozit:</p>
+<ol class="pasi">
+<li>Se deschide depozitul și se apasă fila <b>Settings</b>.</li>
+<li>În meniul din stânga se apasă <b>Pages</b>. Adresa directă: <code>github.com/ion-popescu/portofoliu-media/settings/pages</code>.</li>
+<li>La <b>Build and deployment</b>, în lista <b>Source</b>, se alege <b>Deploy from a branch</b>.</li>
+<li>La <b>Branch</b> se alege <b>main</b>, iar la folder <b>/ (root)</b>.</li>
+<li>Se apasă <b>Save</b>.</li>
+<li>Se așteaptă câteva minute și se reîncarcă pagina. Sus apare adresa site-ului și butonul <b>Visit site</b>.</li>
+</ol>
+<div class="def"><b>Ramură</b> (în engleză <i>branch</i>) – o linie de lucru a depozitului. Un depozit nou are o singură ramură, numită <b>main</b>; în ea se află toate fișierele din lecție.<br>
+<b>/ (root)</b> – rădăcina depozitului: site-ul se face din tot depozitul, nu dintr-un singur folder.</div>
+<h3>Cele două adrese ale unei lucrări</h3>
+<div class="scroll">
+<table>
+<tr><th></th><th>Adresa din depozit</th><th>Adresa de pe site</th></tr>
+<tr><td>Forma</td><td><code>github.com/ion-popescu/portofoliu-media</code></td><td><code>ion-popescu.github.io/portofoliu-media/</code></td></tr>
+<tr><td>Ce se vede</td><td>lista de fișiere, istoricul, data fiecărui commit</td><td>paginile, așa cum le vede un vizitator</td></tr>
+<tr><td>Un fișier</td><td><code>…/portofoliu-media/blob/main/tema-01-afis/afis.pdf</code></td><td><code>…/portofoliu-media/tema-01-afis/afis.pdf</code></td></tr>
+<tr><td>Se folosește pentru</td><td>predarea temei (se vede când a fost încărcată)</td><td>prezentarea portofoliului</td></tr>
+</table>
+</div>
+<p><b>De reținut:</b></p>
+<ul>
+<li>prima pagină a site-ului este fișierul <b><code>index.html</code></b> din rădăcina depozitului; dacă nu există, este afișat <code>README.md</code>;</li>
+<li>după fiecare commit, site-ul <b>se actualizează singur</b>; modificarea poate apărea <b>după cel mult 10 minute</b>;</li>
+<li>dacă pagina arată tot varianta veche, se reîncarcă forțat: <kbd>Ctrl</kbd>+<kbd>F5</kbd>;</li>
+<li>site-ul este <b>public</b>: îl vede oricine are adresa.</li>
+</ul>
+
+<h2>10. Pagina index.html</h2>
+<p>Pagina <code>index.html</code> este <b>cuprinsul portofoliului</b>: titlul, numele autorului și, pentru fiecare lucrare, o imagine de prezentare și legătura către fișierul final. Se creează cu <b>Add file → Create new file</b>, cu numele <code>index.html</code>, în rădăcina depozitului.</p>
+<pre><code id="cod-index">&lt;!DOCTYPE html&gt;
+&lt;html lang="ro"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;title&gt;Portofoliu – Ion Popescu&lt;/title&gt;
+&lt;style&gt;
+body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.5; }
+img  { max-width: 100%; height: auto; border: 1px solid #cccccc; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;Portofoliu – Ion Popescu&lt;/h1&gt;
+&lt;p&gt;Clasa a XII-a, Producție media&lt;/p&gt;
+
+&lt;h2&gt;Tema 1 – Afiș&lt;/h2&gt;
+&lt;p&gt;Afiș A3 pentru Ziua Porților Deschise.&lt;/p&gt;
+&lt;img src="tema-01-afis/afis.png" alt="Afiș cu titlul Ziua Porților Deschise" width="400"&gt;
+&lt;p&gt;&lt;a href="tema-01-afis/afis.pdf"&gt;Deschide afișul (PDF)&lt;/a&gt;&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<button class="copiaza" type="button" data-copiaza="cod-index">Copiază codul</button>
+<div class="scroll">
+<table>
+<tr><th>Element</th><th>Rol</th></tr>
+<tr><td><code>&lt;meta charset="utf-8"&gt;</code></td><td>diacriticele se afișează corect</td></tr>
+<tr><td><code>&lt;title&gt;…&lt;/title&gt;</code></td><td>textul din fila browserului</td></tr>
+<tr><td><code>&lt;style&gt;…&lt;/style&gt;</code></td><td>aspectul paginii: font, lățime, margini</td></tr>
+<tr><td><code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code></td><td>titlul paginii și titlul fiecărei lucrări (ca <code>#</code> și <code>##</code> în Markdown)</td></tr>
+<tr><td><code>&lt;p&gt;…&lt;/p&gt;</code></td><td>paragraf</td></tr>
+<tr><td><code>&lt;img src="…" alt="…"&gt;</code></td><td>imagine: <code>src</code> este calea către fișier, <code>alt</code> este textul alternativ</td></tr>
+<tr><td><code>&lt;a href="…"&gt;…&lt;/a&gt;</code></td><td>legătură: <code>href</code> este calea către fișier, între etichete este textul afișat</td></tr>
+</table>
+</div>
+<p><b>Reguli:</b></p>
+<ul>
+<li>căile sunt <b>relative</b> la rădăcina depozitului: <code>tema-01-afis/afis.pdf</code>, fără <code>C:\…</code> și fără <code>github.com/…</code>;</li>
+<li>calea se scrie <b>exact</b> ca numele folderului și al fișierului, <b>cu aceleași litere mari și mici</b>: <code>afis.png</code> și <code>Afis.PNG</code> sunt fișiere diferite;</li>
+<li>în pagină se afișează <b>imagini</b> (PNG, JPG, SVG); un PDF nu se afișează cu <code>&lt;img&gt;</code>, ci se deschide printr-o <b>legătură</b>;</li>
+<li>la fiecare temă nouă se adaugă în <code>index.html</code> <b>un bloc nou</b> (titlu, descriere, imagine, legătură), înainte de <code>&lt;/body&gt;</code>;</li>
+<li>după commit, fiecare legătură se încearcă <b>pe site</b>, nu numai în depozit.</li>
+</ul>
+
+<h2>11. Predarea unei teme</h2>
+<ol class="pasi">
+<li>Fișierele temei se încarcă în folderul ei, cu un mesaj de commit potrivit.</li>
+<li>În <code>index.html</code> se adaugă blocul temei.</li>
+<li>Se deschide site-ul și se verifică imaginea și legătura.</li>
+<li>Din bara de adrese a browserului se copiază <b>adresa folderului din depozit</b>, de exemplu <code>https://github.com/ion-popescu/portofoliu-media/tree/main/tema-01-afis</code>.</li>
+<li>Adresa se trimite profesorului, pe platforma clasei, la tema respectivă.</li>
+</ol>
+<p class="small">Data predării este data ultimului commit din folderul temei. O modificare făcută după termen se vede în istoric.</p>
+
+<h2 id="reguli">12. Reguli de publicare</h2>
+<ul>
+<li><b>Date personale:</b> nu se publică CNP, adresă, număr de telefon, acte, note, fotografii ale altor persoane fără acordul lor. În portofoliu apar numele autorului, clasa și lucrările.</li>
+<li><b>Parole:</b> niciun fișier încărcat nu conține parole sau coduri de acces.</li>
+<li><b>Drepturi de autor:</b> se publică numai lucrări proprii. Fotografiile, fonturile și ilustrațiile preluate se folosesc numai cu licență care permite publicarea, iar sursa se menționează.</li>
+<li><b>Lucrarea altcuiva</b> nu se copiază în depozitul propriu; istoricul arată cine și când a încărcat fiecare fișier.</li>
+<li><b>Conținut:</b> portofoliul este o carte de vizită profesională; se publică numai ce poate fi arătat unui angajator.</li>
+<li><b>Ce s-a publicat rămâne în istoric</b>, chiar dacă fișierul este șters. Se verifică <b>înainte</b> de commit, nu după.</li>
+</ul>
+
+<h2>13. Greșeli frecvente</h2>
+<div class="scroll">
+<table>
+<tr><th>Ce se vede</th><th>Cauza</th><th>Corectarea</th></tr>
+<tr><td>Nu se poate crea depozitul</td><td>adresa de email nu a fost confirmată</td><td>se introduce codul primit prin email</td></tr>
+<tr><td>Fișierul nu se încarcă</td><td>are peste 25 MB</td><td>se exportă la o mărime mai mică sau se pune numai linkul către el</td></tr>
+<tr><td>Fișierele au ajuns în rădăcină, nu în folderul temei</td><td>au fost trase fișierele, nu folderul</td><td>se trage folderul întreg sau se intră întâi în folder și apoi se încarcă</td></tr>
+<tr><td>În meniul <b>Settings</b> nu se poate activa Pages</td><td>depozitul este <b>Private</b></td><td><b>Settings → General</b>, jos, la <b>Danger Zone</b>: <b>Change visibility</b> → Public</td></tr>
+<tr><td>Site-ul afișează eroarea <b>404</b></td><td>Pages nu este activat, nu au trecut cele câteva minute sau adresa este scrisă greșit</td><td>se verifică <b>Settings → Pages</b> și adresa (numele depozitului, litere mari și mici)</td></tr>
+<tr><td>Site-ul arată conținutul din README, nu portofoliul</td><td>lipsește <code>index.html</code> din rădăcină sau are alt nume (<code>Index.html</code>, <code>index.html.txt</code>)</td><td>fișierul se numește exact <code>index.html</code> și stă în rădăcina depozitului</td></tr>
+<tr><td>Imaginea nu apare pe site</td><td>calea din <code>src</code> diferă de numele real (litere mari, spații, alt folder)</td><td>se copiază numele exact al folderului și al fișierului</td></tr>
+<tr><td>Diacriticele apar ca semne ciudate</td><td>lipsește <code>&lt;meta charset="utf-8"&gt;</code></td><td>se adaugă rândul în <code>&lt;head&gt;</code></td></tr>
+<tr><td>Modificarea nu se vede pe site</td><td>publicarea durează până la 10 minute sau browserul arată varianta păstrată în memorie</td><td>se așteaptă, apoi <kbd>Ctrl</kbd>+<kbd>F5</kbd></td></tr>
+</table>
+</div>
+
+<h2>14. Glosar</h2>
+<dl class="glos">
+<dt>GitHub</dt><dd>serviciu online în care se păstrează fișiere împreună cu versiunile lor.</dd>
+<dt>Cont</dt><dd>identitatea unei persoane pe GitHub: nume de utilizator, parolă, adresă de email.</dd>
+<dt>Nume de utilizator (username)</dt><dd>numele unic al contului; apare în toate adresele.</dd>
+<dt>Depozit (repository, repo)</dt><dd>„dosar” pe GitHub, cu foldere, fișiere și istoricul lor, la o adresă proprie.</dd>
+<dt>Rădăcina depozitului</dt><dd>nivelul de sus al depozitului.</dd>
+<dt>Commit</dt><dd>salvare cu mesaj: modificările se înregistrează în depozit, cu dată, oră și autor.</dd>
+<dt>Mesaj de commit</dt><dd>descrierea scurtă a modificării.</dd>
+<dt>Versiune</dt><dd>starea unui fișier la un anumit commit.</dd>
+<dt>Istoric (history)</dt><dd>lista tuturor commiturilor, de la cel mai nou la cel mai vechi.</dd>
+<dt>Ramură (branch)</dt><dd>linie de lucru a depozitului; ramura principală se numește <code>main</code>.</dd>
+<dt>Public / Private</dt><dd>vizibilitatea depozitului: pentru oricine sau numai pentru proprietar și invitați.</dd>
+<dt>README.md</dt><dd>fișierul de prezentare al depozitului, scris în Markdown.</dd>
+<dt>GitHub Pages</dt><dd>funcția care publică fișierele unui depozit ca site.</dd>
+<dt>Site static</dt><dd>site format numai din fișiere gata făcute, afișate așa cum sunt.</dd>
+<dt>index.html</dt><dd>prima pagină a unui site; se deschide când în adresă nu este scris niciun fișier.</dd>
+<dt>Autentificare în doi pași (2FA)</dt><dd>intrare în cont cu parolă și cu un cod generat pe telefon.</dd>
+<dt>Portofoliu</dt><dd>colecția lucrărilor unui autor, pregătită pentru a fi arătată.</dd>
+</dl>
+
+<h2>15. Test de verificare</h2>
+<ol class="test">
+<li>Ce este un depozit și ce conține el în plus față de un folder obișnuit de pe calculator?</li>
+<li>Ce este un commit? Ce informații înregistrează GitHub la fiecare commit?</li>
+<li>Care sunt regulile GitHub pentru parolă și pentru numele de utilizator?</li>
+<li>Dintre numele de utilizator <code>ana-ionescu</code>, <code>-ana-</code>, <code>ana ionescu</code> și <code>ana_ionescu</code>, care sunt acceptate de GitHub? Se justifică răspunsul pentru fiecare.</li>
+<li>Ce se face pe calculatorul din laborator la sfârșitul orei și de ce?</li>
+<li>Prin ce diferă un depozit Public de unul Private? Care se alege pentru portofoliu și de ce?</li>
+<li>Se rescriu corect numele: <code>Temă 2 Pliant</code> (folder), <code>Pliant FINAL.PDF</code> (fișier).</li>
+<li>Care sunt limitele la încărcarea din browser (mărimea unui fișier, numărul de fișiere)?</li>
+<li>Afișul a fost corectat. Cum se încarcă varianta nouă și ce se întâmplă cu cea veche?</li>
+<li>Se scrie un mesaj de commit potrivit pentru: „s-a înlocuit fotografia de pe fața pliantului de la tema 2”.</li>
+<li>Utilizatorul <code>maria-stan</code> are depozitul <code>portofoliu-media</code>, cu fișierul <code>pliant.pdf</code> în folderul <code>tema-02-pliant</code>. Se scriu: adresa depozitului, adresa site-ului și adresa fișierului pe site.</li>
+<li>Care sunt pașii de activare a GitHub Pages? Ce fișier este prima pagină a site-ului?</li>
+<li>Fragmentul următor, dintr-un <code>index.html</code>, conține <b>patru greșeli</b>. Fișierele din depozit sunt <code>tema-02-pliant/pliant.pdf</code> și <code>tema-02-pliant/pliant-fata.png</code>. Se rescrie corect.
+<pre><code>&lt;h2&gt;Tema 2 – Pliant
+&lt;img src="C:\Users\Maria\Desktop\pliant-fata.png" alt="Fața pliantului"&gt;
+&lt;img src="tema-02-pliant/pliant.pdf" alt="Pliantul"&gt;
+&lt;p&gt;&lt;a href="Tema-02-Pliant/Pliant.pdf"&gt;Deschide pliantul (PDF)&lt;/a&gt;&lt;/p&gt;</code></pre></li>
+<li>Se numesc trei lucruri care <b>nu</b> se publică într-un depozit public.</li>
+</ol>
+<p>Urmează: <a href="github-fisa.html"><b>Fișa de laborator – Portofoliul online</b></a>.</p>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a</footer>
+<script>
+document.querySelectorAll('button[data-copiaza]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var src=document.getElementById(b.getAttribute('data-copiaza'));
+    if(!src) return;
+    var text=src.textContent;
+    function gata(){var t=b.textContent;b.textContent='Copiat';setTimeout(function(){b.textContent=t;},1500);}
+    function vechi(){
+      var ta=document.createElement('textarea');
+      ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.select();
+      try{if(document.execCommand('copy')) gata();}catch(e){}
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(gata,vechi);
+    }else{vechi();}
+  });
+});
+</script>
+</body>
+</html>

@@ -52,8 +52,8 @@ kbd{background:#fff;border:1px solid #b9c0c7;border-bottom-width:2px;border-radi
 <main>
 
 <div class="info"><b>Tema:</b> pornind de la <b>modelul</b> de mai jos, se scrie în Markdown un <b>CV propriu</b> (curriculum vitae – prezentarea pe scurt a studiilor, a competențelor și a lucrărilor unei persoane) și se publică în portofoliul de pe GitHub.<br>
-<b>Programe:</b> VS Code (sau editorul din GitHub), browser.<br>
-<b>Rezultat predat:</b> adresa fișierului <code>cv.md</code> din depozitul <code>portofoliu-media</code>.</div>
+<b>Programe:</b> VS Code sau editorul JotBird (în browser, fără instalare), browser.<br>
+<b>Rezultat predat:</b> adresa folderului <code>tema-02-cv</code> din depozitul <code>portofoliu-media</code>, cu CV-ul în trei formate: <code>cv.md</code>, <code>cv.pdf</code>, <code>cv.html</code>.</div>
 
 <div class="warn"><b>Fișierul este public.</b> În CV se trec numai <b>numele, clasa și liceul</b>. <b>Nu se trec</b> adresa de domiciliu, numărul de telefon, CNP-ul, data nașterii sau adresa de email.</div>
 
@@ -138,12 +138,23 @@ Două-trei propoziții: ce activități îmi plac, la ce mă pricep, ce urmează
 </table>
 </div>
 
-<h2>Cerința 5 – Verificarea și publicarea</h2>
+<h2>Cerința 5 – Exportul în PDF și HTML</h2>
+<p>Același CV se exportă în încă două formate, cu editorul <b>JotBird</b> (editor Markdown care funcționează în browser, fără instalare și fără cont).</p>
+<ol class="pasi">
+<li>Se deschide adresa <a href="https://jotbird.com/app">jotbird.com/app</a>.</li>
+<li><b>File → Import…</b> – se alege fișierul <code>cv.md</code>. Textul apare în stânga, iar previzualizarea în dreapta (pe telefon previzualizarea poate fi ascunsă).</li>
+<li><b>File → Export as HTML</b> – fișierul descărcat se redenumește <code>cv.html</code>.</li>
+<li><b>File → Print or save as PDF</b> – în fereastra de tipărire, la <b>Destinație</b> se alege <b>Salvare ca PDF</b>, format <b>A4</b>; fișierul se salvează cu numele <code>cv.pdf</code>.</li>
+<li>Cele două fișiere se copiază în folderul <code>tema-02-cv</code>, lângă <code>cv.md</code>, și se deschid pentru verificare: <code>cv.html</code> în browser, <code>cv.pdf</code> în cititorul de PDF.</li>
+</ol>
+<div class="warn"><b>Ciornele din JotBird rămân numai în browserul calculatorului pe care s-a lucrat.</b> Dacă CV-ul a fost modificat în JotBird, la sfârșit se face și <b>File → Export Markdown</b>, iar fișierul obținut înlocuiește <code>cv.md</code>. Butonul <b>Publish</b> nu se folosește la această temă: publicarea se face pe GitHub.</div>
+
+<h2>Cerința 6 – Verificarea și publicarea</h2>
 <ol class="pasi">
 <li>CV-ul se citește în previzualizare și se compară cu lista de mai jos.</li>
 <li>Folderul <code>tema-02-cv</code> se încarcă în depozitul <code>portofoliu-media</code>, cu un <b>mesaj de commit</b> potrivit.</li>
 <li>Fișierul se deschide pe GitHub și se verifică încă o dată cum se afișează.</li>
-<li>În <code>README.md</code> al portofoliului se adaugă tema în lista de lucrări, cu legătură către <code>cv.md</code>.</li>
+<li>În <code>README.md</code> al portofoliului se adaugă tema în lista de lucrări, cu legături către <code>cv.md</code> și <code>cv.pdf</code>.</li>
 </ol>
 <div class="scroll">
 <table>
@@ -157,28 +168,32 @@ Două-trei propoziții: ce activități îmi plac, la ce mă pricep, ce urmează
 <tr><td>Diacriticele și ghilimelele românești sunt păstrate</td><td>GitHub</td></tr>
 <tr><td>Nu există date personale în afara numelui, a clasei și a liceului</td><td>fișier</td></tr>
 <tr><td>Nu a rămas niciun text din model</td><td>fișier</td></tr>
+<tr><td><code>cv.pdf</code> și <code>cv.html</code> au același conținut ca <code>cv.md</code>; tabelul și diacriticele apar corect</td><td>cele două fișiere exportate</td></tr>
 </table>
 </div>
 
 <h2>Predarea temei</h2>
-<p>Se predă, pe platforma clasei, <b>adresa fișierului <code>cv.md</code></b> din depozit. Structura la predare:</p>
+<p>Se predă, pe platforma clasei, <b>adresa folderului <code>tema-02-cv</code></b> din depozit. Structura la predare:</p>
 <pre><code>portofoliu-media/
 ├── README.md
 ├── index.html
 ├── tema-01-afis/
 └── tema-02-cv/
     ├── cv.md
+    ├── cv.pdf
+    ├── cv.html
     └── imagini/          (numai dacă CV-ul are imagine)</code></pre>
 
 <h2>Evaluare</h2>
 <div class="scroll">
 <table>
 <tr><th>Criteriu</th><th>Punctaj</th></tr>
-<tr><td>Folder și fișier cu nume corecte, încărcate în depozit, cu mesaj de commit potrivit</td><td class="pt">1 p</td></tr>
+<tr><td>Folder și fișiere cu nume corecte, încărcate în depozit, cu mesaj de commit potrivit</td><td class="pt">1 p</td></tr>
 <tr><td>Date proprii, complete; niciun text rămas din model</td><td class="pt">2 p</td></tr>
-<tr><td>Structura: titluri pe niveluri, tabel, liste, citat, linie, legături</td><td class="pt">2,5 p</td></tr>
+<tr><td>Structura: titluri pe niveluri, tabel, liste, citat, linie, legături</td><td class="pt">2 p</td></tr>
 <tr><td>Trei personalizări, corect marcate</td><td class="pt">2 p</td></tr>
-<tr><td>Afișare corectă pe GitHub; fără greșeli de scriere</td><td class="pt">1 p</td></tr>
+<tr><td>Export în PDF și în HTML, cu același conținut ca fișierul Markdown</td><td class="pt">1 p</td></tr>
+<tr><td>Afișare corectă pe GitHub; fără greșeli de scriere</td><td class="pt">0,5 p</td></tr>
 <tr><td>Regula datelor personale respectată; tema trecută în README</td><td class="pt">0,5 p</td></tr>
 <tr><td>Din oficiu</td><td class="pt">1 p</td></tr>
 <tr><th>Total</th><th class="pt">10 p</th></tr>

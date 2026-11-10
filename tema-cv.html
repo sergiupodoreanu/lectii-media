@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Temă – CV-ul meu în Markdown</title>
+<style>
+:root{--bg:#fbfaf7;--ink:#1e2430;--muted:#5b6472;--accent:#0f6b5c;--accent2:#c9531c;--box:#eef5f2;--box2:#fff4ec;--line:#d8ddd9;--code:#1f2937}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--accent2);color:#fff;padding:28px 20px}
+header h1{margin:0 0 6px;font-size:1.6rem}
+header p{margin:0;opacity:.92}
+nav{background:#9c3f14;padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px 18px}
+nav a{color:#fff;text-decoration:none;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+main{max-width:900px;margin:0 auto;padding:20px}
+h2{color:var(--accent2);border-bottom:2px solid var(--accent2);padding-bottom:4px;margin-top:38px}
+h2 span{float:right;font-size:.85rem;color:var(--muted);font-weight:normal;padding-top:6px}
+a{color:var(--accent)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+th{background:var(--box)}
+.scroll{overflow-x:auto}
+code{background:#e9ecef;padding:1px 5px;border-radius:4px;font-family:Consolas,"Courier New",monospace;font-size:.93em}
+pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:8px;overflow-x:auto;font-size:.9rem;line-height:1.45}
+pre code{background:none;color:inherit;padding:0}
+pre.raw{background:#fff;color:var(--ink);border:1px dashed var(--muted);white-space:pre-wrap}
+.info{background:var(--box);border-left:5px solid var(--accent);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+.warn{background:var(--box2);border-left:5px solid var(--accent2);padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+ol.pasi li{margin-bottom:7px}
+td.pt{text-align:right;white-space:nowrap}
+footer{text-align:center;color:var(--muted);padding:30px;font-size:.85rem}
+@media print{nav{display:none}body{background:#fff}pre{white-space:pre-wrap}}
+kbd{background:#fff;border:1px solid #b9c0c7;border-bottom-width:2px;border-radius:4px;padding:0 5px;font-family:Consolas,"Courier New",monospace;font-size:.88em}
+.copy{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:7px 14px;font:inherit;font-size:.92rem;cursor:pointer;margin-right:10px}
+.copy:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+</style>
+</head>
+<body>
+<header>
+<h1>Temă – CV-ul meu în Markdown</h1>
+<p>Montajul și verificarea documentelor digitale · Clasa a XII-a · Producție media · temă pentru acasă</p>
+</header>
+<nav>
+<a href="index.html">Cuprins</a>
+<a href="markdown-baza.html">Lecția: Markdown de bază</a>
+<a href="markdown-avansat.html">Lecția: Markdown avansat</a>
+<a href="github.html">Lecția: GitHub</a>
+<a href="cv-model.md" download="cv-model.md" data-md="md-model">Modelul (.md)</a>
+</nav>
+<main>
+
+<div class="info"><b>Tema:</b> pornind de la <b>modelul</b> de mai jos, se scrie în Markdown un <b>CV propriu</b> (curriculum vitae – prezentarea pe scurt a studiilor, a competențelor și a lucrărilor unei persoane) și se publică în portofoliul de pe GitHub.<br>
+<b>Programe:</b> VS Code (sau editorul din GitHub), browser.<br>
+<b>Rezultat predat:</b> adresa fișierului <code>cv.md</code> din depozitul <code>portofoliu-media</code>.</div>
+
+<div class="warn"><b>Fișierul este public.</b> În CV se trec numai <b>numele, clasa și liceul</b>. <b>Nu se trec</b> adresa de domiciliu, numărul de telefon, CNP-ul, data nașterii sau adresa de email.</div>
+
+<h2>Modelul</h2>
+<p>Modelul se descarcă din meniul de sus (<b>Modelul (.md)</b>) sau se copiază de aici:</p>
+<p><button class="copy" type="button" id="copiaza">Copiază modelul</button><span id="copiat" role="status"></span></p>
+<pre><code id="model"># Prenume Nume
+
+**Elev, clasa a XII-a – Producție media**  
+Liceul Tehnologic „Grigore C. Moisil” Buzău · [GitHub](https://github.com/utilizator)
+
+&gt; Un motto scurt, care spune ceva despre autor.
+
+---
+
+## Despre mine
+
+Două-trei propoziții: ce activități îmi plac, la ce mă pricep, ce urmează după liceu.
+
+## Educație
+
+| Perioada    | Școala                                 | Specializarea   |
+|-------------|----------------------------------------|-----------------|
+| 2023 – 2027 | Liceul Tehnologic „Grigore C. Moisil”  | Producție media |
+| 2015 – 2023 | Școala Gimnazială …                    | –               |
+
+## Competențe
+
+- **Grafică:** Inkscape, GIMP
+- **Tehnoredactare:** Scribus, Word
+- **Documente digitale:** PDF, Markdown, GitHub
+- **Limbi străine:** engleză – nivel B1
+
+## Proiecte
+
+1. **Afiș pentru …** – realizat în Scribus, format A3
+2. **Carte de vizită digitală** – cu cod QR
+3. **Portofoliu online** – [site-ul portofoliului](https://utilizator.github.io/portofoliu-media/)
+
+## Obiective
+
+- [x] Cont GitHub și portofoliu online
+- [ ] Atestat profesional
+- [ ] Bacalaureat</code></pre>
+
+<h2>Cerința 1 – Fișierul</h2>
+<ol class="pasi">
+<li>În folderul portofoliului se creează folderul <code>tema-02-cv</code> (numărul temei se potrivește cu ordinea din portofoliul propriu).</li>
+<li>În el se creează fișierul <code>cv.md</code>, în care se copiază modelul.</li>
+<li>Se deschide previzualizarea alături de text: <kbd>Ctrl</kbd>+<kbd>K</kbd>, apoi <kbd>V</kbd>.</li>
+</ol>
+
+<h2>Cerința 2 – Datele proprii</h2>
+<ol class="pasi">
+<li><b>Toate</b> datele din model se înlocuiesc cu date <b>proprii și reale</b>: nume, motto, „Despre mine”, școli și ani, competențe, proiecte, obiective.</li>
+<li>La „Proiecte” se trec lucrări făcute cu adevărat la orele de specialitate, cu programul folosit.</li>
+<li>Legăturile din model se înlocuiesc cu adresele proprii (profilul GitHub, site-ul portofoliului).</li>
+<li>În fișier nu rămâne niciun text din model: „Prenume Nume”, „utilizator”, „…”.</li>
+</ol>
+
+<h2>Cerința 3 – Structura</h2>
+<p>Structura modelului <b>se păstrează</b>. CV-ul predat cuprinde cel puțin:</p>
+<ul>
+<li>un singur <b>titlu de nivel 1</b> (numele) și cel puțin <b>cinci titluri de nivel 2</b>;</li>
+<li>un <b>tabel</b> (Educație);</li>
+<li>o <b>listă cu buline</b> și o <b>listă numerotată</b>;</li>
+<li>o <b>listă de sarcini</b> (Obiective);</li>
+<li>un <b>citat</b>, o <b>linie orizontală</b> și cel puțin <b>două legături</b> care funcționează.</li>
+</ul>
+
+<h2>Cerința 4 – Personalizarea</h2>
+<p>Față de model se adaugă <b>cel puțin trei</b> personalizări, la alegere:</p>
+<div class="scroll">
+<table>
+<tr><th>Personalizare</th><th>Ce se folosește</th></tr>
+<tr><td>O secțiune nouă: Voluntariat, Concursuri, Pasiuni</td><td>titlu de nivel 2 + listă</td></tr>
+<tr><td>Un logo sau un desen propriu (făcut în Inkscape), <b>nu</b> o fotografie de tip buletin</td><td>imagine cu cale relativă și text alternativ, în folderul <code>imagini</code></td></tr>
+<tr><td>Un tabel de competențe cu nivelul fiecăreia (începător / mediu / avansat)</td><td>tabel cu aliniere</td></tr>
+<tr><td>Legături către lucrările din portofoliu</td><td>legături cu cale relativă către folderele temelor</td></tr>
+<tr><td>O notă de subsol cu o explicație</td><td>notă de subsol</td></tr>
+<tr><td>O a doua limbă: un rezumat de 3–4 rânduri în engleză</td><td>titlu de nivel 2 + paragraf</td></tr>
+</table>
+</div>
+
+<h2>Cerința 5 – Verificarea și publicarea</h2>
+<ol class="pasi">
+<li>CV-ul se citește în previzualizare și se compară cu lista de mai jos.</li>
+<li>Folderul <code>tema-02-cv</code> se încarcă în depozitul <code>portofoliu-media</code>, cu un <b>mesaj de commit</b> potrivit.</li>
+<li>Fișierul se deschide pe GitHub și se verifică încă o dată cum se afișează.</li>
+<li>În <code>README.md</code> al portofoliului se adaugă tema în lista de lucrări, cu legătură către <code>cv.md</code>.</li>
+</ol>
+<div class="scroll">
+<table>
+<tr><th>Se verifică</th><th>Unde</th></tr>
+<tr><td>Un singur titlu de nivel 1; niveluri în ordine</td><td>panoul Outline</td></tr>
+<tr><td>Niciun semn de marcare vizibil din greșeală (<code>**</code>, <code>#</code>, <code>|</code>)</td><td>previzualizare și GitHub</td></tr>
+<tr><td>Tabelul are toate coloanele completate pe fiecare rând</td><td>previzualizare</td></tr>
+<tr><td>Lista de sarcini apare cu căsuțe, nu cu paranteze drepte</td><td>GitHub</td></tr>
+<tr><td>Toate legăturile funcționează</td><td>clic pe fiecare</td></tr>
+<tr><td>Imaginea (dacă există) se afișează și are text alternativ</td><td>GitHub</td></tr>
+<tr><td>Diacriticele și ghilimelele românești sunt păstrate</td><td>GitHub</td></tr>
+<tr><td>Nu există date personale în afara numelui, a clasei și a liceului</td><td>fișier</td></tr>
+<tr><td>Nu a rămas niciun text din model</td><td>fișier</td></tr>
+</table>
+</div>
+
+<h2>Predarea temei</h2>
+<p>Se predă, pe platforma clasei, <b>adresa fișierului <code>cv.md</code></b> din depozit. Structura la predare:</p>
+<pre><code>portofoliu-media/
+├── README.md
+├── index.html
+├── tema-01-afis/
+└── tema-02-cv/
+    ├── cv.md
+    └── imagini/          (numai dacă CV-ul are imagine)</code></pre>
+
+<h2>Evaluare</h2>
+<div class="scroll">
+<table>
+<tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Folder și fișier cu nume corecte, încărcate în depozit, cu mesaj de commit potrivit</td><td class="pt">1 p</td></tr>
+<tr><td>Date proprii, complete; niciun text rămas din model</td><td class="pt">2 p</td></tr>
+<tr><td>Structura: titluri pe niveluri, tabel, liste, citat, linie, legături</td><td class="pt">2,5 p</td></tr>
+<tr><td>Trei personalizări, corect marcate</td><td class="pt">2 p</td></tr>
+<tr><td>Afișare corectă pe GitHub; fără greșeli de scriere</td><td class="pt">1 p</td></tr>
+<tr><td>Regula datelor personale respectată; tema trecută în README</td><td class="pt">0,5 p</td></tr>
+<tr><td>Din oficiu</td><td class="pt">1 p</td></tr>
+<tr><th>Total</th><th class="pt">10 p</th></tr>
+</table>
+</div>
+
+</main>
+<footer>Liceul Tehnologic „Grigore C. Moisil” Buzău · Producție media · clasa a XII-a</footer>
+<script type="text/plain" id="md-model">
+# Prenume Nume
+
+**Elev, clasa a XII-a – Producție media**  
+Liceul Tehnologic „Grigore C. Moisil” Buzău · [GitHub](https://github.com/utilizator)
+
+> Un motto scurt, care spune ceva despre autor.
+
+---
+
+## Despre mine
+
+Două-trei propoziții: ce activități îmi plac, la ce mă pricep, ce urmează după liceu.
+
+## Educație
+
+| Perioada    | Școala                                 | Specializarea   |
+|-------------|----------------------------------------|-----------------|
+| 2023 – 2027 | Liceul Tehnologic „Grigore C. Moisil”  | Producție media |
+| 2015 – 2023 | Școala Gimnazială …                    | –               |
+
+## Competențe
+
+- **Grafică:** Inkscape, GIMP
+- **Tehnoredactare:** Scribus, Word
+- **Documente digitale:** PDF, Markdown, GitHub
+- **Limbi străine:** engleză – nivel B1
+
+## Proiecte
+
+1. **Afiș pentru …** – realizat în Scribus, format A3
+2. **Carte de vizită digitală** – cu cod QR
+3. **Portofoliu online** – [site-ul portofoliului](https://utilizator.github.io/portofoliu-media/)
+
+## Obiective
+
+- [x] Cont GitHub și portofoliu online
+- [ ] Atestat profesional
+- [ ] Bacalaureat
+</script>
+<script>
+document.querySelectorAll('a[data-md]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var src=document.getElementById(a.getAttribute('data-md'));
+    if(!src||!window.Blob||!window.URL) return;
+    e.preventDefault();
+    var text=src.textContent.replace(/^\n/,'');
+    var url=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));
+    var t=document.createElement('a');
+    t.href=url; t.download=a.getAttribute('download'); document.body.appendChild(t); t.click();
+    setTimeout(function(){document.body.removeChild(t);URL.revokeObjectURL(url);},1000);
+  });
+});
+</script>
+<script>
+document.getElementById('copiaza').addEventListener('click',function(){
+  var text=document.getElementById('md-model').textContent.replace(/^\n/,'');
+  var gata=function(){document.getElementById('copiat').textContent='Copiat.';};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(gata);}
+  else{var r=document.createRange();r.selectNodeContents(document.getElementById('model'));var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');gata();}catch(e){}}
+});
+</script>
+</body>
+</html>

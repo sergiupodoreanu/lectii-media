@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scripturi Scribus — Prof. Sergiu Podoreanu</title>
+<meta name="description" content="21 de scripturi Python pentru Scribus: artă generativă, efecte, desen tehnic, machete de publicații și șabloane pentru tipar.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>:root{
+  --bg:#0E0F13;--bg2:#141620;--card:#181A21;--card2:#1F222C;--line:#2A2D3A;--line2:#3A3E4E;
+  --text:#ECE9E0;--muted:#9A9AA6;--dim:#6C6E7A;--acc:#F5B841;--acc-ink:#1a1204;
+  --font:"Barlow",system-ui,sans-serif;--disp:"Barlow Condensed","Barlow",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.6;margin:0}
+.wrap{max-width:1100px;margin:0 auto;padding:clamp(24px,6vw,72px) clamp(16px,4vw,40px) 4rem}
+h1,h2,h3{font-family:var(--disp);font-weight:600;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.2rem,6vw,3.4rem);letter-spacing:.01em}
+a{color:var(--acc)}
+.back{font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;text-decoration:none}
+.eyebrow{font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;font-size:.85rem;color:var(--muted);margin:1.2rem 0 .5rem}
+.lead{color:var(--muted);max-width:64ch;margin:.8rem 0 0;font-size:1.1rem}
+.sec{font-family:var(--disp);text-transform:uppercase;letter-spacing:.06em;color:var(--acc);font-size:1.2rem;margin:2.6rem 0 .4rem;border-bottom:1px solid var(--line);padding-bottom:.5rem}
+.sub{color:var(--muted);margin:0 0 1rem}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.4rem;margin-top:1.6rem}
+.box h2{font-size:1.4rem;margin-bottom:.6rem}
+.box ol,.box ul{margin:.2rem 0 0;padding-left:1.3rem}
+.box li{margin:.25rem 0}
+.box dl{margin:.4rem 0 0}
+.box dt{font-weight:600;margin-top:.5rem}
+.box dd{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.card img{display:block;width:100%;height:210px;object-fit:contain;background:#07080b;border-bottom:1px solid var(--line)}
+.card .b{display:flex;flex-direction:column;gap:.45rem;padding:1rem 1.2rem 1.2rem;flex:1}
+.card .tag{font-family:ui-monospace,Consolas,monospace;font-size:.78rem;color:var(--acc)}
+.card h3{font-size:1.45rem}
+.card p{margin:0;color:var(--text);font-size:.95rem}
+.card dl{margin:.2rem 0 0;font-size:.88rem;display:grid;grid-template-columns:auto 1fr;gap:.15rem .7rem}
+.card dt{color:var(--dim);font-family:var(--disp);text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;padding-top:.12rem}
+.card dd{margin:0;color:var(--muted)}
+.card .dl{margin-top:auto;align-self:flex-start;background:var(--acc);color:var(--acc-ink);font-family:var(--disp);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:.9rem;text-decoration:none;padding:.45rem .9rem;border-radius:8px}
+.card .dl:hover{filter:brightness(1.1)}
+.card .dl:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+kbd{background:var(--card2);border:1px solid var(--line2);border-radius:5px;padding:.05rem .4rem;font-family:var(--font);font-size:.9em}
+footer{margin-top:3rem;color:var(--dim);font-size:.85rem;border-top:1px solid var(--line);padding-top:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">← Toate lecțiile</a>
+<div class="eyebrow">Producție media · clasa a XII-a · Scribus</div>
+<h1>Scripturi Scribus</h1>
+<p class="lead">21 de programe scurte care desenează singure în Scribus: de la o mandala la o revistă întreagă. Se descarcă, se rulează și apoi se modifică.</p>
+
+<div class="box">
+<h2>Cuvinte noi</h2>
+<dl>
+<dt>Script</dt><dd>un program scurt, scris ca text, pe care alt program (aici Scribus) îl execută pas cu pas.</dd>
+<dt>Python</dt><dd>limbajul în care sunt scrise aceste scripturi; fișierele au terminația <strong>.py</strong> și se deschid cu orice editor de text.</dd>
+<dt>CSV</dt><dd>fișier-tabel simplu, în care coloanele sunt despărțite prin virgulă; se salvează din Excel cu „Salvare ca → CSV UTF-8”.</dd>
+</dl>
+</div>
+
+<div class="box">
+<h2>Cum se rulează un script</h2>
+<ol>
+<li>Se descarcă scriptul cu butonul <strong>Descarcă scriptul</strong> și se ține minte folderul.</li>
+<li>Se deschide <strong>Scribus 1.6</strong>.</li>
+<li>Din meniu: <kbd>Script</kbd> → <kbd>Execute Script…</kbd> și se alege fișierul <strong>.py</strong>.</li>
+<li>Scriptul cere una–trei valori într-o fereastră (se poate apăsa direct OK), apoi desenează. La scripturile cu peste 1000 de obiecte durează până la un minut.</li>
+<li>Rezultatul se salvează cu <kbd>File</kbd> → <kbd>Export</kbd> → <kbd>Save as PDF…</kbd></li>
+</ol>
+</div>
+
+<div class="box">
+<h2>Cum se modifică un script</h2>
+<ul>
+<li>Fișierul <strong>.py</strong> se deschide cu <strong>Notepad</strong> (clic dreapta → Deschidere cu).</li>
+<li>Se schimbă <strong>o singură valoare</strong> — o culoare, un număr, un text —, se salvează și se rulează din nou.</li>
+<li>Rândurile care încep cu <strong>#</strong> sunt explicații; ele spun ce face partea de dedesubt.</li>
+<li>Dacă scriptul nu mai pornește, se revine la varianta descărcată.</li>
+</ul>
+</div>
+
+<div class="sec">Artă generativă și automatizare</div>
+<p class="sub">Desene făcute din formule și documente făcute din date.</p>
+<div class="grid">
+<article class="card">
+<img src="imagini/scribus/01.jpg" alt="Rezultatul scriptului 01_mandala.py" loading="lazy">
+<div class="b">
+<span class="tag">01_mandala.py</span>
+<h3>Mandala</h3>
+<p>Petale colorate așezate pe inele concentrice, semitransparente, pe fond închis.</p>
+<dl><dt>Cere</dt><dd>numărul de petale și de inele</dd><dt>Se învață</dt><dd>unghiuri și cercuri → poligoane; cercul cromatic; transparența</dd></dl>
+<a class="dl" href="scribus/01_mandala.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/02.jpg" alt="Rezultatul scriptului 02_poster_tipografic.py" loading="lazy">
+<div class="b">
+<span class="tag">02_poster_tipografic.py</span>
+<h3>Poster tipografic</h3>
+<p>Afiș A3 în care fiecare cuvânt al unei fraze umple lățimea paginii.</p>
+<dl><dt>Cere</dt><dd>fraza afișului</dd><dt>Se învață</dt><dd>corpul de literă calculat din lățimea rândului</dd></dl>
+<a class="dl" href="scribus/02_poster_tipografic.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/03.jpg" alt="Rezultatul scriptului 03_calendar.py" loading="lazy">
+<div class="b">
+<span class="tag">03_calendar.py</span>
+<h3>Calendar de perete</h3>
+<p>12 pagini A4, câte una pe lună, cu sfârșitul de săptămână colorat și ziua curentă evidențiată.</p>
+<dl><dt>Cere</dt><dd>anul</dd><dt>Se învață</dt><dd>grila; pagini multiple; date → machetă</dd></dl>
+<a class="dl" href="scribus/03_calendar.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/04.jpg" alt="Rezultatul scriptului 04_carti_vizita_csv.py" loading="lazy">
+<div class="b">
+<span class="tag">04_carti_vizita_csv.py</span>
+<h3>Cărți de vizită din tabel</h3>
+<p>10 cărți de vizită pe pagină, completate automat dintr-un fișier CSV (nume, funcție, telefon, e-mail).</p>
+<dl><dt>Cere</dt><dd>fișierul CSV (fără fișier: date de exemplu)</dd><dt>Se învață</dt><dd>același model, completat cu date diferite</dd></dl>
+<a class="dl" href="scribus/04_carti_vizita_csv.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/05.jpg" alt="Rezultatul scriptului 05_spirograf.py" loading="lazy">
+<div class="b">
+<span class="tag">05_spirograf.py</span>
+<h3>Spirograf</h3>
+<p>Curbe matematice suprapuse, ca la jucăria Spirograph.</p>
+<dl><dt>Cere</dt><dd>numărul de curbe</dd><dt>Se învață</dt><dd>legătura dintre formulă și formă</dd></dl>
+<a class="dl" href="scribus/05_spirograf.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/06.jpg" alt="Rezultatul scriptului 06_album_foto.py" loading="lazy">
+<div class="b">
+<span class="tag">06_album_foto.py</span>
+<h3>Album foto</h3>
+<p>Copertă și pagini cu fotografiile dintr-un folder, fiecare în ramă albă, cu umbră și legendă.</p>
+<dl><dt>Cere</dt><dd>folderul, titlul, coloane și rânduri</dd><dt>Se învață</dt><dd>cadre de imagine; scalare proporțională</dd></dl>
+<a class="dl" href="scribus/06_album_foto.py" download>Descarcă scriptul</a>
+</div>
+</article>
+</div>
+<div class="sec">Efecte vizuale</div>
+<p class="sub">Efecte obținute numai din forme simple, repetate de sute sau mii de ori.</p>
+<div class="grid">
+<article class="card">
+<img src="imagini/scribus/07.jpg" alt="Rezultatul scriptului 07_text_3d.py" loading="lazy">
+<div class="b">
+<span class="tag">07_text_3d.py</span>
+<h3>Titlu 3D cu reflexie</h3>
+<p>Un cuvânt în relief, din 25 de straturi tot mai luminoase, cu reflexie estompată dedesubt.</p>
+<dl><dt>Cere</dt><dd>cuvântul și nuanța</dd><dt>Se învață</dt><dd>straturi suprapuse; luminozitate; transparență</dd></dl>
+<a class="dl" href="scribus/07_text_3d.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/08.jpg" alt="Rezultatul scriptului 08_arbore_fractal.py" loading="lazy">
+<div class="b">
+<span class="tag">08_arbore_fractal.py</span>
+<h3>Arbore fractal</h3>
+<p>Copac în care fiecare ramură se desface în două ramuri mai scurte; la fiecare rulare iese alt copac.</p>
+<dl><dt>Cere</dt><dd>numărul de niveluri și unghiul</dd><dt>Se învață</dt><dd>repetarea aceleiași reguli la scară tot mai mică</dd></dl>
+<a class="dl" href="scribus/08_arbore_fractal.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/09.jpg" alt="Rezultatul scriptului 09_galaxie.py" loading="lazy">
+<div class="b">
+<span class="tag">09_galaxie.py</span>
+<h3>Galaxie spirală</h3>
+<p>Circa 1500 de stele pe brațe în spirală, cu nucleu strălucitor.</p>
+<dl><dt>Cere</dt><dd>numărul de brațe și de stele</dd><dt>Se învață</dt><dd>spirala; hazardul controlat</dd></dl>
+<a class="dl" href="scribus/09_galaxie.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/10.jpg" alt="Rezultatul scriptului 10_val_puncte.py" loading="lazy">
+<div class="b">
+<span class="tag">10_val_puncte.py</span>
+<h3>Val de puncte</h3>
+<p>Grilă de puncte a căror mărime și culoare urmează o funcție; arată ca un relief.</p>
+<dl><dt>Cere</dt><dd>numărul de coloane și frecvența</dd><dt>Se învață</dt><dd>principiul rasterului de tipar: puncte mari = ton închis</dd></dl>
+<a class="dl" href="scribus/10_val_puncte.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/11.jpg" alt="Rezultatul scriptului 11_text_spirala.py" loading="lazy">
+<div class="b">
+<span class="tag">11_text_spirala.py</span>
+<h3>Text pe spirală</h3>
+<p>Literele unei fraze așezate pe o spirală, fiecare rotită după curbă.</p>
+<dl><dt>Cere</dt><dd>textul și numărul de ture</dd><dt>Se învață</dt><dd>rotirea obiectelor; culori în succesiune</dd></dl>
+<a class="dl" href="scribus/11_text_spirala.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/12.jpg" alt="Rezultatul scriptului 12_noaptea_umbrelor.py" loading="lazy">
+<div class="b">
+<span class="tag">12_noaptea_umbrelor.py</span>
+<h3>Noaptea umbrelor</h3>
+<p>Compoziție A3 de Halloween: lună, copaci, cimitir, fantome, dovleci, vârtej; alta la fiecare rulare.</p>
+<dl><dt>Cere</dt><dd>—</dd><dt>Se învață</dt><dd>o scenă mare compusă din funcții mici</dd></dl>
+<a class="dl" href="scribus/12_noaptea_umbrelor.py" download>Descarcă scriptul</a>
+</div>
+</article>
+</div>
+<div class="sec">Desen tehnic și corpuri 3D</div>
+<p class="sub">Piese mecanice desenate din calcul, cu umbrire.</p>
+<div class="grid">
+<article class="card">
+<img src="imagini/scribus/13.jpg" alt="Rezultatul scriptului 13_surub_fara_sfarsit.py" loading="lazy">
+<div class="b">
+<span class="tag">13_surub_fara_sfarsit.py</span>
+<h3>Melc și roată melcată</h3>
+<p>Angrenaj cu șurub fără sfârșit, desenat în spațiu, cu datele calculate afișate pe planșă.</p>
+<dl><dt>Cere</dt><dd>unghiurile de vedere și numărul de dinți</dd><dt>Se învață</dt><dd>suprafețe descrise prin formule; umbrire după lumină</dd></dl>
+<a class="dl" href="scribus/13_surub_fara_sfarsit.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/14.jpg" alt="Rezultatul scriptului 14_tren_roti_dintate.py" loading="lazy">
+<div class="b">
+<span class="tag">14_tren_roti_dintate.py</span>
+<h3>Tren de roți dințate</h3>
+<p>Roți dințate care angrenează corect, cu raportul de transmitere calculat.</p>
+<dl><dt>Cere</dt><dd>modulul și numerele de dinți</dd><dt>Se învață</dt><dd>geometria roților dințate</dd></dl>
+<a class="dl" href="scribus/14_tren_roti_dintate.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/15.jpg" alt="Rezultatul scriptului 15_atelier_3d.py" loading="lazy">
+<div class="b">
+<span class="tag">15_atelier_3d.py</span>
+<h3>Atelier 3D</h3>
+<p>Cinci corpuri la alegere: arc elicoidal, tor, arbore în trepte, sferă, șurub cu cap hexagonal.</p>
+<dl><dt>Cere</dt><dd>corpul și unghiurile de vedere</dd><dt>Se învață</dt><dd>corpuri de rotație; elicea</dd></dl>
+<a class="dl" href="scribus/15_atelier_3d.py" download>Descarcă scriptul</a>
+</div>
+</article>
+</div>
+<div class="sec">Machete de publicații</div>
+<p class="sub">Machete complete, cu text de umplutură și cadre goale pentru fotografii.</p>
+<div class="grid">
+<article class="card">
+<img src="imagini/scribus/16.jpg" alt="Rezultatul scriptului 16_revista.py" loading="lazy">
+<div class="b">
+<span class="tag">16_revista.py</span>
+<h3>Revistă</h3>
+<p>4 pagini A4: copertă, sumar, articol pe 3 coloane cu literă inițială mare și citat, galerie de imagini.</p>
+<dl><dt>Cere</dt><dd>numele revistei și tema numărului</dd><dt>Se învață</dt><dd>grila de coloane; ierarhia titlurilor</dd></dl>
+<a class="dl" href="scribus/16_revista.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/17.jpg" alt="Rezultatul scriptului 17_ziar.py" loading="lazy">
+<div class="b">
+<span class="tag">17_ziar.py</span>
+<h3>Ziar</h3>
+<p>Prima pagină a unui ziar A3 pe 5 coloane, cu textul legat de la o coloană la alta.</p>
+<dl><dt>Cere</dt><dd>numele ziarului</dd><dt>Se învață</dt><dd>cadre de text înlănțuite; ghidaje</dd></dl>
+<a class="dl" href="scribus/17_ziar.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/18.jpg" alt="Rezultatul scriptului 18_pliant_trei.py" loading="lazy">
+<div class="b">
+<span class="tag">18_pliant_trei.py</span>
+<h3>Pliant în trei</h3>
+<p>Pliant A4 față-verso, cu cele 3 panouri în ordinea corectă pentru pliere.</p>
+<dl><dt>Cere</dt><dd>titlul și subtitlul</dd><dt>Se învață</dt><dd>ordinea panourilor la pliere; semne de pliere</dd></dl>
+<a class="dl" href="scribus/18_pliant_trei.py" download>Descarcă scriptul</a>
+</div>
+</article>
+</div>
+<div class="sec">Șabloane pentru tipar</div>
+<p class="sub">Documente goale, pregătite corect pentru tipografie; se folosesc la lecția „Fișierele PDF”.</p>
+<div class="grid">
+<article class="card">
+<img src="imagini/scribus/s1.jpg" alt="Rezultatul scriptului sablon_afis_A3.py" loading="lazy">
+<div class="b">
+<span class="tag">sablon_afis_A3.py</span>
+<h3>Afiș A3</h3>
+<p>Afiș cu margine de tăiere de 3 mm, culori CMYK, straturi și ghidaje.</p>
+<dl><dt>Cere</dt><dd>—</dd><dt>Se învață</dt><dd>pregătirea unui document pentru tipar</dd></dl>
+<a class="dl" href="scribus/sablon_afis_A3.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/s2.jpg" alt="Rezultatul scriptului sablon_pliant_trifold.py" loading="lazy">
+<div class="b">
+<span class="tag">sablon_pliant_trifold.py</span>
+<h3>Pliant în C</h3>
+<p>Pliant A4 în trei; panoul care intră înăuntru are 97 mm, celelalte 100 mm.</p>
+<dl><dt>Cere</dt><dd>—</dd><dt>Se învață</dt><dd>lățimea panourilor la plierea în C</dd></dl>
+<a class="dl" href="scribus/sablon_pliant_trifold.py" download>Descarcă scriptul</a>
+</div>
+</article>
+<article class="card">
+<img src="imagini/scribus/s3.jpg" alt="Rezultatul scriptului sablon_pliant_Z.py" loading="lazy">
+<div class="b">
+<span class="tag">sablon_pliant_Z.py</span>
+<h3>Pliant în Z</h3>
+<p>Pliant A4 în trei, pliere în acordeon, 3 panouri egale de 99 mm.</p>
+<dl><dt>Cere</dt><dd>—</dd><dt>Se învață</dt><dd>diferența dintre plierea în C și în Z</dd></dl>
+<a class="dl" href="scribus/sablon_pliant_Z.py" download>Descarcă scriptul</a>
+</div>
+</article>
+</div>
+
+<div class="sec">Exerciții</div>
+<div class="box" style="margin-top:0">
+<ol>
+<li>În <strong>02_poster_tipografic.py</strong> se schimbă culorile din lista <strong>PALETA</strong> cu cele ale unei echipe sau ale unei mărci cunoscute.</li>
+<li>În <strong>03_calendar.py</strong> se colorează diferit o zi de sărbătoare legală.</li>
+<li>Se face un fișier CSV cu colegii de clasă și se rulează <strong>04_carti_vizita_csv.py</strong> cu el.</li>
+<li>În <strong>05_spirograf.py</strong> se schimbă un set <strong>(R, r, d)</strong> și se descrie cum s-a schimbat curba.</li>
+<li>În <strong>10_val_puncte.py</strong> se modifică funcția <strong>functie()</strong> astfel încât valurile să fie numai cercuri concentrice.</li>
+<li>În <strong>12_noaptea_umbrelor.py</strong> se schimbă titlul și se mută vârtejul în stânga paginii.</li>
+<li>Se rulează <strong>17_ziar.py</strong>, se înlocuiesc titlurile și cadrele FOTO cu conținut propriu și se exportă PDF-ul.</li>
+<li>În <strong>15_atelier_3d.py</strong> se adaugă un corp nou (un con), după modelul sferei.</li>
+</ol>
+</div>
+
+<footer>Scripturile au fost verificate în Scribus 1.6.1. Imaginile arată rezultatul obținut cu valorile propuse de fiecare script.</footer>
+</div>
+</body>
+</html>

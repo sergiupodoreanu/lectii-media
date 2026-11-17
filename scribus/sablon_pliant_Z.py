@@ -6,7 +6,7 @@ W, H, BLEED, MARG, GUT = 297.0, 210.0, 3.0, 8.0, 5.0
 P = W / 3.0                          # 99 mm
 PLIURI = [P, 2 * P]
 
-scribus.newDocument((W, H), (MARG, MARG, MARG, MARG), scribus.LANDSCAPE,
+scribus.newDocument((H, W), (MARG, MARG, MARG, MARG), scribus.LANDSCAPE,   # LANDSCAPE inversează (lățime, înălțime)
                     1, scribus.UNIT_MILLIMETERS, scribus.PAGE_1, 0, 2)
 scribus.setBleeds(BLEED, BLEED, BLEED, BLEED)
 
@@ -27,6 +27,7 @@ for L in ("Fundal", "Imagini", "Text", "Ghidaje"):
 def text(x, y, w, h, nume, s, font, size, col, al=scribus.ALIGN_LEFT):
     scribus.createText(x, y, w, h, nume); scribus.setText(s, nume)
     scribus.setFont(font, nume); scribus.setFontSize(size, nume)
+    scribus.setLineSpacing(size * 1.2, nume)      # altfel rândurile se suprapun la corpuri mari
     scribus.setTextColor(col, nume); scribus.setTextAlignment(al, nume)
     scribus.setTextDistances(3, 3, 3, 3, nume)
 
@@ -45,7 +46,7 @@ def panou(i, titlu, sufix):
     scribus.setActiveLayer("Imagini")
     scribus.createImage(xi, MARG, xe - xi, 55, "img_%s_%d" % (sufix, i))
     scribus.setActiveLayer("Text")
-    text(xi, MARG + 58, xe - xi, 14, "titlu_%s_%d" % (sufix, i), titlu, FB, 16, "Bordo")
+    text(xi, MARG + 58, xe - xi, 14, "titlu_%s_%d" % (sufix, i), titlu, FB, 13, "Bordo")
     text(xi, MARG + 74, xe - xi, H - 2 * MARG - 74, "text_%s_%d" % (sufix, i),
          "Text de completat. Păstrează 5 mm față de pliu.", FR, 10, "Negru bogat")
 
@@ -83,7 +84,7 @@ for i, t in enumerate(["PASUL 1", "PASUL 2", "PASUL 3"]):
     xi = i * P + (MARG if i == 0 else GUT)
     xe = (i + 1) * P - (MARG if i == 2 else GUT)
     scribus.setActiveLayer("Text")
-    text(xi, 104, xe - xi, 14, "titlu_int_%d" % i, t, FB, 16, "Bordo")
+    text(xi, 104, xe - xi, 14, "titlu_int_%d" % i, t, FB, 13, "Bordo")
     text(xi, 120, xe - xi, H - MARG - 120, "text_int_%d" % i,
          "Text de completat. Ordinea de citire: fața → int.1 → int.2 → int.3 → mijloc → spate.",
          FR, 10, "Negru bogat")

@@ -31,6 +31,7 @@ def text(x, y, w, h, nume, s, font, size, col, al=scribus.ALIGN_LEFT):
     scribus.setText(s, nume)
     scribus.setFont(font, nume)
     scribus.setFontSize(size, nume)
+    scribus.setLineSpacing(size * 1.2, nume)      # altfel rândurile se suprapun la corpuri mari
     scribus.setTextColor(col, nume)
     scribus.setTextAlignment(al, nume)
     scribus.setTextDistances(4, 4, 4, 4, nume)

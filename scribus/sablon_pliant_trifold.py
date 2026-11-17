@@ -7,7 +7,7 @@ W, H, BLEED, MARG, GUT = 297.0, 210.0, 3.0, 8.0, 5.0   # GUT = margine la pliu
 EXT = [97.0, 100.0, 100.0]     # exterior: clapa | spate | fata
 INT = [100.0, 100.0, 97.0]     # interior: 1 | 2 | 3 (intra inauntru)
 
-scribus.newDocument((W, H), (MARG, MARG, MARG, MARG), scribus.LANDSCAPE,
+scribus.newDocument((H, W), (MARG, MARG, MARG, MARG), scribus.LANDSCAPE,   # LANDSCAPE inversează (lățime, înălțime)
                     1, scribus.UNIT_MILLIMETERS, scribus.PAGE_1, 0, 2)
 scribus.setBleeds(BLEED, BLEED, BLEED, BLEED)
 
@@ -28,6 +28,7 @@ for L in ("Fundal", "Imagini", "Text", "Ghidaje"):
 def text(x, y, w, h, nume, s, font, size, col, al=scribus.ALIGN_LEFT):
     scribus.createText(x, y, w, h, nume); scribus.setText(s, nume)
     scribus.setFont(font, nume); scribus.setFontSize(size, nume)
+    scribus.setLineSpacing(size * 1.2, nume)      # altfel rândurile se suprapun la corpuri mari
     scribus.setTextColor(col, nume); scribus.setTextAlignment(al, nume)
     scribus.setTextDistances(3, 3, 3, 3, nume)
 
@@ -53,7 +54,7 @@ def pagina(nr, latimi, titluri, sufix):
         scribus.setActiveLayer("Imagini")
         scribus.createImage(xi, MARG, xe - xi, 55, "img_%s_%d" % (sufix, i))
         scribus.setActiveLayer("Text")
-        text(xi, MARG + 58, xe - xi, 14, "titlu_%s_%d" % (sufix, i), titlu, FB, 16, "Verde")
+        text(xi, MARG + 58, xe - xi, 14, "titlu_%s_%d" % (sufix, i), titlu, FB, 13, "Verde")
         text(xi, MARG + 74, xe - xi, H - 2 * MARG - 74, "text_%s_%d" % (sufix, i),
              "Text de completat. Nu depăși ghidajele de 5 mm de la pliu.", FR, 10, "Negru bogat")
 
@@ -65,7 +66,7 @@ scribus.gotoPage(1)
 scribus.setActiveLayer("Fundal")
 scribus.createRect(197, -BLEED, 100 + BLEED, H + 2 * BLEED, "fundal_fata")
 scribus.setFillColor("Verde", "fundal_fata"); scribus.setLineColor("None", "fundal_fata")
-scribus.setTextColor("White", "titlu_ext_2"); scribus.setFontSize(26, "titlu_ext_2")
+scribus.setTextColor("White", "titlu_ext_2"); scribus.setFontSize(18, "titlu_ext_2"); scribus.setLineSpacing(20, "titlu_ext_2")
 scribus.setTextColor("White", "text_ext_2")
 # QR pe spate
 scribus.setActiveLayer("Imagini")
